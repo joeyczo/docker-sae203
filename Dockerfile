@@ -10,9 +10,9 @@ RUN node -v
 # Définir la variable d'environnement NB_JOUEUR
 ENV NB_JOUEUR=nbJoueur
 ENV NB_PARTIE=nbPartie
-# sudo docker build -t plateau . pour build l'app
+# 'sudo docker build -t plateau .' pour build l'app
 #RUN :
-# sudo docker run -p 8080:8080 -e NB_JOUEUR=nbJoueur -e NB_PARTIE=nbPartie -it plateau
+# 'sudo docker run -p 8080:8080 -e NB_JOUEUR=nbJoueur -e NB_PARTIE=nbPartie -it plateau'
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /usr/src/app
