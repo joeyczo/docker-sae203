@@ -2,7 +2,7 @@ FROM debian:latest
 
 RUN apt-get update && apt-get install -y curl
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 
 
@@ -10,9 +10,10 @@ RUN node -v
 # Définir la variable d'environnement NB_JOUEUR
 ENV NB_JOUEUR=nbJoueur
 ENV NB_PARTIE=nbPartie
-# 'sudo docker build -t plateau .' pour build l'app
+#BUILD :
+# sudo docker build -t plateau .
 #RUN :
-# 'sudo docker run -p 8080:8080 -e NB_JOUEUR=nbJoueur -e NB_PARTIE=nbPartie -it plateau'
+# sudo docker run -p 8080:8080 -v $(pwd):/usr/src/app -e NB_JOUEUR=nbJoueur -e NB_PARTIE=nbPartie -it plateau
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /usr/src/app
@@ -27,6 +28,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8080
-EXPOSE 3000
 
 CMD [ "npm", "start" ]
