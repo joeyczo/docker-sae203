@@ -5,7 +5,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | -E bash -
 RUN apt-get install -y nodejs npm
 
 
-echo nodejs -v
+RUN node -v
 
 
 # Définir la variable d'environnement NB_JOUEUR
