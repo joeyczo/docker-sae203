@@ -1,32 +1,28 @@
-const express = require('express');
-const path = require('path');
 const dotenv = require('dotenv');
-
-
 dotenv.config();
 
+const express = require('express');
+const { createServer } = require('node:http');
+const { join } = require('node:path');
+const { Server } = require('socket.io');
+
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-// Configuration des middlewares
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-
-
-//Middleware pour forcer le HTTPS
-// app.use((req, res, next) => {
-// 	if (req.protocol !== 'https') {
-// 		return res.redirect(`https://${req.get('host')}${req.url}`);
-// 	}
-// 	next();
-// });
-
-
-app.get('/clement', (req, res) => {
-	res.redirect('https://www.youtube.com/watch?v=XqZsoesa55w');
+app.get('/', (req, res) => {
+	res.sendFile(join(__dirname, 'public/index.html'));
 });
 
-
-const port = 8080;
-app.listen(port, () => {
-	console.log(`Serveur démarré sur le port ${port}`);
+io.on('connection', (socket) => {
+	console.log('a user connected');
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+	});
 });
+
+server.listen(8080, () => {
+	console.log('server running at http://localhost:8080');
+});
+
+// doc https://socket.io/docs/v4/tutorial/step-4
