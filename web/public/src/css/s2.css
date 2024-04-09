@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;600;700;900&display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body
+{
+    background: var(--BG);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    min-height: 100dvh;
+    width: 100vw;
+    padding: 30px;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+}
+.prt
+{
+    display: flex;
+    flex-direction: column;
+}
+.prt h1
+{
+    font-size: 100px;
+}
+.prt p
+{
+    margin: 15px 0;
+    font-size: 35px;
+}
+.prt .input
+{
+    display: flex;
+    align-items: center;
+    margin: 40px 0;
+}
+.prt .input input
+{
+    width: 35%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    outline: none;
+}
+.prt .input button
+{
+    background: #CC64CE;
+    border: none;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0 15px;
+    transition: 0.4s;
+}
+.prt .input button span
+{
+    font-size: 30px;
+}
+.prt .input button:hover
+{
+    background: #FF00FF;
+}
+.waiting
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+.waiting .aff
+{
+    display: flex;
+    flex-direction: column;
+}
+.waiting .aff .loading-anim
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.waiting .aff .loading-anim .circle
+{
+    margin: 0 25px;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    animation: circle 3s infinite;
+}
+.waiting .aff .loading-anim .circle:nth-child(2)
+{
+    animation-delay: 1s;
+}
+.waiting .aff .loading-anim .circle:nth-child(3)
+{
+    animation-delay: 2s;
+}
+.waiting .aff h1
+{
+    font-size: 50px;
+    margin: 35px 0;
+    text-align: center;
+}
+.waiting .aff p.indice
+{
+    font-size: 20px;
+    text-align: center;
+    color: var(--gray);
+}
+.msg-disp
+{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 30px;
+    user-select: none;
+    -webkit-user-select: none;
+    max-height: 80vh;
+    overflow: hidden;
+}
+.msg-disp .item
+{
+    opacity: 0;
+    padding: 30px;
+    background: rgba(126, 126, 126, 0.28);
+    margin: 8px 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.msg-disp .item .icon
+{
+    margin-right: 15px;
+}
+.msg-disp .item p
+{
+    font-size: 20px;
+}
+.msg-disp .good
+{
+    background: rgba(30, 211, 0, 0.28);
+}
+.msg-disp .error
+{
+    background: rgba(207, 0, 0, 0.28);
+}
+.presentation
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+    flex-direction: column;
+}
+.presentation p.tt
+{
+    font-size: 30px;
+    color: var(--gray);
+    margin: 15px 0;
+}
+.presentation .bg-game
+{
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 40px 0;
+}
+.presentation .bg-game h1
+{
+    font-size: 120px;
+    text-align: center;
+    z-index: 2;
+}
+.presentation .bg-game .bgg
+{
+    height: 30vh;
+    width: 70vw;
+    position: absolute;
+    background: linear-gradient(to bottom right, rgba(255, 243, 177, 0.48) 0%, rgba(255, 255, 255, 0.00) 50%) bottom right / 50% 50% no-repeat, linear-gradient(to bottom left, rgba(255, 243, 177, 0.48) 0%, rgba(255, 255, 255, 0.00) 50%) bottom left / 50% 50% no-repeat, linear-gradient(to top left, rgba(255, 243, 177, 0.48) 0%, rgba(255, 255, 255, 0.00) 50%) top left / 50% 50% no-repeat, linear-gradient(to top right, rgba(255, 243, 177, 0.48) 0%, rgba(255, 255, 255, 0.00) 50%) top right / 50% 50% no-repeat;
+    animation: jeuArrive 1s infinite;
+}
+.presentation .infos
+{
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+.presentation .infos p
+{
+    margin: 0 15px;
+    color: var(--gray);
+    font-size: 20px;
+}
+
+
+
+:root
+{
+
+    --BG : linear-gradient(131deg, #00091F 15.91%, #320043 73.44%);
+    --gray : #ABABAB;
+
+}
+@keyframes circle
+{
+    0%
+    {
+        transform: translate(0, 0);
+    }
+    10%
+    {
+        transform: translate(0, -50px);
+    }
+    15%
+    {
+        transform: translate(0, 0);
+    }
+    100%
+    {
+        transform: translate(0, 0);
+    }
+}
+@keyframes jeuArrive
+{
+    from {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(1;
+    }
+}
