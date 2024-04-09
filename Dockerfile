@@ -24,9 +24,6 @@ COPY package*.json ./
 # Installer les dépendances de l'application
 RUN npm install
 
-# Copier le reste des fichiers de l'application dans le conteneur
-COPY . .
-
 EXPOSE 8080
 
 CMD [ "npm", "start" ]
