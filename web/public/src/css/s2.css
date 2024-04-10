@@ -206,6 +206,340 @@ body
     color: var(--gray);
     font-size: 20px;
 }
+.dos
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75dvh;
+    flex-direction: column;
+}
+.dos h2
+{
+    font-size: 30px;
+    margin: 20px 0;
+    color: var(--gray);
+    font-weight: 400;
+}
+.dos h1
+{
+    font-size: 55px;
+    margin: 20px 0;
+}
+.dos .card
+{
+    display: flex;
+    align-items: center;
+}
+.dos .card .pioche
+{
+    background-image: url('../img/uno/arriere.svg');
+    width: 210px;
+    height: 297px;
+    cursor: pointer;
+    box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 0.25);
+    transition: 0.4s;
+    margin: 15px;
+    border-radius: 10px;
+}
+.dos .card .pioche:hover
+{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px 10px rgba(255, 255, 255, 0.25);
+}
+.dos .card .cartes
+{
+    width: 256px;
+    height: 336px;
+    background-image: url('../img/uno/cartes.png');
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dos .card .cartes .active
+{
+    width: 210px;
+    height: 297px;
+}
+.dos .deck
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    position: fixed;
+    bottom: -105px;
+    transition: 0.4s;
+}
+.dos .deck .cartes
+{
+    width: 210px;
+    height: 297px;
+    margin: -30px;
+    box-shadow: -5px 0px 20px 5px rgba(0, 0, 0, 0.42);
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.dos .deck:not(.disabled) .cartes
+{
+    cursor: pointer;
+}
+.dos .deck:not(.disabled) .cartes:hover
+{
+    transform: scale(1.1) translate(0, -50px);
+    box-shadow: -5px 0px 20px 10px rgba(0, 0, 0, 0.42);
+}
+.dos .disabled
+{
+    cursor: not-allowed;
+    bottom: -175px;
+}
+.dos .disabled .cartes::before
+{
+    content : "";
+    background: rgba(56,56,56,0.6);
+    border-radius: 10px;
+    width: 210px;
+    height: 297px;
+    display: flex;
+}
+.dos .player-right
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    align-items: end;
+}
+.dos .player-right .items
+{
+    display: flex;
+    align-items: center;
+    margin: 15px 50px 15px 0;
+    transition: 0.4s;
+}
+.dos .player-right .items .infos
+{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 35px;
+}
+.dos .player-right .items .infos .img
+{
+    background: #FF8F8F;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    height: 80px;
+    margin: 15px 0;
+}
+.dos .player-right .items .infos .img img
+{
+    height: 45px;
+}
+.dos .player-right .items .card .cartes
+{
+    width: 94px;
+    height: 133px;
+    background-size: 100% 100%;
+    background-position: center;
+    transition: 0.4s;
+}
+.dos .player-right .items .infos h1
+{
+    font-size: 20px;
+    margin: 0;
+}
+.dos .player-right .items .card-d
+{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 40px;
+    transition: 0.4s;
+}
+.dos .player-right .items .card-d:hover
+{
+    width: auto;
+    transition: 0.4s;
+}
+.dos .player-right .items .card-d .carte
+{
+    width: 94px;
+    height: 133px;
+    background-image: url('../img/uno/arriere.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    margin: -20px;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.dos .player-left
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    align-items: start;
+}
+.dos .player-left .items
+{
+    display: flex;
+    align-items: center;
+    margin: 15px 0 15px 50px;
+    transition: 0.4s;
+}
+.dos .player-left .items .infos
+{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-left: 35px;
+}
+.dos .player-left .items .infos .img
+{
+    background: #FF8F8F;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    height: 80px;
+    margin: 15px 0;
+}
+.dos .player-left .items .infos .img img
+{
+    height: 45px;
+}
+.dos .player-left .items .card .cartes
+{
+    width: 94px;
+    height: 133px;
+    background-size: 100% 100%;
+    background-position: center;
+    transition: 0.4s;
+}
+.dos .player-left .items .infos h1
+{
+    font-size: 20px;
+    margin: 0;
+}
+.dos .player-left .items .card-d
+{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 40px;
+    transition: 0.4s;
+}
+.dos .player-left .items .card-d:hover
+{
+    width: auto;
+    transition: 0.4s;
+}
+.dos .player-left .items .card-d .carte
+{
+    width: 94px;
+    height: 133px;
+    background-image: url('../img/uno/arriere.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    margin: -20px;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.anim-carte
+{
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: -1;
+}
+.anim-carte .carte
+{
+    width: 94px;
+    height: 133px;
+    background-image: url('../img/uno/arriere.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.modal
+{
+    position: fixed;
+    top: 0;
+    left : 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40,40,40,0.6);
+}
+.modal .color
+{
+    background: #2E2E2E;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 50px 10px rgba(0, 0, 0, 0.25);
+    min-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal .color h1
+{
+    margin: 40px 0;
+}
+.modal .color .selector
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    margin: 40px;
+}
+.modal .color .selector .item
+{
+    width: 100px;
+    height: 100px;
+    background: red;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.modal .color .selector .item:hover
+{
+    transform: scale(1.1);
+}
+.modal .color .selector .item:nth-child(1)
+{
+    background: var(--UNO-Rouge, linear-gradient(159deg, #EC0000 9.51%, #960000 91.8%));
+}
+.modal .color .selector .item:nth-child(2)
+{
+    background: var(--UNO-Vert, linear-gradient(158deg, #01CC09 8.58%, #007B05 89.52%));
+}
+.modal .color .selector .item:nth-child(3)
+{
+    background: var(--UNO-Bleu, linear-gradient(157deg, #006BCD 5.58%, #00427E 90.79%));
+}
+.modal .color .selector .item:nth-child(4)
+{
+    background: var(--UNO-Jaune, linear-gradient(158deg, #F0E933 7.51%, #BEB707 92.23%));
+}
 
 
 
@@ -244,6 +578,6 @@ body
         transform: scale(1.2);
     }
     to {
-        transform: scale(1;
+        transform: scale(1);
     }
 }
