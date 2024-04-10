@@ -1,0 +1,219 @@
+[
+  {
+    "question" : "ENONCE || 0 = QCM",
+    "type"     : 0,
+    "sets"     : [
+      "Réponse A",
+      "Réponse B",
+      "Réponse C",
+      "Reponse D"
+    ],
+    "reponse" : 2,
+    "diff"    : 1,
+    "indice"  : "Indice après x temps"
+  },
+
+  {
+    "question" : "ENONCE || 1 = Ouverte",
+    "type"     : 1,
+    "reponse" : ["REPONSE"],
+    "diff"    : 1
+  },
+
+  {
+    "question" : "ENONCE || 2 = Vrai/Faux",
+    "type"     : 2,
+    "reponse" : "0 : Faux | 1 Vrai",
+    "diff"    : 1
+  },
+
+  {
+    "question" : "Quelle peinture célèbre a peint Léonard de Vinci ?",
+    "type"     : 1,
+    "reponse"  : ["JOCONDE", "LA JOCONDE"],
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Quel est le plus grand océan du monde ?",
+    "type"     : 0,
+    "sets"     : [
+      "L'océan Pacifique",
+      "L'océan Indien",
+      "L'océan Atlantique",
+      "L'océan Arctique"
+    ],
+    "reponse" : 0,
+    "diff"    : 0
+  },
+
+  {
+    "question" : "La Terre est la seule planète du système solaire à avoir de l'eau à sa surface.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Les tomates sont des fruits.",
+    "type"     : 2,
+    "reponse"  : 1,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "La vitesse de la lumière est d'environ 300 000 kilomètres par heure.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Le Mont Blanc est le plus haut sommet du monde.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Quelle est la capitale de la Russie ?",
+    "type"     : 1,
+    "reponse"  : ["MOSCOU"],
+    "diff"     : 0
+  },
+
+
+
+
+
+  {
+    "question" : "Quel homme politique français d'êxtreme droite né le 31 août 1958 .",
+    "type"     : 1,
+    "reponse"  : ["HITLER", "ADOLF HITLER"],
+    "diff"     : 1
+  },
+
+  {
+    "question" : "Quel personnage né le 20 avril 1889 surnommé \" le guide \" dans sa langue, à écrit un livre étant en prison pour partager son idéologie.",
+    "type"     : 1,
+    "reponse"  : ["HITLER", "ADOLF HITLER"],
+    "diff"     : 1
+  },
+
+
+  {
+    "question" : "Quelle femme a lutté contre la ségrégation raciale aux États-Unis ?",
+    "type"     : 1,
+    "reponse"  : [ "ROSA PARKS", "PARKS" ],
+    "diff"     : 1
+  },
+
+  {
+    "question" : "Quelle est la monnaie du Japon ?",
+    "type"     : 0,
+    "sets"     : [
+      "Le Roupie",
+      "Le Yuan",
+      "Le Yen",
+      "L'Euro"
+    ],
+    "reponse" : 2,
+    "diff"    : 1
+  },
+
+  {
+    "question" : "Dans quel pays se déroule le Disney Coco ?",
+    "type"     : 0,
+    "sets"     : [
+      "Espagne",
+      "Mexique",
+      "Portugal",
+      "Italie"
+    ],
+    "reponse" : 1,
+    "diff"    : 1
+  },
+
+
+
+
+
+
+
+
+
+
+
+  {
+    "question" : "Quel est le processus bioénergétique qui permet à des organismes de synthétiser de la matière organique en utilisant l'énergie lumineuse, l'eau et le dioxyde de carbone",
+    "type"     : 1,
+    "reponse"  : ["LA PHOTOSYNTHESE", "PHOTOSYNTESE"],
+    "diff"     : 2
+  },
+
+
+  {
+    "question" : "Quelle est la première femme à avoir remporté un prix Nobel ?",
+    "type"     : 1,
+    "reponse"  : ["MARIE CURIE", "CURIE"],
+    "diff"     : 2
+  },
+
+  {
+    "question" : "Quelle est la date de couronnement Clovis 1er",
+    "type"     : 1,
+    "reponse"  : [481],
+    "diff"     : 2
+  },
+
+
+  {
+    "question" : "Quelle est la capitale du Canada ?",
+    "type"     : 1,
+    "reponse"  : ["OTTAWA"],
+    "diff"     : 2
+  },
+
+  {
+    "question" : "Quelle est la nationalité de Christophe Colomb ?",
+    "type"     : 0,
+    "sets"     : [
+      "Espagnol",
+      "Mexicain",
+      "Portugais",
+      "Italien"
+    ],
+    "reponse" : 3,
+    "diff"    : 2
+  },
+
+
+
+  {
+    "question" : " Quelle est la date de la première mission habitée sur la Lune ? ( Juste l'année ! )",
+    "type"     : 1,
+    "reponse"  : ["1969", "69"],
+    "diff"     : 2
+  },
+
+
+  {
+    "question" : "Quel est le symbole chimique du paladium ?",
+    "type"     : 1,
+    "reponse"  : ["PD"],
+    "diff"     : 2
+  },
+
+  {
+    "question" : "Lequel de ces mots est féminin ?",
+    "type"     : 0,
+    "sets"     : [
+      "Haltère",
+      "Mexicain",
+      "Portugais",
+      "Italien"
+    ],
+    "reponse" : 3,
+    "diff"    : 2
+  }
+]
