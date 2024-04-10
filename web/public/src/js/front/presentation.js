@@ -1,6 +1,6 @@
 
-import changerPanel from './panelChanger.js';
-import socket from './socket.js';
+import changerPanel from '../server/panelChanger.js';
+import socket from '../server/socket.js';
 
 console.log("présentation chargé")
 var donneeNumJeu = ['Premier', 'Deuxième', 'Troisième', 'Quatrième', 'Cinquième', 'Sixième', 'Septième', 'Huitième', 'Neuvième', 'Dixième', 'Onzième', 'Douxième', 'Flemme de compte ...'];

@@ -1,4 +1,4 @@
-import socket from './socket.js';
+import socket from '../server/socket.js';
 
 const form = document.getElementById('form');
 const input = document.getElementById('input');

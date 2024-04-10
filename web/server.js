@@ -10,6 +10,8 @@ const app = express();
 app.use(express.static(join(__dirname, 'public/src')));
 // console.log(join(__dirname, 'public'));
 
+const {DosGame, Player, Card } = require('./public/src/js/server/dos');
+
 
 const server = createServer(app);
 const io = new Server(server);
@@ -49,8 +51,6 @@ class Game {
     start() {
         if (this.players.length === this.maxPlayers) {
             gameStarted = true;
-            console.log("Lancement du jeu");
-
             console.log("Liste des utilisateurs:");
             for (const user of users.values()) {
                 console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
@@ -58,7 +58,6 @@ class Game {
         }
     }
 }
-
 
 class User {
     constructor(name, uid) {
@@ -112,6 +111,12 @@ io.on('connection', (socket) => {
             if (env.playersCount === env.nbJoueur) {
                 io.emit('changerPanel', 'presentation');
                 game.start();
+                console.log("Lancement du jeu " + obj.name.toLowerCase());
+
+
+                setTimeout(() => {
+                    io.emit('changerPanel', obj.name.toLowerCase());
+                }, 5000);
 
             }
         } else {
@@ -152,6 +157,20 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
     });
+
+    // socket pour dos
+    const dosGame = new DosGame();
+
+    socket.on('start dos', () => {
+        dosGame.addPlayer(users.get(socket.id)); // Use the user from the server's users map
+        dosGame.start();
+        // Send game state to client
+        socket.emit('game state', dosGame.getState());
+        // Send players to client
+        socket.emit('players', Array.from(users.values()));
+    });
+
+
 });
 
 
@@ -183,6 +202,12 @@ app.get('/reboot', (req, res) => {
     console.log("Le jeu a été relancé");
     res.send("Le jeu a été relancé");
 });
+
+// getteur Jeux :
+app.get('/dos', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/dos/dos.html'));
+});
+
 server.listen(8080, () => {
     console.log('server running at http://localhost:8080');
 });

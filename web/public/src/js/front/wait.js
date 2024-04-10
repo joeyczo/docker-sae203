@@ -1,5 +1,5 @@
-import changerPanel from './panelChanger.js';
-import socket from './socket.js';
+import changerPanel from '../server/panelChanger.js';
+import socket from '../server/socket.js';
 
 console.log("wait.js chargé");
 
@@ -21,7 +21,7 @@ var playerJoined = name => {
             
         <div class="icon">
 
-            <img src="../img/arrow_r.svg" alt="Flèche">
+            <img src="../../img/arrow_r.svg" alt="Flèche">
             
         </div>
 
@@ -52,7 +52,7 @@ var playerLeft = name => {
 
         <div class="icon">
 
-            <img src="../img/arrow_e.svg" alt="Flèche">
+            <img src="../../img/arrow_e.svg" alt="Flèche">
 
         </div>
 

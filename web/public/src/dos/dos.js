@@ -1,3 +1,8 @@
+// import changerPanel from '../server/panelChanger.js';
+// import socket from '../server/socket.js';
+
+console.log("dos.js front chargé");
+
 var randomUID = (taille = 20) => {
     var uid = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
