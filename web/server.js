@@ -10,7 +10,7 @@ const app = express();
 app.use(express.static(join(__dirname, 'public/src')));
 // console.log(join(__dirname, 'public'));
 
-const {DosGame, Player, Card } = require('./public/src/js/server/dos');
+const {DosGame, Player, Card } = require('./public/src/js/server/dosServer');
 
 
 const server = createServer(app);
