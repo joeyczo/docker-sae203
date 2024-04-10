@@ -540,6 +540,10 @@ body
 {
     background: var(--UNO-Jaune, linear-gradient(158deg, #F0E933 7.51%, #BEB707 92.23%));
 }
+.player-right .items .actif .img, .player-left .items .actif .img
+{
+    background: #72F977 !important;
+}
 
 
 
