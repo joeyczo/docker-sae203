@@ -67,7 +67,7 @@ class User {
     }
 }
 
-const game = new Game();
+let game = new Game();
 
 
 io.on('connection', (socket) => {
@@ -175,6 +175,13 @@ app.get('/Erreur', (req, res) => {
 });
 app.get('/JeuLaunch', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/JeuLaunch.html'));
+});
+app.get('/reboot', (req, res) => {
+    gameStarted = false;
+    users.clear();
+    game = new Game();
+    console.log("Le jeu a été relancé");
+    res.send("Le jeu a été relancé");
 });
 server.listen(8080, () => {
     console.log('server running at http://localhost:8080');
