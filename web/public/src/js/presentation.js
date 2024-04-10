@@ -53,6 +53,11 @@ socket.emit('getName', (user) => {
     console.log('Vous êtes : ', user);
 });
 
+socket.on('obj', (obj) => {
+    console.log('Received game object: ', obj);
+    showNewGame(obj);
+});
+
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);
 });

@@ -78,35 +78,31 @@ socket.emit('envVars', envVars => {
     const nbMax = envVars.nbJoueur;
     const nbplayer = envVars.playersCount;
 
-    changementJoueur( nbplayer, nbMax);
     console.log(nbplayer + " / " +  nbMax)
+    changementJoueur( nbplayer, nbMax);
 })
 
 
 console.log("wait.js chargé");
 
 socket.on('player joined', (name, envVars) => {
-    // console.log('Connecté : ', name);
-    // Appeler la fonction playerJoined lorsque l'événement 'player joined' est reçu
+
     playerJoined(name);
     const nbMax = envVars.nbJoueur;
     const nbplayer = envVars.playersCount;
 
-    changementJoueur( nbplayer, nbMax);
     console.log(nbplayer + " / " +  nbMax)
+    changementJoueur( nbplayer, nbMax);
 
 });
 
 socket.on('player left', (name, envVars) => {
-    // Appeler la fonction playerLeft lorsque l'événement 'player left' est reçu
-    // console.log('Déconnecté : ', name)
 
     playerLeft(name);
     const nbMax = envVars.nbJoueur;
     const nbplayer = envVars.playersCount;
-
-    changementJoueur( nbplayer, nbMax);
     console.log(nbplayer + " / " +  nbMax)
+    changementJoueur( nbplayer, nbMax);
 });
 
 var changementJoueur = (joueur, nbMax) => {

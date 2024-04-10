@@ -33,13 +33,11 @@ app.get('/404', (req, res) => {
 });
 
 const users = {};
-
+const jeux = ["Dos", "Question pour un con"];
+const maxPoints = 10
 io.on('connection', (socket) => {
 
-
-
-
-    const env = {
+    let env = {
         nbJoueur: process.env.NB_JOUEUR, nbPartie: process.env.NB_PARTIE, playersCount: Object.keys(users).length
     };
 
@@ -50,19 +48,28 @@ io.on('connection', (socket) => {
     });
 
     socket.on('UserName', (user) => {
-        // Iterate over the users object
         for (let id in users) {
             if (users[id].uid === user.uid) {
-                // If a user with the same uid is found, emit 'redirect' event to the client
                 socket.emit('changerPanel', '404');
                 return;
             }
         }
 
         console.log('Nom utilisateur: ' + user.name + " " + user.uid);
-        users[socket.id] = user; // Store the user object in the users object
+        users[socket.id] = user;
+
+        env = {
+            nbJoueur: process.env.NB_JOUEUR,
+            nbPartie: process.env.NB_PARTIE,
+            playersCount: Object.keys(users).length
+        };
+
         io.emit('player joined', user.name, env);
         socket.emit('changerPanel', 'wait');
+
+        if (env.playersCount === parseInt(env.nbJoueur)) {
+            io.emit('changerPanel', 'presentation');
+        }
     });
 
     socket.on('getName', (callback) => {
@@ -81,26 +88,38 @@ io.on('connection', (socket) => {
         // Récupérer le nom de l'utilisateur à partir de l'ID de socket
         const name = users[socket.id];
 
-        // Émettre un événement 'player left' avec le nom de l'utilisateur
-        console.log('Déconnecté : ', name)
-        if (name === undefined) {
-            return;
-        }
-        io.emit('player left', name, env);
-
         // Supprimer l'utilisateur de l'objet users
         delete users[socket.id];
+
+        // Update the env object with the new count of users
+        env = {
+            nbJoueur: process.env.NB_JOUEUR,
+            nbPartie: process.env.NB_PARTIE,
+            playersCount: Object.keys(users).length
+        };
+
+        // Émettre un événement 'player left' avec le nom de l'utilisateur
+        console.log('Déconnecté : ', name)
+        if (name !== undefined) {
+            io.emit('player left', name, env);
+        }
     });
 
-    // socket.on('getObj', () => {
-    // 	let obj = {
-    // 		name: 'Nom du jeu',
-    // 		number: 0,
-    // 		maxJeu: 5,
-    // 		point: 14
-    // 	}
-    // 	socket.emit('obj', obj);
-    // });
+
+    socket.on('getObj', () => {
+        const gameIndex = Math.floor(Math.random() * jeux.length);
+        const gameName = jeux[gameIndex];
+
+
+        let obj = {
+            name: gameName,
+            number: gameIndex + 1,
+            maxJeu: jeux.length,
+            point: maxPoints
+        }
+
+        socket.emit('obj', obj);
+    });
 
     socket.on('chat message', (msg) => {
         console.log('message: ' + msg);
