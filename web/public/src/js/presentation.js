@@ -2,7 +2,7 @@
 import changerPanel from './panelChanger.js';
 import socket from './socket.js';
 
-
+console.log("présentation chargé")
 var donneeNumJeu = ['Premier', 'Deuxième', 'Troisième', 'Quatrième', 'Cinquième', 'Sixième', 'Septième', 'Huitième', 'Neuvième', 'Dixième', 'Onzième', 'Douxième', 'Flemme de compte ...'];
 
 /**
@@ -45,18 +45,16 @@ var showNewGame = obj => {
 
 }
 
-var uid = localStorage.getItem('uid');
-var name = localStorage.getItem('name');
-
-
 socket.emit('getName', (user) => {
     console.log('Vous êtes : ', user);
 });
 
-socket.on('obj', (obj) => {
-    console.log('Received game object: ', obj);
+socket.emit('getObj', (obj) => {
+    console.log('Game object: ', obj);
     showNewGame(obj);
 });
+console.log(socket.emit('obj'));
+
 
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);

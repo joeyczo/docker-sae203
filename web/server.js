@@ -18,7 +18,6 @@ const io = new Server(server);
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/index.html'));
 });
-
 app.get('/presentation', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/presentation.html'));
 });
@@ -31,51 +30,66 @@ app.get('/wait', (req, res) => {
 app.get('/404', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/404.html'));
 });
+app.get('/Erreur', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/panels/Erreur.html'));
+});
 
-const users = {};
-const jeux = ["Dos", "Question pour un con"];
-const maxPoints = 10
+
+const users = new Map();
+const jeux = require('./public/src/utils/jeu.json');
+const maxPoints = 10;
+
+const gameIndex = Math.floor(Math.random() * jeux.length);
+const gameName = jeux[gameIndex];
+
+let obj = {
+    name: gameName.name,
+    number: gameIndex,
+    maxJeu: jeux.length,
+    point: maxPoints,
+    description: gameName.description
+};
+const count = io.engine.clientsCount;
+console.log(count + "-----------OCJCUIBCQJK HIGUHONEKJHIHKBHIYUOIJKHBIUGOHIJLNBJKOH");
+
 io.on('connection', (socket) => {
 
     let env = {
-        nbJoueur: process.env.NB_JOUEUR, nbPartie: process.env.NB_PARTIE, playersCount: Object.keys(users).length
+        nbJoueur: parseInt(process.env.NB_JOUEUR),
+        nbPartie: parseInt(process.env.NB_PARTIE),
+        playersCount: users.size
     };
 
-    // console.log('Un utilisateur s\'est connecté');
     socket.emit('hello', 'Connexion au serveur réussie');
-    socket.on('hello', (arg) => {
-        console.log(arg);
-    });
 
     socket.on('UserName', (user) => {
-        for (let id in users) {
-            if (users[id].uid === user.uid) {
-                socket.emit('changerPanel', '404');
-                return;
-            }
+        if (Array.from(users.values()).some(u => u.uid === user.uid)) {
+            socket.emit('changerPanel', '404');
+            return;
         }
 
-        console.log('Nom utilisateur: ' + user.name + " " + user.uid);
-        users[socket.id] = user;
+        console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
 
-        env = {
-            nbJoueur: process.env.NB_JOUEUR,
-            nbPartie: process.env.NB_PARTIE,
-            playersCount: Object.keys(users).length
-        };
+        users.set(socket.id, user);
+
+        env.playersCount = users.size;
+        // console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
+        if (env.playersCount > env.nbJoueur) {
+            socket.emit('changerPanel', 'Erreur');
+            return;
+        }
 
         io.emit('player joined', user.name, env);
         socket.emit('changerPanel', 'wait');
+        console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
 
-        if (env.playersCount === parseInt(env.nbJoueur)) {
+        if (env.playersCount === env.nbJoueur) {
             io.emit('changerPanel', 'presentation');
         }
     });
 
     socket.on('getName', (callback) => {
-        const user = users[socket.id];
-        console.log(user)
-        callback(user);
+        callback(users.get(socket.id));
     });
 
     socket.on('envVars', (callback) => {
@@ -83,52 +97,24 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        // console.log('Utilisateur déconnecté');
+        const name = users.get(socket.id);
+        users.delete(socket.id);
 
-        // Récupérer le nom de l'utilisateur à partir de l'ID de socket
-        const name = users[socket.id];
+        env.playersCount = users.size;
 
-        // Supprimer l'utilisateur de l'objet users
-        delete users[socket.id];
-
-        // Update the env object with the new count of users
-        env = {
-            nbJoueur: process.env.NB_JOUEUR,
-            nbPartie: process.env.NB_PARTIE,
-            playersCount: Object.keys(users).length
-        };
-
-        // Émettre un événement 'player left' avec le nom de l'utilisateur
-        console.log('Déconnecté : ', name)
-        if (name !== undefined) {
+        if (name) {
             io.emit('player left', name, env);
         }
     });
 
-
-    socket.on('getObj', () => {
-        const gameIndex = Math.floor(Math.random() * jeux.length);
-        const gameName = jeux[gameIndex];
-
-
-        let obj = {
-            name: gameName,
-            number: gameIndex + 1,
-            maxJeu: jeux.length,
-            point: maxPoints
-        }
-
-        socket.emit('obj', obj);
+    socket.on('getObj', (callback) => {
+        callback(obj);
     });
 
     socket.on('chat message', (msg) => {
-        console.log('message: ' + msg);
         io.emit('chat message', msg);
     });
 });
-
-io.emit('hello', 'world');
-
 
 server.listen(8080, () => {
     console.log('server running at http://localhost:8080');

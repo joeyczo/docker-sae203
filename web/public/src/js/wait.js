@@ -1,5 +1,9 @@
 import changerPanel from './panelChanger.js';
 import socket from './socket.js';
+
+console.log("wait.js chargé");
+
+
 var randomUID = (taille = 20) => {
     var uid = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -82,9 +86,6 @@ socket.emit('envVars', envVars => {
     changementJoueur( nbplayer, nbMax);
 })
 
-
-console.log("wait.js chargé");
-
 socket.on('player joined', (name, envVars) => {
 
     playerJoined(name);
@@ -110,9 +111,6 @@ var changementJoueur = (joueur, nbMax) => {
     $(".indice").html(`${joueur}/${nbMax}`);
 
 }
-
-
-
 
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);
