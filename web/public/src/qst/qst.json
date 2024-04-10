@@ -82,19 +82,37 @@
     "diff"     : 0
   },
 
+  {
+    "question" : "Qui à dit \" Parce que c'est notre projet \",",
+    "type"     : 1,
+    "reponse"  : ["MACRON", "EMMANUEL MACRON"],
+    "diff"     : 0
+  },
+
+
+
+
 
 
 
 
   {
-    "question" : "Quel homme politique français d'êxtreme droite né le 31 août 1958 .",
+    "question" : "Quelle personne naissant le 14 novembre 1961 en Égypte qui est animateur radio-télévision en France, et qui fait une émission à 18h30 sur France 2 ",
     "type"     : 1,
-    "reponse"  : ["HITLER", "ADOLF HITLER"],
+    "reponse"  : ["NAGUI"],
+    "diff"     : 1
+  },
+
+
+  {
+    "question" : "Quel homme politique français d'extrême droite né le 31 août 1958, soutient le parti politique \" Reconquête \" et est surnommé \" Le Z \" ",
+    "type"     : 1,
+    "reponse"  : ["ZEMMOUR", "ERIC ZEMMOUR"],
     "diff"     : 1
   },
 
   {
-    "question" : "Quel personnage né le 20 avril 1889 surnommé \" le guide \" dans sa langue, à écrit un livre étant en prison pour partager son idéologie.",
+    "question" : "Quel personnage naissant le 20 avril 1889 surnommé \" le guide \" dans sa langue, à écrit un livre étant en prison pour partager son idéologie.",
     "type"     : 1,
     "reponse"  : ["HITLER", "ADOLF HITLER"],
     "diff"     : 1
@@ -133,6 +151,28 @@
     "reponse" : 1,
     "diff"    : 1
   },
+
+  {
+    "question" : "import iut.algo.* \npublic class plp \n{ \n\tpublic static void main(String[] args) \n\t{ \n\t\tString res = Clavier.lireString(); \n\t\tSystem.out.print(res); \n\t} \n} \nCe code compile.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 1
+  },
+
+  {
+    "question" : "Dans quel pays se déroule le Disney Coco ?",
+    "type"     : 0,
+    "sets"     : [
+      "Espagne",
+      "Mexique",
+      "Portugal",
+      "Italie"
+    ],
+    "reponse" : 1,
+    "diff"    : 1
+  },
+
+
 
 
 
@@ -201,6 +241,13 @@
     "question" : "Quel est le symbole chimique du paladium ?",
     "type"     : 1,
     "reponse"  : ["PD"],
+    "diff"     : 2
+  },
+
+  {
+    "question" : "Quel est le plus petit os corps humain ?",
+    "type"     : 1,
+    "reponse"  : ["ETRIER"],
     "diff"     : 2
   },
 
