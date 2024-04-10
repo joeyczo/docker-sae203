@@ -1,40 +1,19 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nouveau jeu !!</title>
-    <link rel="stylesheet" href="../css/s2.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="../js/action.js"></script>
-</head>
-<body>
+<div class="presentation">
 
-    <div class="presentation">
+    <p class="tt"></p>
 
-        <p class="tt"></p>
+    <div class="bg-game">
 
-        <div class="bg-game">
+        <div class="bgg"></div>
 
-            <div class="bgg"></div>
-
-            <h1></h1>
-
-        </div>
-
-        <div class="infos"></div>
+        <h1></h1>
 
     </div>
 
-    <script>
+    <div class="infos"></div>
 
-        var data = {name : 'DOS', number : 0, maxJeu : 7, point : 1255};
-        showNewGame(data);
+</div>
 
-    </script>
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script type="module" src="../js/presentation.js"></script>
 
-</body>
-</html>
