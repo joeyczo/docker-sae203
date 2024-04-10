@@ -751,6 +751,52 @@ body
 {
     animation: boucing 1s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+/* SIMON */
+.simon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100dvh;
+}
+.simon .prt-simon
+{
+    display: flex;
+    align-items: center;
+}
+.simon .prt-simon .item
+{
+    margin: 0 40px;
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.4s;
+}
+.simon .prt-simon .item:hover
+{
+    transform: scale(1.1);
+}
+.simon .prt-simon .item:active
+{
+    transform: scale(0.8);
+}
+.simon .prt-simon .f1
+{
+    background: linear-gradient(159deg, #EC0000 9.51%, #960000 91.8%);
+}
+.simon .prt-simon .f2
+{
+    background: linear-gradient(158deg, #F0E933 7.51%, #BEB707 92.23%);
+}
+.simon .prt-simon .f3
+{
+    background: linear-gradient(157deg, #006BCD 5.58%, #00427E 90.79%);
+}
+.simon .prt-simon .f4
+{
+    background: linear-gradient(158deg, #01CC09 8.58%, #007B05 89.52%);
+}
 
 
 

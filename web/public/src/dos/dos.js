@@ -1,7 +1,7 @@
 // import changerPanel from '../server/panelChanger.js';
 // import socket from '../server/socket.js';
 
-console.log("dos.js front chargé");
+console.log("dosServer.js front chargé");
 
 var randomUID = (taille = 20) => {
     var uid = '';
@@ -15,7 +15,7 @@ var randomUID = (taille = 20) => {
 /**
  * Permet d'activer ou de désactiver le deck du joueur
  */
-var toggleDeck = () => {
+window.toggleDeck = () => {
 
     if ($(".deck").hasClass('disabled')) {
         $(".deck").removeClass('disabled');
@@ -29,7 +29,7 @@ var toggleDeck = () => {
  * Permet de jouer l'animation de distribution des cartes
  * @param numJoueur Nombre de joueur
  */
-var animeCarte = (numJoueur) => {
+window.animeCarte = (numJoueur) => {
 
     var tableRand = [];
 
@@ -68,7 +68,7 @@ var animeCarte = (numJoueur) => {
 /**
  * Déclenche l'animation de pioche pour le joueur
  */
-var animePioche = () => {
+window.animePioche = () => {
 
     var randK = randomUID(10);
 
@@ -96,7 +96,7 @@ var animePioche = () => {
  * Déclenche l'animation de pioche pour les autres joueurs
  * @param index N° du joueur
  */
-var animeOtherPioche = index => {
+window.animeOtherPioche = index => {
 
     var randK = randomUID(10);
 
@@ -124,7 +124,7 @@ var animeOtherPioche = index => {
  * Déclenche l'animation d'ajout de la carte cliqué dans le jeu
  * @param img
  */
-var animCarteJeu = id => {
+window.animCarteJeu = id => {
 
     var randK = randomUID(10);
 
@@ -160,7 +160,7 @@ var animCarteJeu = id => {
 /**
  * Affiche le modal qui permet de sélectionner la couleur
  */
-var toggleModal = () => {
+window.toggleModal = () => {
 
     if ($(".modal").is(':visible')) {
         $(".modal").fadeOut();

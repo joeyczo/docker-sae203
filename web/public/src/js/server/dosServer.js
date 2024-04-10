@@ -1,4 +1,4 @@
-// dos.js
+// dosServer.js
 
 class Card {
     constructor(color, value) {

@@ -1,5 +1,5 @@
 // DEV
-require('./web/server');
+require('../../../../server');
 
 // Version de production :
 // require('./app/server');
