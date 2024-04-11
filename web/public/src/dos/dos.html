@@ -8,257 +8,77 @@
     <title>DOS</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../css/s2.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
 
 </head>
 <body>
 
-    <div class="dos">
+<div class="dos">
 
-        <div class="card">
+    <div class="card">
 
-            <div onclick="animePioche()" class="pioche"></div>
+        <div onclick="animePioche()" class="pioche"></div>
 
-            <div class="cartes">
+        <div class="cartes">
 
-                <div class="active" style="background-image: url('../img/uno/jaune_6.svg')"></div>
-
-            </div>
-
-        </div>
-
-        <h2>C'est au tour de :</h2>
-
-        <h1>Sajima90</h1>
-
-        <div class="deck">
-
-            <div id="c1" onclick="animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/bleu_1.svg');"></div>
-            <div id="c2" onclick="animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/interdiction_jaune.svg');"></div>
-            <div id="c3" onclick="animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/jaune_9.svg');"></div>
-            <div id="c4" onclick="animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/vert_8.svg');"></div>
-            <div id="c5" onclick="animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/changement_couleur_plus_4.svg');"></div>
-
-        </div>
-
-        <div class="player-right">
-
-            <div class="items">
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-            </div>
-
-            <div class="items">
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-            </div>
-
-            <div class="items">
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-            </div>
-
-            <div class="items">
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-            </div>
-
-            <div class="items">
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="player-left">
-
-            <div class="items">
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-                <!-- JOUEUR ACTIF -->
-
-                <div class="infos actif">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-
-            </div>
-
-            <div class="items">
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-
-            </div>
-
-            <div class="items">
-
-                <div class="card-d">
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                    <div class="carte"></div>
-                </div>
-
-                <div class="infos">
-
-                    <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
-
-                    <h1>KLEMENT</h1>
-
-                </div>
-
-
-            </div>
+            <!--                <div class="active" style="background-image: url('../img/uno/jaune_6.svg')"></div>-->
 
         </div>
 
     </div>
+
+    <h2>C'est au tour de :</h2>
+
+    <h1 id="nom">Sajima90</h1>
+
+    <div class="deck">
+
+        <!--            <div id="c3" onclick="window.animCarteJeu(this.id)" class="cartes" style="background-image: url('../img/uno/jaune_9.svg');"></div>-->
+
+    </div>
+
+    <div class="player-right">
+        <!-- generation js front -->
+    </div>
+
+    <div class="player-left">
+        <!-- generation js front -->
+    </div>
+
+</div>
 
 <div class="anim-carte">
 
 </div>
 
-    <div style="display: none" class="modal">
+<div style="display: none" class="modal">
 
-        <div class="color">
+    <div class="color">
 
-            <h1>Quelle couleur ?</h1>
+        <h1>Quelle couleur ?</h1>
 
-            <p>Sélectionnez la couleur à jouer</p>
-            
-            <div class="selector">
+        <p>Sélectionnez la couleur à jouer</p>
 
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                
-            </div>
+        <div class="selector">
+
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
 
         </div>
 
     </div>
 
-    <script>
-        (function(){animeCarte(8)})();
-    </script>
+</div>
 
 
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+<script type="module" src="../js/front/dos.js"></script>
+<!--    <script>-->
+<!--        (function(){window.animeCarte(8)})();-->
+<!--    </script>-->
 
 </body>
 </html>
