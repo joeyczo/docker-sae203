@@ -41,7 +41,9 @@
       "L'océan Pacifique",
       "L'océan Indien",
       "L'océan Atlantique",
-      "L'océan Arctique"
+      "L'océan Arctique",
+      "L'océan Antarctique"
+
     ],
     "reponse" : 0,
     "diff"    : 0
@@ -159,21 +161,20 @@
     "diff"     : 1
   },
 
+
   {
-    "question" : "Dans quel pays se déroule le Disney Coco ?",
+    "question" : "Dans un constructeur avec de l'héritage où on ajoute z. Quelle solution marche.",
     "type"     : 0,
     "sets"     : [
-      "Espagne",
-      "Mexique",
-      "Portugal",
-      "Italie"
+      "this.z = z\nsuper(x,y)",
+      "this(x,y);\nthis.z = z",
+      "super(x,y,z);",
+      "this.(x,y,z)",
+      "super(x,y)\nhis.z = z"
     ],
     "reponse" : 1,
     "diff"    : 1
   },
-
-
-
 
 
 
@@ -256,8 +257,8 @@
     "type"     : 0,
     "sets"     : [
       "Haltère",
-      "Mexicain",
-      "Portugais",
+      "Nycthémère",
+      "outre-mer",
       "Italien"
     ],
     "reponse" : 3,
