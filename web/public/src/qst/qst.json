@@ -169,14 +169,50 @@
       "this.z = z\nsuper(x,y)",
       "this(x,y);\nthis.z = z",
       "super(x,y,z);",
-      "this.(x,y,z)",
-      "super(x,y)\nhis.z = z"
+      "super(x,y)\nhis.z = z",
+      "this.(x,y,z)"
     ],
-    "reponse" : 1,
+    "reponse" : 3,
+    "diff"    : 1
+  },
+
+  {
+    "question" : "Comment appelle-t-on la capacité à voir dans le noir ?",
+    "type"     : 0,
+    "sets"     : [
+      "La nyctalopie",
+      "L’héméralopie",
+      "L’achromatopsie",
+      "La myopie",
+      "L'amblyopie"
+    ],
+    "reponse" : 0,
+    "diff"    : 1
+  },
+
+  {
+    "question" : " Quelle est la hauteur de la Tour Eiffel ?",
+    "type"     : 0,
+    "sets"     : [
+      "312 m",
+      "342 m",
+      "33000 cm",
+      "312 cm",
+      "297 m",
+      "31200 cm"
+    ],
+    "reponse" : 2,
     "diff"    : 1
   },
 
 
+
+  {
+    "question" : "Qui est l’auteur de la citation \" Une image vos mieux que mille mots \" ?",
+    "type"     : 1,
+    "reponse"  : [ "CONFUCIUS" ],
+    "diff"     : 1
+  },
 
 
 
@@ -186,12 +222,24 @@
 
 
   {
+    "question" : "Où se trouve la ville de Faro ?",
+    "type"     : 0,
+    "sets"     : [
+      "En Italie",
+      "Au Portugal",
+      "En Corse",
+      "En Espagne"
+    ],
+    "reponse" : 1,
+    "diff"    : 2
+  },
+
+  {
     "question" : "Quel est le processus bioénergétique qui permet à des organismes de synthétiser de la matière organique en utilisant l'énergie lumineuse, l'eau et le dioxyde de carbone",
     "type"     : 1,
     "reponse"  : ["LA PHOTOSYNTHESE", "PHOTOSYNTESE"],
     "diff"     : 2
   },
-
 
   {
     "question" : "Quelle est la première femme à avoir remporté un prix Nobel ?",
@@ -258,8 +306,8 @@
     "sets"     : [
       "Haltère",
       "Nycthémère",
-      "outre-mer",
-      "Italien"
+      "Outre-mer",
+      "Orque"
     ],
     "reponse" : 3,
     "diff"    : 2
