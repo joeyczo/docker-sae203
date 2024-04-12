@@ -62,7 +62,17 @@ window.animCarteJeu = id => {
 
     const player = statusDuJeu.players.find(p => p.uid === monNom.uid);
     const card = player.hand[id];
+    // Vérifier si c'est le tour du joueur
+    if (!player.isMyTurn(statusDuJeu)) {
+        console.log('Ce n\'est pas votre tour:', player.name);
+        return;
+    }
 
+    // Vérifier si la carte peut être jouée
+    if (card.color !== 'special' && (statusDuJeu.currentColor !== card.color && statusDuJeu.currentValue !== card.value)) {
+        console.log('La carte ne peut pas être jouée:', card);
+        return;
+    }
     console.log(card);
     socket.emit('carte clic', { player: player, card: card });
 
@@ -104,6 +114,15 @@ window.animCarteJeu = id => {
  * Déclenche l'animation de pioche pour le joueur
  */
 window.animePioche = () => {
+
+    const player = statusDuJeu.players.find(p => p.uid === monNom.uid);
+
+    // Vérifier si c'est le tour du joueur
+    if (!player.isMyTurn(statusDuJeu)) {
+        console.log('Ce n\'est pas votre tour:', player.name);
+        return;
+    }
+
     socket.emit('draw card', monNom.uid);
 
     var randK = randomUID(10);
@@ -184,10 +203,8 @@ window.toggleDeck = () => {
     }
 
 }
-
 var statusDuJeu;
 var monNom;
-
 
 socket.emit('getName', (user) => {
     console.log('Vous êtes : ', user);
@@ -205,6 +222,12 @@ socket.on('dos game debut', async (state) => {
     console.log(state);
     statusDuJeu = state;
     console.log(state.players.length);
+
+    statusDuJeu.players.forEach(player => {
+        player.isMyTurn = function(game) {
+            return this.uid === game.currentPlayer.uid;
+        };
+    });
 
     playersHTMLRight = '';
     playersHTMLLeft = '';
@@ -246,6 +269,16 @@ socket.on('other player drew card', (playerUID) => {
         console.log('Joueur non trouvé:', playerUID);
     }
 });
+
+
+socket.on('toggle deck', (playerUID) => {
+    if (playerUID === monNom.uid) {
+        $(".deck").removeClass('disabled');
+    } else {
+        window.toggleDeck();
+    }
+});
+
 
 document.querySelector('.player-right').innerHTML = playersHTMLRight;
 document.querySelector('.player-left').innerHTML = playersHTMLLeft;
