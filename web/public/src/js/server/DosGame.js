@@ -11,13 +11,16 @@ class Player {
         this.uid = uid;
         this.hand = [];
     }
-
     draw(deck, game) {
         if (deck.length === 0) {
             deck.push(...game.createDeck());
         }
         const card = deck.pop();
         this.hand.push(card);
+
+
+        // game.nextPlayer();
+        // game.io.to(this.uid).emit('toggle deck');
     }
 
     play(cardIndex) {
@@ -27,6 +30,7 @@ class Player {
     sortHand() {
         const orderValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'plus_2', 'changement_sens', 'interdiction', 'changement_couleur', 'plus_4'];
         const orderColors = ['bleu', 'jaune', 'rouge', 'vert', 'special'];
+
         this.hand.sort((a, b) => {
             const colorComparison = orderColors.indexOf(a.color) - orderColors.indexOf(b.color);
             if (colorComparison !== 0) {
@@ -52,6 +56,7 @@ class DosGame {
         this.currentValue = null;
         this.started = false;
         this.currentPlayerIndex = 0;
+        this.direction = 1;
     }
 
     addPlayers(players) {
@@ -80,12 +85,12 @@ class DosGame {
                 deck.push(new Card(color, value));
             }
         }
-
-        for (let i = 0; i < 4; i++) {
-            for (let specialCard of specialCards) {
-                deck.push(new Card('special', specialCard));
-            }
-        }
+        //
+        // for (let i = 0; i < 4; i++) {
+        //     for (let specialCard of specialCards) {
+        //         deck.push(new Card('special', specialCard));
+        //     }
+        // }
 
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -96,15 +101,12 @@ class DosGame {
     }
 
     playCard(player, card) {
-        console.log(`Player ${player.name} is trying to play:`, card);
-        // console.log('Their hand before playing:', player.hand);
+        console.log(`${player.name} Joue :`, card);
 
-        //
         if (!player.isMyTurn(this)) {
             console.log('Ce n\'est pas votre tour:', player.name);
             return;
         }
-
 
         if (card.value !== 'changement_couleur' && card.value !== 'plus_4') {
             if (this.pile.length > 0 && this.currentColor !== card.color && this.currentValue !== card.value) {
@@ -112,7 +114,6 @@ class DosGame {
                 return;
             }
         }
-
 
         this.pile.push(card);
         if (card.color === 'special') {
@@ -138,53 +139,49 @@ class DosGame {
             case 'plus_2':
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
+                this.nextPlayer();
+                // this.nextPlayer();
+
                 break;
             case 'changement_sens':
                 this.players.reverse();
-                this.currentPlayerIndex = this.players.length - 1 - this.currentPlayerIndex;
+
+                this.currentPlayerIndex = this.players.findIndex(p => p.name === player.name);
+                console.log(`Le sens du jeu est maintenant : ${this.players[0].name === player.name ? 'normal' : 'reverse'}`);
+                // this.nextPlayer();
                 break;
+
             case 'interdiction':
                 this.nextPlayer();
+                this.io.emit('toggle deck', this.getCurrentPlayer().uid);
                 break;
             case 'changement_couleur':
-                this.currentColor = player.chooseColor();
+                // this.currentColor = player.chooseColor();
                 break;
             case 'plus_4':
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
-                this.currentColor = player.chooseColor();
+                this.io.emit('toggle deck', this.getCurrentPlayer().uid);
+                this.nextPlayer();
+
+                // this.currentColor = player.chooseColor();
                 break;
         }
 
         if (player.hand.length === 0) {
             this.endGame(player);
         }
-
-        // console.log('\n\n\n\ETAT :', this.getState());
+        console.log(this.getPlayersOrder())
         this.nextPlayer();
         this.io.emit('toggle deck', this.getCurrentPlayer().uid);
-        // console.log('Their hand after playing:', player.hand);
-
     }
 
-    getCurrentPlayer() {
-        return this.players[this.currentPlayerIndex];
-    }
-
-    nextPlayer() {
-
-        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
-
-        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
-        console.log(`C'est le tour de ${this.getCurrentPlayer().name}`);
-
-        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
-    }
 
     start() {
-        console.log('Starting game');
+        console.log('JEU CRÉÉ !');
+        console.log(this.getPlayersOrder())
         this.started = true;
         this.deck = this.createDeck();
         this.dealCards();
@@ -192,13 +189,22 @@ class DosGame {
         let firstCard;
         do {
             firstCard = this.deck.pop();
-        } while (firstCard.color === 'special' || firstCard.value === 'interdiction' || firstCard.value === 'plus_2' || firstCard.value === 'changement_sens' || firstCard.value === 'changement_couleur' || firstCard.value === 'plus_4' || firstCard.value === 'changement_sens');
+        } while (firstCard.color === 'special');
 
-        this.playCard(this.getCurrentPlayer(), firstCard);
+        this.pile.push(firstCard);
+        this.currentColor = firstCard.color;
+        this.currentValue = firstCard.value;
 
-        this.players.forEach(player => {
-            this.io.to(player.uid).emit('toggle deck');
-        });
+        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
+    }
+
+    getCurrentPlayer() {
+        return this.players[this.currentPlayerIndex];
+    }
+
+    nextPlayer() {
+        this.currentPlayerIndex = (this.currentPlayerIndex + this.direction + this.players.length) % this.players.length;
+        console.log(`C'est le tour de ${this.getCurrentPlayer().name}`);
 
         this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
     }
@@ -224,6 +230,12 @@ class DosGame {
 
     skipNextPlayer() {
         this.nextPlayer();
+    }
+
+    getPlayersOrder() {
+        // Create a new array starting with the current player and continuing with the rest of the players in order
+        const order = [...this.players.slice(this.currentPlayerIndex), ...this.players.slice(0, this.currentPlayerIndex)];
+        return order.map(player => player.name);
     }
 
     endGame(winningPlayer) {

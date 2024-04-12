@@ -185,23 +185,23 @@ window.animeOtherPioche = index => {
 window.toggleModal = () => {
 
     if ($(".modal").is(':visible')) {
-        $(".modal").fadeOut();
-    } else {
         $(".modal").fadeIn();
+    } else {
+        $(".modal").fadeOut();
     }
 }
 
 /**
  * Permet d'activer ou de désactiver le deck du joueur
  */
-window.toggleDeck = () => {
-
-    if ($(".deck").hasClass('disabled')) {
+window.toggleDeck = (currentPlayerUID) => {
+    if (currentPlayerUID === monNom.uid) {
+        // If it's the current player's turn, enable the deck
         $(".deck").removeClass('disabled');
     } else {
+        // Otherwise, disable the deck
         $(".deck").addClass('disabled');
     }
-
 }
 var statusDuJeu;
 var monNom;
@@ -239,6 +239,8 @@ socket.on('dos game debut', async (state) => {
             playersHTMLLeft += generatePlayerHTML(player);
         }
     });
+    document.getElementById('joueurQuiDoisJouer').style.color = statusDuJeu.currentPlayer.uid === monNom.uid ? 'green' : 'red';
+    document.getElementById('joueurQuiDoisJouer').innerHTML = statusDuJeu.currentPlayer.uid === monNom.uid ? "Vous !" : statusDuJeu.currentPlayer.name ;;
 
     document.querySelector('.player-right').innerHTML = playersHTMLRight;
     document.querySelector('.player-left').innerHTML = playersHTMLLeft;
@@ -247,6 +249,8 @@ socket.on('dos game debut', async (state) => {
         <div class="active" style="background-image: url('../img/uno/${statusDuJeu.currentColor}_${statusDuJeu.currentValue}.svg')"></div>
     `;
 
+
+    document.getElementById('monNom').textContent = "Vous êtes : "+monNom.name;
     document.querySelector('.cartes').innerHTML = activeCardHTML;
 
     document.querySelector('.deck').innerHTML = generatePlayerDeckHTML(monNom.uid);
@@ -272,11 +276,7 @@ socket.on('other player drew card', (playerUID) => {
 
 
 socket.on('toggle deck', (playerUID) => {
-    if (playerUID === monNom.uid) {
-        $(".deck").removeClass('disabled');
-    } else {
-        window.toggleDeck();
-    }
+    window.toggleDeck(playerUID);
 });
 
 
@@ -321,3 +321,6 @@ function generatePlayerDeckHTML(playerUID) {
     });
     return deckHTML;
 }
+
+
+

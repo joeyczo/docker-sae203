@@ -83,42 +83,45 @@ io.on('connection', (socket) => {
     socket.emit('hello', 'Connexion au serveur réussie');
 
     socket.on('UserName', (userData) => {
-        user = userData;
-        if (Array.from(users.values()).some(u => u.uid === user.uid)) {
+
+        if (!userData || !userData.name || !userData.uid) {
+            console.error('Pas Bon User:', userData);
+            socket.emit('changerPanel', 'Erreur');
+            return;
+        }
+
+        if (Array.from(users.values()).some(u => u.uid === userData.uid)) {
             socket.emit('changerPanel', '404');
             return;
         }
-        const newUser = new Player(user.name, user.uid); // Create a Player instance
-        if (game.addPlayer(newUser)) {
-            users.set(socket.id, newUser); // Store the Player instance
 
+        const newUser = new Player(userData.name, userData.uid);
+        if (!game.addPlayer(newUser)) {
+            socket.emit('changerPanel', 'JeuLaunch');
+            return;
+        }
 
-            console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
+        users.set(socket.id, newUser);
 
-            env.playersCount = users.size;
-            // console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
-            if (env.playersCount > env.nbJoueur) {
-                socket.emit('changerPanel', 'Erreur');
-                return;
-            }
+        console.log(`Nom utilisateur: ${userData.name} ${userData.uid}`);
 
-            io.emit('player joined', user.name, env);
-            socket.emit('changerPanel', 'wait');
-            console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
+        env.playersCount = users.size;
+        console.log(`Nombre de joueurs: ${env.playersCount} / ${env.nbJoueur}`);
 
-            if (env.playersCount === env.nbJoueur) {
-                io.emit('changerPanel', 'presentation');
+        io.emit('player joined', userData.name, env);
+        socket.emit('changerPanel', 'wait');
+
+        if (env.playersCount === env.nbJoueur) {
+            io.emit('changerPanel', 'presentation');
+            if (!gameStarted) {
                 game.start();
                 console.log("Lancement du jeu " + obj.name.toLowerCase());
-
-
-                setTimeout(() => {
-                    io.emit('changerPanel', obj.name.toLowerCase());
-                }, 5000);
-
+                gameStarted = true;
             }
-        } else {
-            socket.emit('changerPanel', 'JeuLaunch');
+
+            setTimeout(() => {
+                io.emit('changerPanel', obj.name.toLowerCase());
+            }, 5000);
         }
     });
 
@@ -156,6 +159,7 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
     });
+
     const DosSocket = require('./public/src/js/server/DosSocket');
     DosSocket(socket, dosGame, io, users, game, obj, env, gameStarted, maxPoints, gameName, gameIndex, jeux);
 
@@ -190,6 +194,7 @@ app.get('/reboot', (req, res) => {
     game = new Game();
     console.log("Le jeu a été relancé");
     res.send("Le jeu a été relancé");
+
 });
 
 // getteur Jeux :
