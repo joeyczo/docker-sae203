@@ -18,7 +18,9 @@ const io = new Server(server);
 
 const users = new Map();
 const jeux = require('./public/src/utils/jeu.json');
+
 const {DosGame , Player} = require("./public/src/js/server/DosGame");
+
 const maxPoints = 10;
 
 const gameIndex = Math.floor(Math.random() * jeux.length);
@@ -61,7 +63,7 @@ class Game {
 
 
 let game = new Game();
-let dosGame = new DosGame();
+let dosGame = new DosGame(io);
 
 
 io.on('connection', (socket) => {
@@ -135,7 +137,7 @@ io.on('connection', (socket) => {
         if (users.size === 0) {
             gameStarted = false;
             console.log("Relancement du jeu !");
-            dosGame = new DosGame();
+            dosGame = new DosGame(io);
         }
     });
 
@@ -154,47 +156,8 @@ io.on('connection', (socket) => {
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);
     });
-
-
-
-    socket.on('get game debut', () => {
-        dosGame.addPlayers(Array.from(users.values()));
-        if (!dosGame.hasStarted()) {
-            dosGame.start();
-        }
-        socket.emit('dos game debut', dosGame.getState());
-    });
-
-    socket.on('carte clic', ({ player, card }) => {
-        console.log("CARTE RECU : ", card);
-
-        // Find the Player instance corresponding to the player object
-        const playerInstance = dosGame.players.find(p => p.uid === player.uid);
-
-        if (playerInstance) {
-            dosGame.playCard(playerInstance, card);
-            console.log('JEU ! : :', dosGame.getState());
-            io.emit('dos game debut', dosGame.getState());
-        } else {
-            console.log('Joueur non trouvé:', player.uid);
-        }
-    });
-
-    socket.on('draw card', (playerUID) => {
-        // Trouver l'instance Player correspondant à l'UID du joueur
-        const player = dosGame.players.find(p => p.uid === playerUID);
-        console.log(player)
-
-        if (player) {
-            player.draw(dosGame.deck, dosGame);
-            player.sortHand();
-
-            io.emit('other player drew card', playerUID);
-            io.emit('dos game debut', dosGame.getState());
-        } else {
-            console.log('Joueur non trouvé:', playerUID);
-        }
-    });
+    const DosSocket = require('./public/src/js/server/DosSocket');
+    DosSocket(socket, dosGame, io, users, game, obj, env, gameStarted, maxPoints, gameName, gameIndex, jeux);
 
 
 });

@@ -1,4 +1,3 @@
-
 class Card {
     constructor(color, value) {
         this.color = color;
@@ -14,7 +13,6 @@ class Player {
     }
 
     draw(deck, game) {
-        // si le deck est vide, on le remplit avec le deck de la partie
         if (deck.length === 0) {
             deck.push(...game.createDeck());
         }
@@ -30,34 +28,36 @@ class Player {
         const orderValues = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'plus_2', 'changement_sens', 'interdiction', 'changement_couleur', 'plus_4'];
         const orderColors = ['bleu', 'jaune', 'rouge', 'vert', 'special'];
         this.hand.sort((a, b) => {
-            // Compare les couleurs d'abord
             const colorComparison = orderColors.indexOf(a.color) - orderColors.indexOf(b.color);
             if (colorComparison !== 0) {
                 return colorComparison;
             }
-            // Si les couleurs sont égales, compare les valeurs
             return orderValues.indexOf(a.value) - orderValues.indexOf(b.value);
         });
+    }
+
+
+    isMyTurn(game) {
+        return this === game.getCurrentPlayer();
     }
 }
 
 class DosGame {
-    constructor() {
+    constructor(io) {
+        this.io = io;
         this.players = [];
         this.deck = [];
         this.pile = [];
         this.currentColor = null;
         this.currentValue = null;
         this.started = false;
-
+        this.currentPlayerIndex = 0;
     }
 
     addPlayers(players) {
         this.players = players;
     }
 
-
-    // distrib
     dealCards() {
         for (let player of this.players) {
             player.hand = [];
@@ -66,7 +66,6 @@ class DosGame {
                 player.hand.push(card);
             }
             player.sortHand();
-
         }
     }
 
@@ -82,14 +81,12 @@ class DosGame {
             }
         }
 
-        // les cartes spéciales
         for (let i = 0; i < 4; i++) {
             for (let specialCard of specialCards) {
                 deck.push(new Card('special', specialCard));
             }
         }
 
-        // mélange
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -98,10 +95,25 @@ class DosGame {
         return deck;
     }
 
-
-
     playCard(player, card) {
-        console.log('Playing card:', card);
+        console.log(`Player ${player.name} is trying to play:`, card);
+        console.log('Their hand before playing:', player.hand);
+
+        //
+        if (!player.isMyTurn(this)) {
+            console.log('Ce n\'est pas votre tour:', player.name);
+            return;
+        }
+
+
+        if (card.value !== 'changement_couleur' && card.value !== 'plus_4') {
+            if (this.pile.length > 0 && this.currentColor !== card.color && this.currentValue !== card.value) {
+                console.log('La carte ne peut pas être jouée:', card);
+                return;
+            }
+        }
+
+
         this.pile.push(card);
         if (card.color === 'special') {
             this.currentColor = 'special';
@@ -113,38 +125,83 @@ class DosGame {
         const cardIndex = player.hand.findIndex(c => c.color === card.color && c.value === card.value);
 
         if (cardIndex !== -1) {
-            // Ajouter la carte remplacée au deck
             const replacedCard = player.play(cardIndex);
             this.deck.push(replacedCard);
 
-            // Mélanger le deck
             for (let i = this.deck.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
             }
         }
 
+        switch (card.value) {
+            case 'plus_2':
+                this.getNextPlayer().draw(this.deck, this);
+                this.getNextPlayer().draw(this.deck, this);
+                break;
+            case 'changement_sens':
+                this.players.reverse();
+                this.currentPlayerIndex = this.players.length - 1 - this.currentPlayerIndex;
+                break;
+            case 'interdiction':
+                this.nextPlayer();
+                break;
+            case 'changement_couleur':
+                this.currentColor = player.chooseColor();
+                break;
+            case 'plus_4':
+                this.getNextPlayer().draw(this.deck, this);
+                this.getNextPlayer().draw(this.deck, this);
+                this.getNextPlayer().draw(this.deck, this);
+                this.getNextPlayer().draw(this.deck, this);
+                this.currentColor = player.chooseColor();
+                break;
+        }
+
+        if (player.hand.length === 0) {
+            this.endGame(player);
+        }
+
         console.log('\n\n\n\ETAT :', this.getState());
+        this.nextPlayer();
+        this.io.emit('toggle deck', this.getCurrentPlayer().uid);
+        console.log('Their hand after playing:', player.hand);
+
     }
 
+    getCurrentPlayer() {
+        return this.players[this.currentPlayerIndex];
+    }
+
+    nextPlayer() {
+
+        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
+
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
+        console.log(`C'est le tour de ${this.getCurrentPlayer().name}`);
+
+        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
+    }
 
     start() {
         console.log('Starting game');
         this.started = true;
-        this.deck = this.createDeck(); // Créez le deck une seule fois ici
-        this.dealCards(); // Distribuez les cartes à partir du même deck
-
+        this.deck = this.createDeck();
+        this.dealCards();
 
         let firstCard;
         do {
             firstCard = this.deck.pop();
         } while (firstCard.color === 'special' || firstCard.value === 'interdiction' || firstCard.value === 'plus_2' || firstCard.value === 'changement_sens' || firstCard.value === 'changement_couleur' || firstCard.value === 'plus_4' || firstCard.value === 'changement_sens');
 
-        this.playCard(this.players[0], firstCard);
-        console.log('Game state after starting:', this.getState());
+        this.playCard(this.getCurrentPlayer(), firstCard);
+
+        this.players.forEach(player => {
+            this.io.to(player.uid).emit('toggle deck');
+        });
+
+        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
     }
-
-
 
     getState() {
         return {
@@ -152,13 +209,26 @@ class DosGame {
             deck: this.deck,
             pile: this.pile,
             currentColor: this.currentColor,
-            currentValue: this.currentValue
+            currentValue: this.currentValue,
+            currentPlayer: this.getCurrentPlayer()
         };
     }
 
-
     hasStarted() {
         return this.started;
+    }
+
+    getNextPlayer() {
+        return this.players[(this.currentPlayerIndex + 1) % this.players.length];
+    }
+
+    skipNextPlayer() {
+        this.nextPlayer();
+    }
+
+    endGame(winningPlayer) {
+        console.log(`Le joueur ${winningPlayer.name} a gagné !`);
+        this.started = false;
     }
 }
 
