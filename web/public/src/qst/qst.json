@@ -1,33 +1,5 @@
 [
   {
-    "question" : "ENONCE || 0 = QCM",
-    "type"     : 0,
-    "sets"     : [
-      "Réponse A",
-      "Réponse B",
-      "Réponse C",
-      "Reponse D"
-    ],
-    "reponse" : 2,
-    "diff"    : 1,
-    "indice"  : "Indice après x temps"
-  },
-
-  {
-    "question" : "ENONCE || 1 = Ouverte",
-    "type"     : 1,
-    "reponse" : ["REPONSE"],
-    "diff"    : 1
-  },
-
-  {
-    "question" : "ENONCE || 2 = Vrai/Faux",
-    "type"     : 2,
-    "reponse" : "0 : Faux | 1 Vrai",
-    "diff"    : 1
-  },
-
-  {
     "question" : "Quelle peinture célèbre a peint Léonard de Vinci ?",
     "type"     : 1,
     "reponse"  : ["JOCONDE", "LA JOCONDE"],
