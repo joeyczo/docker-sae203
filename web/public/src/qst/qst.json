@@ -35,6 +35,13 @@
   },
 
   {
+    "question": "6+9*2*2+3",
+    "type": 1,
+    "reponse": ["45"],
+    "diff": 0
+  },
+
+  {
     "question" : "Quel est le plus grand océan du monde ?",
     "type"     : 0,
     "sets"     : [
@@ -43,7 +50,6 @@
       "L'océan Atlantique",
       "L'océan Arctique",
       "L'océan Antarctique"
-
     ],
     "reponse" : 0,
     "diff"    : 0
@@ -343,6 +349,8 @@
 
 
 
+
+
   {
     "question" : "Où se trouve la ville de Faro ?",
     "type"     : 0,
@@ -469,6 +477,36 @@
     "type": 1,
     "reponse": ["VICTOR HUGO", "HUGO"],
     "diff": 2
+  },
+
+
+  {
+    "question": "Quelle est la capitale du Zambie ",
+    "type": 1,
+    "reponse": ["LUSAKA"],
+    "diff": 2
+  },
+
+  {
+    "question": "Quelle est la capitale des États-Unis ",
+    "type": 1,
+    "reponse": ["WASHINGTON"],
+    "diff": 2
+  },
+
+  {
+    "question": "Où se situe la route 66 ? ",
+    "type"     : 0,
+    "sets"     : [
+      "OKLAHOMA",
+      "NEW YORK",
+      "WASHINGTON",
+      "DALLAS",
+      "AUSTIN",
+      "CHICAGO"
+    ],
+    "reponse" : 1,
+    "diff"    : 2
   },
 
   {
