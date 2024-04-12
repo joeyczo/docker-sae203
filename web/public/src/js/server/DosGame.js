@@ -97,7 +97,7 @@ class DosGame {
 
     playCard(player, card) {
         console.log(`Player ${player.name} is trying to play:`, card);
-        console.log('Their hand before playing:', player.hand);
+        // console.log('Their hand before playing:', player.hand);
 
         //
         if (!player.isMyTurn(this)) {
@@ -162,10 +162,10 @@ class DosGame {
             this.endGame(player);
         }
 
-        console.log('\n\n\n\ETAT :', this.getState());
+        // console.log('\n\n\n\ETAT :', this.getState());
         this.nextPlayer();
         this.io.emit('toggle deck', this.getCurrentPlayer().uid);
-        console.log('Their hand after playing:', player.hand);
+        // console.log('Their hand after playing:', player.hand);
 
     }
 
