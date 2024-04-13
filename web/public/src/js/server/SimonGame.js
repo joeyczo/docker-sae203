@@ -96,8 +96,17 @@ class SimonGame
                     if (this.id === MAX_ORDRE) {
                         this.io.emit('winSimon');
                         console.log('Le joueur a gagné');
+                        console.log(this.players);
                         return;
                     }
+
+                    if (this.players[0].points === undefined) this.players[0].points = 0;
+
+                    this.players[0].points += 10;
+
+                    if (this.players[0].pointsMemory === undefined) this.players[0].pointsMemory = 0;
+
+                    this.players[0].pointsMemory += 10;
 
                     this.nextPlayer();
                     this.showOrdreJoueur();

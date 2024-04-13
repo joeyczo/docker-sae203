@@ -1,5 +1,3 @@
-const jeux = require("../../utils/jeu.json");
-
 module.exports = function SimonSocket(socket, simonGame, io, users) {
 
     socket.on('startGameSimon', () => {

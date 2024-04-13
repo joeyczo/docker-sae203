@@ -21,6 +21,7 @@ const jeux = require('./public/src/utils/jeu.json');
 
 const {DosGame , Player} = require("./public/src/js/server/DosGame");
 const {SimonGame} = require("./public/src/js/server/SimonGame");
+const {MemoryGame} = require("./public/src/js/server/MemoryGame");
 
 const maxPoints = 10;
 
@@ -66,6 +67,7 @@ class Game {
 let game = new Game();
 let dosGame = new DosGame(io);
 let simonGame = new SimonGame(io);
+let memoryGame = new MemoryGame(io);
 
 
 io.on('connection', (socket) => {
@@ -144,6 +146,7 @@ io.on('connection', (socket) => {
             console.log("Relancement du jeu !");
             dosGame = new DosGame(io);
             simonGame = new SimonGame(io);
+            memoryGame = new MemoryGame(io);
         }
     });
 
@@ -168,6 +171,9 @@ io.on('connection', (socket) => {
 
     const SimonSocket = require('./public/src/js/server/SimonSocket');
     SimonSocket(socket, simonGame, io, users);
+
+    const MemorySocket = require('./public/src/js/server/MemorySocket');
+    MemorySocket(socket, memoryGame, io, users);
 
 });
 
@@ -209,6 +215,10 @@ app.get('/dos', (req, res) => {
 
 app.get('/simon', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/simon/simon.html'));
+});
+
+app.get('/memory', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/memory/memory.html'));
 });
 
 server.listen(8080, () => {
