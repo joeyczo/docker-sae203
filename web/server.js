@@ -20,6 +20,7 @@ const users = new Map();
 const jeux = require('./public/src/utils/jeu.json');
 
 const {DosGame , Player} = require("./public/src/js/server/DosGame");
+const {SimonGame} = require("./public/src/js/server/SimonGame");
 
 const maxPoints = 10;
 
@@ -64,6 +65,7 @@ class Game {
 
 let game = new Game();
 let dosGame = new DosGame(io);
+let simonGame = new SimonGame(io);
 
 
 io.on('connection', (socket) => {
@@ -141,6 +143,7 @@ io.on('connection', (socket) => {
             gameStarted = false;
             console.log("Relancement du jeu !");
             dosGame = new DosGame(io);
+            simonGame = new SimonGame(io);
         }
     });
 
@@ -163,6 +166,8 @@ io.on('connection', (socket) => {
     const DosSocket = require('./public/src/js/server/DosSocket');
     DosSocket(socket, dosGame, io, users, game, obj, env, gameStarted, maxPoints, gameName, gameIndex, jeux);
 
+    const SimonSocket = require('./public/src/js/server/SimonSocket');
+    SimonSocket(socket, simonGame, io, users);
 
 });
 
@@ -200,6 +205,10 @@ app.get('/reboot', (req, res) => {
 // getteur Jeux :
 app.get('/dos', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/dos/dos.html'));
+});
+
+app.get('/simon', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/simon/simon.html'));
 });
 
 server.listen(8080, () => {

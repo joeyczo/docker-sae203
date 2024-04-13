@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=K2D:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Outfit:wght@200;400;500;600;700;900&display=swap');
 *
 {
     margin: 0;
@@ -763,6 +763,14 @@ body
 {
     display: flex;
     align-items: center;
+    flex-direction: column;
+}
+.simon .prt-simon .disp-formes
+{
+    margin: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .simon .prt-simon .item
 {
@@ -772,31 +780,240 @@ body
     cursor: pointer;
     border-radius: 10px;
     transition: 0.4s;
+    box-shadow: 0px 0px 0px 0px black;
 }
-.simon .prt-simon .item:hover
+.simon .disabled .item
+{
+    cursor: not-allowed;
+}
+.simon .prt-simon:not(.disabled) .item:hover
 {
     transform: scale(1.1);
 }
-.simon .prt-simon .item:active
+.simon .prt-simon:not(.disabled) .item:active
 {
     transform: scale(0.8);
 }
-.simon .prt-simon .f1
+.simon .prt-simon:not(.malus) .f1
 {
     background: linear-gradient(159deg, #EC0000 9.51%, #960000 91.8%);
 }
-.simon .prt-simon .f2
+.simon .prt-simon:not(.malus) .f2
 {
     background: linear-gradient(158deg, #F0E933 7.51%, #BEB707 92.23%);
 }
-.simon .prt-simon .f3
+.simon .prt-simon:not(.malus) .f3
 {
     background: linear-gradient(157deg, #006BCD 5.58%, #00427E 90.79%);
 }
-.simon .prt-simon .f4
+.simon .prt-simon:not(.malus) .f4
 {
     background: linear-gradient(158deg, #01CC09 8.58%, #007B05 89.52%);
 }
+.simon .malus .f1, .simon .malus .f2, .simon .malus .f3, .simon .malus .f4
+{
+    background: linear-gradient(158deg, #C0C0C0 8.58%, #3F3F3F 89.52%);
+}
+.simon .prt-simon .dis
+{
+    opacity: 0.2;
+}
+.simon .prt-simon h2
+{
+    color: var(--gray);
+    font-weight: 500;
+    font-size: 30px;
+}
+.simon .prt-simon h1
+{
+    font-size: 65px;
+    margin: 20px 0;
+}
+.simon .list-player
+{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: end;
+    padding: 50px;
+}
+.simon .list-player .item
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 15px;
+    transition: 0.4s;
+}
+.simon .list-player .item .icon
+{
+    background: #FF8F8F;
+    width: 75px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+}
+.simon .list-player .item:first-child .icon
+{
+    background: #72F977;
+    width: 115px;
+    height: 115px;
+}
+.simon .list-player .item .icon img
+{
+    height: 40px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.simon .list-player .item:first-child .icon img
+{
+    height: 60px;
+}
+.simon .list-player .item .infos
+{
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.simon .list-player .item .infos p
+{
+    font-size: 25px;
+    font-weight: 700;
+    font-family: 'K2D', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    max-width: 8vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.simon .list-player .infos-tours
+{
+    display: flex;
+    flex-direction: column;
+    height: 115px;
+    padding: 0 20px;
+}
+.simon .list-player .infos-tours h2
+{
+    font-size: 20px;
+    color: var(--gray);
+    font-weight: 400;
+}
+.simon .list-player .infos-tours h1
+{
+    font-size: 35px;
+    margin: 7px 0;
+}
+.simon .malus-infos
+{
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 20px;
+    align-items: end;
+    padding: 10px;
+}
+.simon .malus-infos h1
+{
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.simon .malus-infos h1::after
+{
+    content: "";
+    background: #FF4B4B;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+    margin: 0 10px;
+}
+.simon .malus-infos p
+{
+    color: var(--gray);
+    font-size: 15px;
+    margin: 5px 0 1px 0;
+}
+.simon .malus-infos p.user
+{
+    margin: 0;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+}
+.simon .modal-infos
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    display: none;
+}
+.simon .modal-infos .win
+{
+    background: linear-gradient(112deg, rgba(181, 239, 108, 0.80) 19.71%, rgba(104, 137, 62, 0.80) 88.09%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+.simon .modal-infos .win h1
+{
+    font-size: 150px;
+    font-family: 'K2D', sans-serif;
+    margin: 20px 0;
+}
+.simon .modal-infos .win p
+{
+    font-size: 70px;
+}
+.simon .modal-infos .loose
+{
+    background: linear-gradient(112deg, rgba(239, 108, 108, 0.80) 19.71%, rgba(137, 62, 62, 0.80) 88.09%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+.simon .modal-infos .loose h1
+{
+    font-size: 150px;
+    font-family: 'K2D', sans-serif;
+    margin: 20px 0;
+}
+.simon .modal-infos .loose p
+{
+    font-size: 50px;
+    text-align: center;
+}
+
 
 
 
