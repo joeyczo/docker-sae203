@@ -1186,6 +1186,153 @@ body
 {
     font-weight: bold;
 }
+/* -------- Questions -------- */
+.qst-showing
+{
+    width: 100vw;
+    height: 100vh;
+}
+.qst-showing .bar-loading
+{
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 5vh;
+    top: 0;
+    left : 0;
+    background: rgba(151, 71, 255, 0.15);
+}
+.qst-showing .bar-loading .cnt
+{
+    background: #A4FF95;
+    width: 100%;
+    height: 100%;
+}
+.qst-showing .disp-qst
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.qst-showing .disp-qst h1
+{
+    font-size: 50px;
+    margin: 20px 0;
+}
+.qst-showing .res-qst
+{
+    display: flex;
+    padding: 40px;
+    position: fixed;
+    bottom: 0;
+    left :0;
+    width: 100vw;
+}
+.qst-showing .res-qst .input, .qst-showing .res-qst .trfl, .qst-showing .res-qst .qcm
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+}
+.qst-showing .res-qst .input input
+{
+    width: 80%;
+    height: 50px;
+    border: none;
+    background: white;
+    font-size: 25px;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 0 20px;
+}
+.qst-showing .res-qst .trfl button
+{
+    width: 100%;
+    margin: 0 25px;
+    border-radius: 10px;
+    font-size: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    padding: 30px 0;
+    transition: 0.4s;
+    font-family : 'Outfit', sans-serif;
+    font-weight: 700;
+}
+/*.qst-showing .res-qst .trfl button.false
+{
+    background: #FF4B4B;
+    color: white;
+}
+.qst-showing .res-qst .trfl button.true
+{
+    background: #008f04;
+    color: white;
+}*/
+.qst-showing .res-qst .trfl button.false
+{
+    background: #CC64CE;
+    color: white;
+}
+.qst-showing .res-qst .trfl button.true
+{
+    background: #5E348A;
+    color: white;
+}
+.qst-showing .res-qst .trfl button:hover
+{
+    transform: scale(1.1);
+}
+.qst-showing .res-qst .trfl button:active
+{
+    transform: scale(0.8);
+}
+.qst-showing .res-qst .trfl button.actif
+{
+    border: 13px solid #EFFF3A;
+}
+.qst-showing .res-qst .qcm
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.qst-showing .res-qst .qcm .choix
+{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.4s;
+    background: #5E348A;
+    padding: 10px;
+    position: relative;
+    font-family: 'Outfit', sans-serif;
+    font-size: 25px;
+    border: 8px solid #5E348A;
+    color: white;
+}
+.qst-showing .res-qst .qcm .choix .index
+{
+    font-size: 30px;
+    margin-right: 15px;
+}
+.qst-showing .res-qst .qcm .choix:hover
+{
+    transform: scale(1.05);
+}
+.qst-showing .res-qst .qcm .actif
+{
+    border: 8px solid #EFFF3A;
+}
 
 
 
