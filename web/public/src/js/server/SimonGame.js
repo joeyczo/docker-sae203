@@ -14,6 +14,8 @@ class SimonGame
         this.playerAct = undefined;     // Joueur actuel
         this.started = false;           // Défini si le jeu a commencé
 
+        this.playerReaded = 0;          // Nombre de joueur ayant lu les règles
+
         this.pointManche = 20;          // Nombre de point par manche
 
         this.generateOrder();
@@ -27,6 +29,7 @@ class SimonGame
         console.log(this.players);
 
         setTimeout(() => { this.showOrdreJoueur()}, 500);
+        setTimeout(() => { this.affichageCouleur()}, 1000);
 
     }
 
@@ -52,8 +55,6 @@ class SimonGame
         }
 
         console.log("L'ordre de jeu pour Simon a été généré avec succès");
-
-        setTimeout(() => { this.affichageCouleur()}, 10000);
 
     }
 
@@ -207,6 +208,42 @@ class SimonGame
 
         this.io.emit('setMalusSimon', uid, player, 120000);
 
+    }
+
+    /**
+     * Permet d'indiquer qu'un joueur à lu les règles
+     */
+    setReadedRules()
+    {
+        this.playerReaded++;
+
+        this.showPlayerToRead();
+
+        if (this.playerReaded === this.players.length) {
+            this.io.emit('hideModalSimon');
+            this.startGame();
+        }
+    }
+
+    /**
+     * Changer le nombre de joueur restant pour commencer la partie
+     */
+    showPlayerToRead()
+    {
+
+        var restant = this.players.length - this.playerReaded;
+
+        this.io.emit('showPlayerToReadSimon', restant);
+
+    }
+
+    /**
+     * Permet de savoir si tous les joueurs ont lu les règles
+     * @returns {boolean} Vrai si tous les joueurs ont lu les règles
+     */
+    allPlayerRead()
+    {
+        return this.playerReaded === this.players.length;
     }
 
 }

@@ -829,7 +829,7 @@ body
     font-size: 65px;
     margin: 20px 0;
 }
-.simon .list-player
+.list-player
 {
     position: fixed;
     bottom: 0;
@@ -838,7 +838,7 @@ body
     align-items: end;
     padding: 50px;
 }
-.simon .list-player .item
+.list-player .item
 {
     display: flex;
     align-items: center;
@@ -846,7 +846,7 @@ body
     margin: 15px;
     transition: 0.4s;
 }
-.simon .list-player .item .icon
+.list-player .item .icon
 {
     background: #FF8F8F;
     width: 75px;
@@ -856,30 +856,30 @@ body
     justify-content: center;
     border-radius: 100%;
 }
-.simon .list-player .item:first-child .icon
+.list-player .item:first-child .icon
 {
     background: #72F977;
     width: 115px;
     height: 115px;
 }
-.simon .list-player .item .icon img
+.list-player .item .icon img
 {
     height: 40px;
     user-select: none;
     -webkit-user-select: none;
 }
-.simon .list-player .item:first-child .icon img
+.list-player .item:first-child .icon img
 {
     height: 60px;
 }
-.simon .list-player .item .infos
+.list-player .item .infos
 {
     margin: 15px 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.simon .list-player .item .infos p
+.list-player .item .infos p
 {
     font-size: 25px;
     font-weight: 700;
@@ -891,25 +891,25 @@ body
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.simon .list-player .infos-tours
+.list-player .infos-tours
 {
     display: flex;
     flex-direction: column;
     height: 115px;
     padding: 0 20px;
 }
-.simon .list-player .infos-tours h2
+.list-player .infos-tours h2
 {
     font-size: 20px;
     color: var(--gray);
     font-weight: 400;
 }
-.simon .list-player .infos-tours h1
+.list-player .infos-tours h1
 {
     font-size: 35px;
     margin: 7px 0;
 }
-.simon .malus-infos
+.malus-infos
 {
     position: fixed;
     top: 0;
@@ -921,7 +921,7 @@ body
     align-items: end;
     padding: 10px;
 }
-.simon .malus-infos h1
+.malus-infos h1
 {
     font-weight: 400;
     font-size: 20px;
@@ -929,7 +929,7 @@ body
     align-items: center;
     justify-content: center;
 }
-.simon .malus-infos h1::after
+.malus-infos h1::after
 {
     content: "";
     background: #FF4B4B;
@@ -939,20 +939,20 @@ body
     display: inline-block;
     margin: 0 10px;
 }
-.simon .malus-infos p
+.malus-infos p
 {
     color: var(--gray);
     font-size: 15px;
     margin: 5px 0 1px 0;
 }
-.simon .malus-infos p.user
+.malus-infos p.user
 {
     margin: 0;
     color: white;
     font-size: 20px;
     font-weight: 700;
 }
-.simon .modal-infos
+.modal-infos
 {
     position: fixed;
     top: 0;
@@ -962,7 +962,7 @@ body
     z-index: 2;
     display: none;
 }
-.simon .modal-infos .win
+.modal-infos .win
 {
     background: linear-gradient(112deg, rgba(181, 239, 108, 0.80) 19.71%, rgba(104, 137, 62, 0.80) 88.09%);
     display: flex;
@@ -977,17 +977,17 @@ body
     z-index: 3;
     display: none;
 }
-.simon .modal-infos .win h1
+.modal-infos .win h1
 {
     font-size: 150px;
     font-family: 'K2D', sans-serif;
     margin: 20px 0;
 }
-.simon .modal-infos .win p
+.modal-infos .win p
 {
     font-size: 70px;
 }
-.simon .modal-infos .loose
+.modal-infos .loose
 {
     background: linear-gradient(112deg, rgba(239, 108, 108, 0.80) 19.71%, rgba(137, 62, 62, 0.80) 88.09%);
     display: flex;
@@ -1002,18 +1002,190 @@ body
     z-index: 3;
     display: none;
 }
-.simon .modal-infos .loose h1
+.modal-infos .loose h1
 {
     font-size: 150px;
     font-family: 'K2D', sans-serif;
     margin: 20px 0;
 }
-.simon .modal-infos .loose p
+.modal-infos .loose p
 {
     font-size: 50px;
     text-align: center;
 }
 
+/* --- MEMORY --- */
+.memory
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100dvh;
+}
+.memory .prt-memory
+{
+    display: flex;
+    flex-direction: column;
+}
+.memory .prt-memory .plateau
+{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 40px;
+}
+.memory .prt-memory .plateau .card
+{
+    width: 98px;
+    height: 139px;
+    box-shadow: 0px 0px 0px 0px rgba(255,255,255,0);
+    transition: 0.4s;
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.memory .prt-memory .plateau:not(.disabled) .card:hover
+{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px 10px rgba(255,255,255,0.25);
+}
+.memory .prt-memory .plateau:not(.disabled) .card:active
+{
+    transform: scale(0.8);
+}
+.memory .prt-memory .disabled .card {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+.memory .prt-memory .plateau .card .fond
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 98px;
+    height: 139px;
+    background-image: url('../img/memory/arr_me.svg');
+    background-size: 100% 100%;
+}
+.memory .prt-memory .plateau .card .face
+{
+    width: 98px;
+    height: 139px;
+    background-size: 100% 100%;
+    transform: rotate3d(0, 1, 0, 90deg);
+    transition: 0.4s;
+}
+.memory .prt-memory .plateau .cd-back .fond
+{
+    transform: rotate3d(0, 1, 0, -90deg);
+}
+.memory .prt-memory .plateau .cd-back .face
+{
+    transform: rotate3d(0, 1, 0, 0deg);
+}
+.memory .prt-memory .infos
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px 0;
+}
+.memory .prt-memory .infos h2
+{
+    font-size: 30px;
+    color: var(--gray);
+    margin: 0 15px;
+}
+.memory .prt-memory .infos h1
+{
+    font-size: 55px;
+    margin: 15px 0;
+}
+.modal-consigne
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40,40,40,0.6);
+    z-index: 2;
+}
+.modal-consigne .prt
+{
+    background: #2E2E2E;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 50px 10px rgba(0, 0, 0, 0.25);
+    min-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40vw;
+}
+.modal-consigne .prt h1
+{
+    font-size: 35px;
+    margin-bottom: 25px;
+}
+.modal-consigne .prt p
+{
+    font-size: 18px;
+}
+.modal-consigne .prt .malus
+{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+.modal-consigne .prt .malus p
+{
+    border-radius: 10px;
+    background: linear-gradient(158deg, #ff0000 8.58%, #bd0000 89.52%);
+    padding: 2px 20px;
+}
+.modal-consigne .prt .end
+{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    margin-top: 15px;
+}
+.modal-consigne .prt .end button
+{
+    background: #CC64CE;
+    color: white;
+    border: none;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0 15px;
+    transition: 0.4s;
+}
+.modal-consigne .prt .end button:hover
+{
+    background: #780078;
+}
+.modal-consigne .prt .end p
+{
+    font-size: 15px;
+    color: var(--gray);
+}
+.modal-consigne .prt .end p span
+{
+    font-weight: bold;
+}
 
 
 

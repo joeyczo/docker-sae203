@@ -14,6 +14,7 @@ socket.emit('getName', (user) => {
 $(() => {
 
     socket.emit('startGameSimon');
+    socket.emit('getNumJoueurRegleSimon');
 
     $(".disp-formes .item").on('click', function() {
 
@@ -150,6 +151,13 @@ window.setMalusSimon = (uid, username, duration) => {
 
 }
 
+window.readedRegleSimon = () => {
+
+    socket.emit('readedRegleSimon');
+
+    $("#btn_regle").remove();
+
+}
 
 
 
@@ -247,3 +255,11 @@ socket.on('animationPlayerClick', (uid, num) => {
 socket.on('setMalusSimon', (uid, username, duration) => {
     setMalusSimon(uid, username, duration);
 });
+
+socket.on('showPlayerToReadSimon', (num) => {
+    $("#count_joueur_see").html(num);
+})
+
+socket.on('hideModalSimon', () => {
+    $(".modal-consigne").hide();
+})

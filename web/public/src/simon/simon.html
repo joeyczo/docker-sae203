@@ -90,6 +90,34 @@
 
         </div>
 
+        <div class="modal-consigne">
+
+            <div class="prt">
+
+                <h1>Consigne du jeu</h1>
+
+                <p>Le jeu Simon consiste à reproduire une séquence de couleurs de plus en plus longue. Chaque joueur doit reproduire la séquence de son prédécesseur. Si un joueur se trompe, il est éliminé. Le dernier joueur restant gagne la partie.</p>
+
+                <div class="malus">
+
+                    <p>MALUS</p>
+
+                </div>
+
+                <p>Le joueur qui possède le malus ne verra aucune couleur pendant les 2 premières minutes de la partie</p>
+
+                <div class="end">
+
+                    <p>Encore <span id="count_joueur_see">0</span> joueurs à valider</p>
+
+                    <button id="btn_regle" onclick="readedRegleSimon()">Compris !</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
 
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
         <script type="module" src="../js/front/simon.js"></script>

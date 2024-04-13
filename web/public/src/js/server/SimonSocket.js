@@ -5,7 +5,7 @@ module.exports = function SimonSocket(socket, simonGame, io, users) {
     socket.on('startGameSimon', () => {
         simonGame.savePlayer(Array.from(users.values()));
 
-        if (!simonGame.started) {
+        if (simonGame.allPlayerRead()) {
             simonGame.startGame();
         }
     })
@@ -16,6 +16,10 @@ module.exports = function SimonSocket(socket, simonGame, io, users) {
 
     });
 
+    socket.on('getNumJoueurRegleSimon', () => {
+        simonGame.showPlayerToRead();
+    })
+
     socket.on('showCouleur', () => {
         simonGame.affichageCouleur();
     })
@@ -23,5 +27,9 @@ module.exports = function SimonSocket(socket, simonGame, io, users) {
     socket.on('endAffichageSimon', () => {
         simonGame.enableGamePlayer();
     });
+
+    socket.on('readedRegleSimon', () => {
+        simonGame.setReadedRules();
+    })
 
 }
