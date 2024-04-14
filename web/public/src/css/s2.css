@@ -1214,12 +1214,20 @@ body
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 70vh;
 }
 .qst-showing .disp-qst h1
 {
     font-size: 50px;
     margin: 20px 0;
+    text-align: center;
+}
+.qst-showing .disp-qst p
+{
+    margin: 20px 0;
+    font-size: 15px;
+    color: var(--gray);
+    text-align: center;
 }
 .qst-showing .res-qst
 {
@@ -1277,11 +1285,13 @@ body
 .qst-showing .res-qst .trfl button.false
 {
     background: #CC64CE;
+    border: 8px solid #CC64CE;
     color: white;
 }
 .qst-showing .res-qst .trfl button.true
 {
     background: #5E348A;
+    border: 8px solid #5E348A;
     color: white;
 }
 .qst-showing .res-qst .trfl button:hover
@@ -1294,7 +1304,7 @@ body
 }
 .qst-showing .res-qst .trfl button.actif
 {
-    border: 13px solid #EFFF3A;
+    border: 8px solid #EFFF3A;
 }
 .qst-showing .res-qst .qcm
 {
@@ -1333,6 +1343,269 @@ body
 {
     border: 8px solid #EFFF3A;
 }
+.resp-showing
+{
+    height: 100vh;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.resp-showing .grid-resp
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    height: 60vh;
+    overflow: auto;
+}
+.resp-showing .grid-resp .item
+{
+    background: rgba(113, 1, 157, 0.29);
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 30px;
+    height: fit-content;
+}
+.resp-showing .grid-resp .item .infos
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.resp-showing .grid-resp .item .infos h3.good
+{
+    background: linear-gradient(158deg, #01CC09 8.58%, #007B05 89.52%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.resp-showing .grid-resp .item .infos h3.error
+{
+    background: linear-gradient(159deg, #EC0000 9.51%, #960000 91.8%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.resp-showing .grid-resp .item .resp
+{
+    margin: 25px 0 0 0;
+}
+.resp-showing .grid-resp .item .resp .txt
+{
+    background: white;
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+.resp-showing .grid-resp .item .resp .qcm
+{
+    display: flex;
+    align-items: center;
+    background: #5E348A;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.resp-showing .grid-resp .item .resp .qcm h3
+{
+    margin-right: 10px;
+}
+.resp-showing .grid-resp .item .resp .vrf
+{
+    display: flex;
+    align-items: center;
+    background: #CC64CE;
+    font-weight: 500;
+    padding: 10px 15px;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.resp-showing .infos-reponse
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 30px 0;
+}
+.resp-showing .infos-reponse h2
+{
+    font-size: 30px;
+    color: var(--gray);
+    margin: 0 15px;
+}
+.resp-showing .infos-reponse h1
+{
+    font-size: 55px;
+    margin: 15px 0;
+}
+.resp-showing .actions
+{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+}
+.resp-showing .actions .start
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.resp-showing .actions .start button
+{
+    background: #5E348A;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    border: none;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0 15px;
+    transition: 0.4s;
+}
+.resp-showing .actions .start button:hover
+{
+    background: #6e2bb8;
+}
+.resp-showing .actions .end
+{
+    display: flex;
+    align-items: center;
+}
+.resp-showing .actions .end button
+{
+    background: #CC64CE;
+    color: white;
+    font-family: 'Outfit', sans-serif;
+    border: none;
+    padding: 15px 30px;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    margin: 0 15px 0 25px;
+    transition: 0.4s;
+}
+.resp-showing .actions .end button:hover
+{
+    background: #eb4fed;
+}
+.resp-showing .actions .end p
+{
+    font-size: 18px;
+    color: var(--gray);
+}
+.resp-showing .actions .end p span
+{
+    font-weight: bold;
+}
+.resp-showing .modal-appel
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(40,40,40,0.6);
+    z-index: 2;
+}
+.resp-showing .modal-appel .ins-modal
+{
+    background: #2E2E2E;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 50px 10px rgba(0, 0, 0, 0.25);
+    min-width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 40vw;
+}
+.resp-showing .modal-appel .ins-modal .bar-hr
+{
+    width: 5vw;
+    margin: 40px 0 25px 0;
+    background: white;
+    padding: 1.5px;
+    border-radius: 20px;
+}
+.resp-showing .modal-appel .ins-modal h3
+{
+    color: var(--gray);
+    margin: 15px 0;
+    font-weight: 400;
+}
+.resp-showing .modal-appel .ins-modal h2
+{
+    font-size: 25px;
+    margin: 5px 0 10px 0;
+}
+.resp-showing .modal-appel .ins-modal .act-btn
+{
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    width: 100%;
+}
+.resp-showing .modal-appel .ins-modal .act-btn button
+{
+    width: 100%;
+    margin: 0 25px;
+    cursor: pointer;
+    font-family: 'Outfit', sans-serif;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    transition: 0.4s;
+}
+.resp-showing .modal-appel .ins-modal .act-btn button.no
+{
+    background: linear-gradient(159deg, #EC0000 9.51%, #960000 91.8%);
+    color: white;
+}
+.resp-showing .modal-appel .ins-modal .act-btn button.no:hover
+{
+    transform: scale(1.05);
+}
+.resp-showing .modal-appel .ins-modal .act-btn button.yes
+{
+    background: linear-gradient(158deg, #01CC09 8.58%, #007B05 89.52%);
+    color: white;
+}
+.resp-showing .modal-appel .ins-modal .act-btn button.yes:hover
+{
+    transform: scale(1.05);
+}
+.resp-showing .modal-appel .ins-modal p.rest
+{
+    margin: 15px 0;
+    color: var(--gray);
+}
+.resp-showing .modal-appel .ins-modal p.rest span
+{
+    font-weight: bold;
+}
+
 
 
 
