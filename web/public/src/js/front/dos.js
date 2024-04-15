@@ -1,4 +1,3 @@
-
 import changerPanel from '../server/panelChanger.js';
 import socket from '../server/socket.js';
 
@@ -74,7 +73,7 @@ window.animCarteJeu = id => {
         return;
     }
     console.log(card);
-    socket.emit('carte clic', { player: player, card: card });
+    socket.emit('carte clic', {player: player, card: card});
 
 
     // annime
@@ -176,7 +175,6 @@ window.animeOtherPioche = index => {
 }
 
 
-
 // Les toggles :
 
 /**
@@ -184,11 +182,39 @@ window.animeOtherPioche = index => {
  */
 window.toggleModal = () => {
 
-    if ($(".modal").is(':visible')) {
-        $(".modal").fadeIn();
+    if ($(".modal").css('display') === 'none') {
+        $(".modal").css('display', 'block');
+
+
+// Choix Couleur
+        let items = document.querySelectorAll('.selector .item');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                let style = window.getComputedStyle(item);
+                let color = style.background;
+                switch (true) {
+                    case color.startsWith('linear-gradient(159deg, rgb(236, 0, 0)'):
+                        color = "rouge"
+                        break;
+                    case color.startsWith('linear-gradient(158deg, rgb(1, 204, 9)'):
+                        color = "vert"
+                        break;
+                    case color.startsWith('linear-gradient(157deg, rgb(0, 107, 205)'):
+                        color = "bleu"
+                        break;
+                    case color.startsWith('linear-gradient(158deg, rgb(240, 233, 51)'):
+                        color = "jaune"
+                        break;
+                }
+                socket.emit('colorChoisi', color);
+                $(".modal").css('display', 'none')
+            });
+        });
     } else {
-        $(".modal").fadeOut();
+        $(".modal").css('display', 'none');
     }
+
 }
 
 /**
@@ -196,10 +222,8 @@ window.toggleModal = () => {
  */
 window.toggleDeck = (currentPlayerUID) => {
     if (currentPlayerUID === monNom.uid) {
-        // If it's the current player's turn, enable the deck
         $(".deck").removeClass('disabled');
     } else {
-        // Otherwise, disable the deck
         $(".deck").addClass('disabled');
     }
 }
@@ -224,7 +248,7 @@ socket.on('dos game debut', async (state) => {
     console.log(state.players.length);
 
     statusDuJeu.players.forEach(player => {
-        player.isMyTurn = function(game) {
+        player.isMyTurn = function (game) {
             return this.uid === game.currentPlayer.uid;
         };
     });
@@ -240,7 +264,8 @@ socket.on('dos game debut', async (state) => {
         }
     });
     document.getElementById('joueurQuiDoisJouer').style.color = statusDuJeu.currentPlayer.uid === monNom.uid ? 'green' : 'red';
-    document.getElementById('joueurQuiDoisJouer').innerHTML = statusDuJeu.currentPlayer.uid === monNom.uid ? "Vous !" : statusDuJeu.currentPlayer.name ;;
+    document.getElementById('joueurQuiDoisJouer').innerHTML = statusDuJeu.currentPlayer.uid === monNom.uid ? "Vous !" : statusDuJeu.currentPlayer.name;
+    ;
 
     document.querySelector('.player-right').innerHTML = playersHTMLRight;
     document.querySelector('.player-left').innerHTML = playersHTMLLeft;
@@ -250,7 +275,7 @@ socket.on('dos game debut', async (state) => {
     `;
 
 
-    document.getElementById('monNom').textContent = "Vous êtes : "+monNom.name;
+    document.getElementById('monNom').textContent = "Vous êtes : " + monNom.name;
     document.querySelector('.cartes').innerHTML = activeCardHTML;
 
     document.querySelector('.deck').innerHTML = generatePlayerDeckHTML(monNom.uid);
@@ -274,6 +299,12 @@ socket.on('other player drew card', (playerUID) => {
     }
 });
 
+
+socket.on('toggleModal', (playerUID) => {
+    if (playerUID === monNom.uid) {
+        window.toggleModal();
+    }
+});
 
 socket.on('toggle deck', (playerUID) => {
     window.toggleDeck(playerUID);

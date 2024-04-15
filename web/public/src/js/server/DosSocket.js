@@ -40,5 +40,11 @@ module.exports = function DosSocket(socket, dosGame, io, users, game, obj, env, 
         }
     });
 
+    socket.on('colorChoisi', (color) => {
+        dosGame.currentColor = color;
+        socket.emit('toggleModal');
+        io.emit('dos game debut', dosGame.getState());
+    });
+
 
 }
