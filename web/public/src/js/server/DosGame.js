@@ -17,6 +17,7 @@ class Player {
         }
         const card = deck.pop();
         this.hand.push(card);
+        this.sortHand();
 
 
         // game.nextPlayer();
@@ -85,12 +86,12 @@ class DosGame {
                 deck.push(new Card(color, value));
             }
         }
-        //
-        // for (let i = 0; i < 4; i++) {
-        //     for (let specialCard of specialCards) {
-        //         deck.push(new Card('special', specialCard));
-        //     }
-        // }
+
+        for (let i = 0; i < 4; i++) {
+            for (let specialCard of specialCards) {
+                deck.push(new Card('special', specialCard));
+            }
+        }
 
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -100,7 +101,7 @@ class DosGame {
         return deck;
     }
 
-    playCard(player, card) {
+    async playCard(player, card) {
         console.log(`${player.name} Joue :`, card);
 
         if (!player.isMyTurn(this)) {
@@ -134,13 +135,13 @@ class DosGame {
                 [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
             }
         }
-
+        let color = null;
         switch (card.value) {
             case 'plus_2':
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
+
                 this.nextPlayer();
-                // this.nextPlayer();
 
                 break;
             case 'changement_sens':
@@ -148,7 +149,7 @@ class DosGame {
 
                 this.currentPlayerIndex = this.players.findIndex(p => p.name === player.name);
                 console.log(`Le sens du jeu est maintenant : ${this.players[0].name === player.name ? 'normal' : 'reverse'}`);
-                // this.nextPlayer();
+
                 break;
 
             case 'interdiction':
@@ -156,28 +157,26 @@ class DosGame {
                 this.io.emit('toggle deck', this.getCurrentPlayer().uid);
                 break;
             case 'changement_couleur':
-                // this.currentColor = player.chooseColor();
+                await this.io.emit('toggleModal', player.uid);
+
                 break;
             case 'plus_4':
+                await this.io.emit('toggleModal', player.uid);
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
                 this.getNextPlayer().draw(this.deck, this);
-                this.io.emit('toggle deck', this.getCurrentPlayer().uid);
                 this.nextPlayer();
-
-                // this.currentColor = player.chooseColor();
                 break;
         }
 
         if (player.hand.length === 0) {
             this.endGame(player);
         }
-        console.log(this.getPlayersOrder())
+
         this.nextPlayer();
         this.io.emit('toggle deck', this.getCurrentPlayer().uid);
     }
-
 
     start() {
         console.log('JEU CRÉÉ !');

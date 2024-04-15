@@ -162,8 +162,12 @@ io.on('connection', (socket) => {
         callback(obj);
     });
 
-    socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+    // socket.on('chat message', (msg) => {
+    //     io.emit('chat message', msg);
+    // });
+
+    socket.on('listPlayers', (callback) => {
+        callback(Array.from(users.values()));
     });
 
     const DosSocket = require('./public/src/js/server/DosSocket');
