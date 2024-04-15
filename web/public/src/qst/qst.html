@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <div style="display: none" class="qst-showing">
+    <div class="qst-showing">
 
         <div class="bar-loading">
 
@@ -36,7 +36,7 @@
 
     </div>
 
-    <div class="resp-showing">
+    <div style="display: none" class="resp-showing">
 
         <div class="grid-resp">
 
@@ -268,7 +268,7 @@
 
             <h2>Réponse :</h2>
 
-            <h1>A - Réponse A</h1>
+            <h1 id="resp-show-go">A - Réponse A</h1>
 
         </div>
 
@@ -276,7 +276,7 @@
 
             <div class="start">
 
-                <button class="ap">Faire appel</button>
+                <button onclick="openRespQst()" id="appel_btn_ap" class="ap">Faire appel</button>
 
             </div>
 
@@ -284,7 +284,7 @@
 
                 <p>Encore <span id="next_pers">1</span> personne à valider</p>
 
-                <button class="next">Suivant</button>
+                <button onclick="passerSuivantManche()" id="mc-qst" class="next">Suivant</button>
 
             </div>
 
@@ -294,27 +294,53 @@
 
             <div class="ins-modal">
 
-                <h1><b>Klément</b> à fait appel</h1>
+                <h1><b id="user_appel">Klément</b> à fait appel</h1>
 
                 <div class="bar-hr"></div>
 
-                <h3>Question :</h3>
+                <h3>Résultat des délibérations :</h3>
 
-                <h2>Ceci est toujours un exemple de question</h2>
+                <div class="prt-show-vote">
 
-                <h3>Sa réponse :</h3>
 
-                <h2>Réponse vrai ou fausse ? A vous de jugez</h2>
+                    <div class="no-vote" style="width: 40%">
+                        <h3>Refusé</h3>
 
-                <div class="act-btn">
+                        <p>40%</p>
+                    </div>
 
-                    <button class="no"><p>Refuser</p></button>
+                    <div class="yes-vote" style="width: 60%">
 
-                    <button class="yes"><p>Valider</p></button>
+                        <h3>Accepté</h3>
+
+                        <p>60%</p>
+
+                    </div>
 
                 </div>
 
-                <p class="rest">Encore <span>4</span> joueur à voter</p>
+                <div class="other">
+
+                    <h3>Question :</h3>
+
+                    <h2 id="qst_appel">Ceci est toujours un exemple de question</h2>
+
+                    <h3>Sa réponse :</h3>
+
+                    <h2 id="resp_appel">Réponse vrai ou fausse ? A vous de jugez</h2>
+
+                    <div class="act-btn">
+
+                        <button onclick="reponseAppelQst('no')" class="no"><p>Refuser</p></button>
+
+                        <button onclick="reponseAppelQst('yes')" class="yes"><p>Valider</p></button>
+
+                    </div>
+
+                    <p class="rest">Encore <span id="players_rest_appel">4</span> joueur à voter</p>
+
+                </div>
+
 
             </div>
 
@@ -362,7 +388,7 @@
 
     </div>
 
-    <script src="../js/front/qst.js"></script>
+    <script type="module" src="../js/front/qst.js"></script>
 
 </body>
 </html>

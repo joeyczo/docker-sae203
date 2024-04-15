@@ -22,6 +22,7 @@ const jeux = require('./public/src/utils/jeu.json');
 const {DosGame , Player} = require("./public/src/js/server/DosGame");
 const {SimonGame} = require("./public/src/js/server/SimonGame");
 const {MemoryGame} = require("./public/src/js/server/MemoryGame");
+const {QstGame} = require("./public/src/js/server/QstGame");
 
 const maxPoints = 10;
 
@@ -79,6 +80,7 @@ let game = new Game();
 let dosGame = new DosGame(io);
 let simonGame = new SimonGame(io);
 let memoryGame = new MemoryGame(io);
+let qstGame = new QstGame(io);
 
 
 io.on('connection', (socket) => {
@@ -159,6 +161,7 @@ io.on('connection', (socket) => {
             dosGame = new DosGame(io);
             simonGame = new SimonGame(io);
             memoryGame = new MemoryGame(io);
+            qstGame = new QstGame(io);
         }
     });
 
@@ -190,6 +193,9 @@ io.on('connection', (socket) => {
 
     const MemorySocket = require('./public/src/js/server/MemorySocket');
     MemorySocket(socket, memoryGame, io, users);
+
+    const QstSocket = require('./public/src/js/server/QstSocket');
+    QstSocket(socket, qstGame, io, users);
 
 });
 
@@ -235,6 +241,10 @@ app.get('/simon', (req, res) => {
 
 app.get('/memory', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/memory/memory.html'));
+});
+
+app.get('/qst', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/qst/qst.html'));
 });
 
 var port = process.env.port || 7696

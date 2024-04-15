@@ -309,7 +309,7 @@
   {
     "question" : "Quelle est la valeur ascii de A",
     "type"     : 1,
-    "reponse"  : [ "A" ],
+    "reponse"  : [ "65" ],
     "diff"     : 1
   },
 
@@ -339,7 +339,7 @@
   {
     "question" : "Quel est le processus bioénergétique qui permet à des organismes de synthétiser de la matière organique en utilisant l'énergie lumineuse, l'eau et le dioxyde de carbone",
     "type"     : 1,
-    "reponse"  : ["LA PHOTOSYNTHESE", "PHOTOSYNTESE"],
+    "reponse"  : ["LA PHOTOSYNTHESE", "PHOTOSYNTHESE"],
     "diff"     : 2
   },
 
@@ -353,7 +353,7 @@
   {
     "question" : "Quelle est la date de couronnement Clovis 1er",
     "type"     : 1,
-    "reponse"  : [481],
+    "reponse"  : ["481"],
     "diff"     : 2
   },
 
@@ -431,7 +431,7 @@
   },
 
   {
-    "question" : "Écrivez π jusqu'à cind chiffre après la virgule 3.",
+    "question" : "Écrivez π jusqu'à cinq chiffre après la virgule 3.",
     "type"     : 1,
     "reponse"  : ["3.14159", "3,14159", "14159"],
     "diff"     : 2
