@@ -225,8 +225,8 @@ app.get('/memory', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/memory/memory.html'));
 });
 
-server.listen(8080, () => {
-    console.log('server running at http://localhost:8080');
+server.listen(7696, () => {
+    console.log(`server running at http://localhost:${7696}`);
 });
 
 // doc https://socket.io/docs/v4/tutorial/step-4

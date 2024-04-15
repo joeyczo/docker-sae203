@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - NB_JOUEUR=nbJoueur
-      - NB_PARTIE=nbPartie
+      - NB_JOUEUR=3
+      - NB_PARTIE=3
     volumes:
       - .:/usr/src/app
     ports:
-      - 8080:8080
+      - 7696:7696
