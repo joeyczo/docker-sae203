@@ -14,15 +14,113 @@
 
     <div class="simon">
 
-        <div class="prt-simon">
+        <div class="prt-simon disabled"> <!-- Ajout class disabled quand c'est pas le tour de l'utilisateur -->
 
-            <div class="item f1"></div>
-            <div class="item f2"></div>
-            <div class="item f3"></div>
-            <div class="item f4"></div>
+            <div class="disp-formes">
 
+                <div id="f1" class="item f1 dis"></div>
+                <div id="f2" class="item f2 dis"></div>
+                <div id="f3" class="item f3 dis"></div>
+                <div id="f4" class="item f4 dis"></div>
+
+            </div>
+
+            <h2>C'est au tour de :</h2>
+
+            <h1 id="player-name-tour">Chargement en cours ...</h1>
 
         </div>
+
+        <div class="list-player">
+
+            <div class="item">
+
+                <div class="icon">
+
+                    <img src="../img/player.svg" alt="Joueur" draggable="false">
+
+                </div>
+
+                <div class="infos">
+
+                    <p>...</p>
+
+                </div>
+
+            </div>
+
+
+            <!--<div class="infos-tours">
+
+                <h2>C'est à toi dans :</h2>
+
+                <h1>4 tours !</h1>
+
+            </div>-->
+
+        </div>
+
+        <div class="malus-infos">
+
+            <h1>Malus</h1>
+
+            <p>Vous ne voyez plus les couleurs pendant 2 minutes</p>
+
+            <p class="user">Par ....</p>
+
+        </div>
+
+        <div class="modal-infos">
+
+            <div class="win">
+
+                <h1>Victoire !</h1>
+
+                <p>Vous avez gagné la partie !</p>
+
+            </div>
+
+            <div class="loose">
+
+                <h1>Défaite ...</h1>
+
+                <p>Vous avez perdu la partie !<br>Attendez que les autres joueurs terminent !</p>
+
+            </div>
+
+        </div>
+
+        <div class="modal-consigne">
+
+            <div class="prt">
+
+                <h1>Consigne du jeu</h1>
+
+                <p>Le jeu Simon consiste à reproduire une séquence de couleurs de plus en plus longue. Chaque joueur doit reproduire la séquence de son prédécesseur. Si un joueur se trompe, il est éliminé. Le dernier joueur restant gagne la partie.</p>
+
+                <div class="malus">
+
+                    <p>MALUS</p>
+
+                </div>
+
+                <p>Le joueur qui possède le malus ne verra aucune couleur pendant les 2 premières minutes de la partie</p>
+
+                <div class="end">
+
+                    <p>Encore <span id="count_joueur_see">0</span> joueurs à valider</p>
+
+                    <button id="btn_regle" onclick="readedRegleSimon()">Compris !</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+        <script type="module" src="../js/front/simon.js"></script>
 
     </div>
 

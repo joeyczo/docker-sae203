@@ -1,37 +1,16 @@
 [
   {
-    "question" : "ENONCE || 0 = QCM",
-    "type"     : 0,
-    "sets"     : [
-      "Réponse A",
-      "Réponse B",
-      "Réponse C",
-      "Reponse D"
-    ],
-    "reponse" : 2,
-    "diff"    : 1,
-    "indice"  : "Indice après x temps"
-  },
-
-  {
-    "question" : "ENONCE || 1 = Ouverte",
-    "type"     : 1,
-    "reponse" : ["REPONSE"],
-    "diff"    : 1
-  },
-
-  {
-    "question" : "ENONCE || 2 = Vrai/Faux",
-    "type"     : 2,
-    "reponse" : "0 : Faux | 1 Vrai",
-    "diff"    : 1
-  },
-
-  {
     "question" : "Quelle peinture célèbre a peint Léonard de Vinci ?",
     "type"     : 1,
     "reponse"  : ["JOCONDE", "LA JOCONDE"],
     "diff"     : 0
+  },
+
+  {
+    "question": "6+9*2*2+3",
+    "type": 1,
+    "reponse": ["45"],
+    "diff": 0
   },
 
   {
@@ -43,7 +22,6 @@
       "L'océan Atlantique",
       "L'océan Arctique",
       "L'océan Antarctique"
-
     ],
     "reponse" : 0,
     "diff"    : 0
@@ -78,6 +56,70 @@
   },
 
   {
+    "question" : "Capitaine Flam est le plus vieille animé.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Un aveugle voit dans une boule de cristal.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Le requin est l’animal le plus dangereux pour l’homme.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Les huîtres peuvent changer de sexe au moment de l’accouplement.",
+    "type"     : 2,
+    "reponse"  : 1,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Le Mont Fuji au Japon est un volcan.",
+    "type"     : 2,
+    "reponse"  : 1,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "La Corse est la plus grande île de la Méditerranée.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Charles de Gaulle est le 1ᵉʳ président élu de la Cinquième République.",
+    "type"     : 2,
+    "reponse"  : 1,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Le corps humain d’un adulte possède 119 os.",
+    "type"     : 2,
+    "reponse"  : 0,
+    "diff"     : 0
+  },
+
+  {
+    "question" : "Le chocolat est toxique pour les chiens.",
+    "type"     : 2,
+    "reponse"  : 1,
+    "diff"     : 0
+  },
+
+
+  {
     "question" : "Quelle est la capitale de la Russie ?",
     "type"     : 1,
     "reponse"  : ["MOSCOU"],
@@ -85,10 +127,30 @@
   },
 
   {
-    "question" : "Qui à dit \" Parce que c'est notre projet \",",
+    "question" : "Qui à dit \" Parce que c'est notre projet \"",
     "type"     : 1,
     "reponse"  : ["MACRON", "EMMANUEL MACRON"],
     "diff"     : 0
+  },
+
+  {
+    "question" : "Qu'est ce qu'une année bissextile",
+    "type"     : 0,
+    "sets"     : [
+      "Une année où tous le monde doit être bisexuel ",
+      "Un mois de février avec 30 jours",
+      "Une année avec 13 mois",
+      "Une année de 366 jours au lieu de 365"
+    ],
+    "reponse" : 3,
+    "diff"    : 0
+  },
+
+  {
+    "question": "Quel est le nombre total de joueurs dans une partie de football ?",
+    "type": 1,
+    "reponse": ["22"],
+    "diff": 0
   },
 
 
@@ -96,7 +158,39 @@
 
 
 
+  {
+    "question": "Disparition temporaire d'un astre dans l'ombre ou la pénombre d'un autre. De quel phénomène s'agit t'il ?",
+    "type": 1,
+    "reponse": ["ECLIPSE"],
+    "diff": 1
+  },
 
+  {
+    "question": "Combien d'arêtes possède un cube ?",
+    "type": 1,
+    "reponse": ["12"],
+    "diff": 1
+  },
+
+  {
+    "question": "Dans quelle ville se trouve la Tour de Pise ?",
+    "type": 1,
+    "reponse": ["PISE"],
+    "diff": 1
+  },
+
+  {
+    "question": "Laquelle de ces planètes est la plus proche du soleil ?",
+    "type": 0,
+    "sets": [
+      "Vénus",
+      "Mercure",
+      "Mars",
+      "Jupiter"
+    ],
+    "reponse": 1,
+    "diff": 1
+  },
 
   {
     "question" : "Quelle personne naissant le 14 novembre 1961 en Égypte qui est animateur radio-télévision en France, et qui fait une émission à 18h30 sur France 2 ",
@@ -205,14 +299,22 @@
     "diff"    : 1
   },
 
-
-
   {
-    "question" : "Qui est l’auteur de la citation \" Une image vos mieux que mille mots \" ?",
+    "question" : "Qui est l’auteur de la citation \" Une image vaut mille mots \" ?",
     "type"     : 1,
     "reponse"  : [ "CONFUCIUS" ],
     "diff"     : 1
   },
+
+  {
+    "question" : "Quelle est la valeur ascii de A",
+    "type"     : 1,
+    "reponse"  : [ "A" ],
+    "diff"     : 1
+  },
+
+
+
 
 
 
@@ -311,5 +413,78 @@
     ],
     "reponse" : 3,
     "diff"    : 2
+  },
+
+
+
+  {
+    "question" : "Que signifie le mot Fat ?",
+    "type"     : 0,
+    "sets"     : [
+      "La mère de Joey",
+      "Quelque chose qui à la couleur et la consistance de l'ivoire",
+      "Quelqu'un en situation de surpoid causé par un traumatisme quelconque",
+      "Quelqu'un qui montre sa prétention de façon déplaisante et un peu ridicule"
+    ],
+    "reponse" : 1,
+    "diff"    : 2
+  },
+
+  {
+    "question" : "Écrivez π jusqu'à cind chiffre après la virgule 3.",
+    "type"     : 1,
+    "reponse"  : ["3.14159", "3,14159", "14159"],
+    "diff"     : 2
+  },
+
+  {
+    "question": "De qui provient cette citation \"Le courage n'est pas l'absence de peur, mais la capacité de vaincre ce qui fait peur. \"",
+    "type": 1,
+    "reponse": ["MANDELA", "NELSEON MANDELA"],
+    "diff": 2
+  },
+
+  {
+    "question": "Qui dans son livre \"Les Contemplations\" à écrit un hommage à sa fille ? ",
+    "type": 1,
+    "reponse": ["VICTOR HUGO", "HUGO"],
+    "diff": 2
+  },
+
+
+  {
+    "question": "Quelle est la capitale du Zambie ",
+    "type": 1,
+    "reponse": ["LUSAKA"],
+    "diff": 2
+  },
+
+  {
+    "question": "Quelle est la capitale des États-Unis ",
+    "type": 1,
+    "reponse": ["WASHINGTON"],
+    "diff": 2
+  },
+
+  {
+    "question": "Où se situe la route 66 ? ",
+    "type"     : 0,
+    "sets"     : [
+      "OKLAHOMA",
+      "NEW YORK",
+      "WASHINGTON",
+      "DALLAS",
+      "AUSTIN",
+      "CHICAGO"
+    ],
+    "reponse" : 1,
+    "diff"    : 2
+  },
+
+  {
+    "question": "Qui a découvert la gravité ?",
+    "type": 1,
+    "reponse": ["ISAAC NEWTON", "NEWTON"],
+    "diff": 2
   }
 ]

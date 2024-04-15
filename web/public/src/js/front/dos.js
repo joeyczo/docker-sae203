@@ -1,4 +1,3 @@
-
 import changerPanel from '../server/panelChanger.js';
 import socket from '../server/socket.js';
 
@@ -62,9 +61,19 @@ window.animCarteJeu = id => {
 
     const player = statusDuJeu.players.find(p => p.uid === monNom.uid);
     const card = player.hand[id];
+    // Vérifier si c'est le tour du joueur
+    if (!player.isMyTurn(statusDuJeu)) {
+        console.log('Ce n\'est pas votre tour:', player.name);
+        return;
+    }
 
+    // Vérifier si la carte peut être jouée
+    if (card.color !== 'special' && (statusDuJeu.currentColor !== card.color && statusDuJeu.currentValue !== card.value)) {
+        console.log('La carte ne peut pas être jouée:', card);
+        return;
+    }
     console.log(card);
-    socket.emit('carte clic', { player: player, card: card });
+    socket.emit('carte clic', {player: player, card: card});
 
 
     // annime
@@ -104,6 +113,15 @@ window.animCarteJeu = id => {
  * Déclenche l'animation de pioche pour le joueur
  */
 window.animePioche = () => {
+
+    const player = statusDuJeu.players.find(p => p.uid === monNom.uid);
+
+    // Vérifier si c'est le tour du joueur
+    if (!player.isMyTurn(statusDuJeu)) {
+        console.log('Ce n\'est pas votre tour:', player.name);
+        return;
+    }
+
     socket.emit('draw card', monNom.uid);
 
     var randK = randomUID(10);
@@ -157,7 +175,6 @@ window.animeOtherPioche = index => {
 }
 
 
-
 // Les toggles :
 
 /**
@@ -165,29 +182,53 @@ window.animeOtherPioche = index => {
  */
 window.toggleModal = () => {
 
-    if ($(".modal").is(':visible')) {
-        $(".modal").fadeOut();
+    if ($(".modal").css('display') === 'none') {
+        $(".modal").css('display', 'block');
+
+
+// Choix Couleur
+        let items = document.querySelectorAll('.selector .item');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                let style = window.getComputedStyle(item);
+                let color = style.background;
+                switch (true) {
+                    case color.startsWith('linear-gradient(159deg, rgb(236, 0, 0)'):
+                        color = "rouge"
+                        break;
+                    case color.startsWith('linear-gradient(158deg, rgb(1, 204, 9)'):
+                        color = "vert"
+                        break;
+                    case color.startsWith('linear-gradient(157deg, rgb(0, 107, 205)'):
+                        color = "bleu"
+                        break;
+                    case color.startsWith('linear-gradient(158deg, rgb(240, 233, 51)'):
+                        color = "jaune"
+                        break;
+                }
+                socket.emit('colorChoisi', color);
+                $(".modal").css('display', 'none')
+            });
+        });
     } else {
-        $(".modal").fadeIn();
+        $(".modal").css('display', 'none');
     }
+
 }
 
 /**
  * Permet d'activer ou de désactiver le deck du joueur
  */
-window.toggleDeck = () => {
-
-    if ($(".deck").hasClass('disabled')) {
+window.toggleDeck = (currentPlayerUID) => {
+    if (currentPlayerUID === monNom.uid) {
         $(".deck").removeClass('disabled');
     } else {
         $(".deck").addClass('disabled');
     }
-
 }
-
 var statusDuJeu;
 var monNom;
-
 
 socket.emit('getName', (user) => {
     console.log('Vous êtes : ', user);
@@ -206,6 +247,12 @@ socket.on('dos game debut', async (state) => {
     statusDuJeu = state;
     console.log(state.players.length);
 
+    statusDuJeu.players.forEach(player => {
+        player.isMyTurn = function (game) {
+            return this.uid === game.currentPlayer.uid;
+        };
+    });
+
     playersHTMLRight = '';
     playersHTMLLeft = '';
 
@@ -216,6 +263,9 @@ socket.on('dos game debut', async (state) => {
             playersHTMLLeft += generatePlayerHTML(player);
         }
     });
+    document.getElementById('joueurQuiDoisJouer').style.color = statusDuJeu.currentPlayer.uid === monNom.uid ? 'green' : 'red';
+    document.getElementById('joueurQuiDoisJouer').innerHTML = statusDuJeu.currentPlayer.uid === monNom.uid ? "Vous !" : statusDuJeu.currentPlayer.name;
+    ;
 
     document.querySelector('.player-right').innerHTML = playersHTMLRight;
     document.querySelector('.player-left').innerHTML = playersHTMLLeft;
@@ -224,6 +274,8 @@ socket.on('dos game debut', async (state) => {
         <div class="active" style="background-image: url('../img/uno/${statusDuJeu.currentColor}_${statusDuJeu.currentValue}.svg')"></div>
     `;
 
+
+    document.getElementById('monNom').textContent = "Vous êtes : " + monNom.name;
     document.querySelector('.cartes').innerHTML = activeCardHTML;
 
     document.querySelector('.deck').innerHTML = generatePlayerDeckHTML(monNom.uid);
@@ -246,6 +298,18 @@ socket.on('other player drew card', (playerUID) => {
         console.log('Joueur non trouvé:', playerUID);
     }
 });
+
+
+socket.on('toggleModal', (playerUID) => {
+    if (playerUID === monNom.uid) {
+        window.toggleModal();
+    }
+});
+
+socket.on('toggle deck', (playerUID) => {
+    window.toggleDeck(playerUID);
+});
+
 
 document.querySelector('.player-right').innerHTML = playersHTMLRight;
 document.querySelector('.player-left').innerHTML = playersHTMLLeft;
@@ -288,3 +352,6 @@ function generatePlayerDeckHTML(playerUID) {
     });
     return deckHTML;
 }
+
+
+

@@ -75,13 +75,33 @@ var playerLeft = name => {
 
 }
 
+var element = document.querySelector('.btn-changename');
+
+if (element != null){
+    element.addEventListener('click', () => {
+        localStorage.clear();
+        window.location.href = '/';
+    });
+}
+
+var changementJoueur = (joueur, nbMax, players) => {
+
+    socket.emit('listPlayers', players => {
+        console.log(players);
+        var playerNames = players.map(player => player.name).join(', ');
+        $(".indice").html(`${joueur}/${nbMax}`);
+        $(".playerNames").html(`${playerNames}`)
+    });
+}
+
+
 socket.emit('getName', (user) => {
-    console.log('Vous êtes : ', user);
+    console.log('Vous êtes : ', user.name);
 });
+
 socket.emit('envVars', envVars => {
     const nbMax = envVars.nbJoueur;
     const nbplayer = envVars.playersCount;
-
     console.log(nbplayer + " / " +  nbMax)
     changementJoueur( nbplayer, nbMax);
 })
@@ -96,7 +116,6 @@ socket.on('player joined', (name, envVars) => {
     changementJoueur( nbplayer, nbMax);
 
 });
-
 socket.on('player left', (name, envVars) => {
 
     playerLeft(name);
@@ -105,12 +124,6 @@ socket.on('player left', (name, envVars) => {
     console.log(nbplayer + " / " +  nbMax)
     changementJoueur( nbplayer, nbMax);
 });
-
-var changementJoueur = (joueur, nbMax) => {
-
-    $(".indice").html(`${joueur}/${nbMax}`);
-
-}
 
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);

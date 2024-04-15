@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Memory | Plateaux</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/s2.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+
+    <div class="memory">
+        
+        <div class="prt-memory">
+            
+            <div class="plateau disabled"> <!-- Class disabled quand c'est pas le tour de l'utilisateur -->
+
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                <div class="card">
+                    <div class="face" style="background-image: url('../img/memory/04_me.svg')"></div>
+                    <div class="fond"></div>
+                </div>
+                
+            </div>
+
+            <div class="infos">
+
+                <h2>C'est au tour de :</h2>
+
+                <h1 id="player_round">Chargement en cours ...</h1>
+
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <div class="modal-infos">
+
+        <div class="win">
+
+            <h1>Fin du jeu !</h1>
+
+            <p>Les scores vont bientôt être affichés !</p>
+
+        </div>
+
+        <div class="loose">
+
+            <h1>Défaite ...</h1>
+
+            <p>Vous avez perdu la partie !<br>Attendez que les autres joueurs terminent !</p>
+
+        </div>
+
+    </div>
+
+    <div class="malus-infos">
+
+        <h1>Malus</h1>
+
+        <p>Votre première paire sera donnée à Klément</p>
+
+        <p class="user">Par ....</p>
+
+    </div>
+
+    <div class="list-player">
+
+        <div class="item">
+
+            <div class="icon">
+
+                <img src="../img/player.svg" alt="Joueur" draggable="false">
+
+            </div>
+
+            <div class="infos">
+
+                <p>...</p>
+
+            </div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="icon">
+
+                <img src="../img/player.svg" alt="Joueur" draggable="false">
+
+            </div>
+
+            <div class="infos">
+
+                <p>...</p>
+
+            </div>
+
+        </div>
+
+        <div class="item">
+
+            <div class="icon">
+
+                <img src="../img/player.svg" alt="Joueur" draggable="false">
+
+            </div>
+
+            <div class="infos">
+
+                <p>...</p>
+
+            </div>
+
+        </div>
+
+
+        <!--<div class="infos-tours">
+
+            <h2>C'est à toi dans :</h2>
+
+            <h1>4 tours !</h1>
+
+        </div>-->
+
+    </div>
+
+    <div class="modal-consigne">
+
+        <div class="prt">
+
+            <h1>Consigne du jeu</h1>
+
+            <p>Le but du jeu est de retrouver les paires de cartes identiques. Si vous trouvez une paire, vous avez le droit de rejouer. Si vous ne trouvez pas de paire, c'est au tour du joueur suivant.</p>
+
+            <div class="malus">
+
+                <p>MALUS</p>
+
+            </div>
+
+            <p>Le joueur qui possède le malus donnera sa première paire au joueur qui l'a appliquée</p>
+
+            <div class="end">
+
+                <p>Encore <span id="player_reste">0</span> joueurs à valider</p>
+
+                <button onclick="playerReadedRule()" id="btn_rules">Compris !</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="../js/front/memory.js"></script>
+    
+</body>
+</html>
