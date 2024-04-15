@@ -194,16 +194,16 @@ window.toggleModal = () => {
                 let style = window.getComputedStyle(item);
                 let color = style.background;
                 switch (true) {
-                    case color.startsWith('linear-gradient(159deg, rgb(236, 0, 0)'):
+                    case color.includes('linear-gradient(159deg, rgb(236, 0, 0)'):
                         color = "rouge"
                         break;
-                    case color.startsWith('linear-gradient(158deg, rgb(1, 204, 9)'):
+                    case color.includes('linear-gradient(158deg, rgb(1, 204, 9)'):
                         color = "vert"
                         break;
-                    case color.startsWith('linear-gradient(157deg, rgb(0, 107, 205)'):
+                    case color.includes('linear-gradient(157deg, rgb(0, 107, 205)'):
                         color = "bleu"
                         break;
-                    case color.startsWith('linear-gradient(158deg, rgb(240, 233, 51)'):
+                    case color.includes('linear-gradient(158deg, rgb(240, 233, 51)'):
                         color = "jaune"
                         break;
                 }
