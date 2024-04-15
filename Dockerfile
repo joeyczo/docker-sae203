@@ -28,3 +28,16 @@ CMD [ "npm", "start" ]
 # sudo docker build -t plateau .
 #RUN :
 # sudo docker run -p 7696:7696 -v $(pwd):/usr/src/app -e NB_JOUEUR=nbJoueur -e NB_PARTIE=nbPartie -it plateau
+    # sudo docker run -p 7696:7696 -v $(pwd):/usr/src/app -e NB_JOUEUR=2 -e NB_PARTIE=2 -it plateau
+
+#Supprimer tout :
+
+# docker stop $(docker ps -a -q)
+# docker rm $(docker ps -a -q)
+# images :
+# docker rmi $(docker images -q)
+
+#Supprimer plateaux
+# docker stop $(docker ps -a -q --filter ancestor=plateaux)
+# docker rm $(docker ps -a -q --filter ancestor=plateaux)
+# docker rmi $(docker images -q --filter reference=plateaux)
