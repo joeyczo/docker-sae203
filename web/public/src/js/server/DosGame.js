@@ -187,6 +187,9 @@ class DosGame {
 
         let firstCard;
         do {
+            if (this.deck.length === 0) {
+                this.deck = this.createDeck();
+            }
             firstCard = this.deck.pop();
         } while (firstCard.color === 'special');
 
