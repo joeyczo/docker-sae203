@@ -70,3 +70,5 @@ socket.on('hello', (arg) => {
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);
 });
+
+

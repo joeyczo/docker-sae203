@@ -2,9 +2,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
-const {createServer} = require('node:http');
-const {join} = require('node:path');
-const {Server} = require('socket.io');
+const { createServer } = require('http');
+const { join } = require('path');
+const { Server } = require('socket.io');
 const cors = require('cors');
 
 const app = express();
@@ -17,6 +17,7 @@ const io = new Server(server);
 
 
 const users = new Map();
+const tabMsg = new Map();
 const jeux = require('./public/src/utils/jeu.json');
 
 const {DosGame, Player} = require("./public/src/js/server/DosGame");
@@ -185,9 +186,13 @@ io.on('connection', (socket) => {
         callback(obj);
     });
 
-    // socket.on('chat message', (msg) => {
-    //     io.emit('chat message', msg);
-    // });
+    /**
+    *
+    * Prend une liste avec : nom client avec le message et le renvoie à tous les utilisateurs
+    */
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
 
     socket.on('listPlayers', (callback) => {
         callback(Array.from(users.values()));
