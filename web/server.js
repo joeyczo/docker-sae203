@@ -41,6 +41,7 @@ class Game {
     constructor() {
         this.players = [];
         this.maxPlayers = parseInt(process.env.NB_JOUEUR);
+        this.gameCount = 0;
     }
 
     addPlayer(player) {
@@ -59,6 +60,16 @@ class Game {
             for (const user of users.values()) {
                 console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
             }
+        }
+    }
+
+    end() {
+        this.gameCount++;
+        if (this.gameCount > env.nbPartie) {
+            console.log("Fin de la session de jeu");
+        } else {
+            console.log("Prêt pour la prochaine partie !");
+            io.emit('changerPanel', 'wait')
         }
     }
 }
@@ -143,6 +154,7 @@ io.on('connection', (socket) => {
 
         if (users.size === 0) {
             gameStarted = false;
+            // game.end();
             console.log("Relancement du jeu !");
             dosGame = new DosGame(io);
             simonGame = new SimonGame(io);
