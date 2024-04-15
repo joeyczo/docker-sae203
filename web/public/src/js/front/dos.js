@@ -310,14 +310,20 @@ socket.on('toggle deck', (playerUID) => {
     window.toggleDeck(playerUID);
 });
 
+socket.on('remaining time', (time) => {
+    const remainingTimeInSeconds = Math.round(time / 1000);
+    console.log('Temps restant avant expulsion', remainingTimeInSeconds, 'secondes');
+    $('#remaining-time').text(remainingTimeInSeconds + " secondes restante avant kick auto");
+});
 
 document.querySelector('.player-right').innerHTML = playersHTMLRight;
 document.querySelector('.player-left').innerHTML = playersHTMLLeft;
 
 function generatePlayerHTML(player) {
+
     let html = `
-        <div class="items">
-            <div class="infos">
+        <div class="items"> 
+            <div class="infos ${player.uid === statusDuJeu.currentPlayer.uid ? 'actif' : ''}">
                 <div class="img"><img src="../img/player.svg" alt="IMAGE"></div>
                 <h1>${player.name}</h1>
             </div>

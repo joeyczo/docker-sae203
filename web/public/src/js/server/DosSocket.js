@@ -13,8 +13,8 @@ module.exports = function DosSocket(socket, dosGame, io, users, game, obj, env, 
         // console.log("CARTE RECU : ", card);
         const playerInstance = dosGame.players.find(p => p.uid === player.uid);
         if (playerInstance) {
+            playerInstance.derniereInteraction = Date.now();
             dosGame.playCard(playerInstance, card);
-            // console.log('JEU ! : :', dosGame.getState());
             io.emit('dos game debut', dosGame.getState());
         } else {
             console.log('Joueur non trouvé:', player.uid);

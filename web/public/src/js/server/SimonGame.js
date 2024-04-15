@@ -45,6 +45,16 @@ class SimonGame
         console.log(this.players);
     }
 
+
+    /**
+     * Retire un joueur
+     * @param uid
+     */
+    removePlayer(uid) {
+        this.players = this.players.filter(player => player.uid !== uid);
+    }
+
+
     /**
      * Permet de générer un tableau d'ordre pour le jeu Simon
      */

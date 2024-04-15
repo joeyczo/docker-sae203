@@ -8,6 +8,7 @@ async function changerPanel(panel) {
         } else {
             let text = await result.text();
             $("body").html(text);
+            console.log("Changement de panel")
         }
     } catch (e) {
         console.log('il ya un prblm: ' + e.message);

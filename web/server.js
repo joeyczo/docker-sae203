@@ -19,7 +19,7 @@ const io = new Server(server);
 const users = new Map();
 const jeux = require('./public/src/utils/jeu.json');
 
-const {DosGame , Player} = require("./public/src/js/server/DosGame");
+const {DosGame, Player} = require("./public/src/js/server/DosGame");
 const {SimonGame} = require("./public/src/js/server/SimonGame");
 const {MemoryGame} = require("./public/src/js/server/MemoryGame");
 const {QstGame} = require("./public/src/js/server/QstGame");
@@ -54,6 +54,10 @@ class Game {
         }
     }
 
+    removePlayer(uid) {
+        this.players = this.players.filter(player => player.uid !== uid);
+    }
+
     start() {
         if (this.players.length === this.maxPlayers) {
             gameStarted = true;
@@ -74,7 +78,6 @@ class Game {
         }
     }
 }
-
 
 let game = new Game();
 let dosGame = new DosGame(io);
@@ -138,7 +141,7 @@ io.on('connection', (socket) => {
 
             setTimeout(() => {
                 io.emit('changerPanel', obj.name.toLowerCase());
-            }, 5000);
+            }, 4000);
         }
     });
 
@@ -147,7 +150,12 @@ io.on('connection', (socket) => {
         users.delete(socket.id);
 
         if (name) {
-            game.players = game.players.filter(player => player.uid !== name.uid);
+
+            game.removePlayer(name.uid);
+            dosGame.removePlayer(name.uid);
+            simonGame.removePlayer(name.uid);
+            memoryGame.removePlayer(name.uid);
+            console.log(`Nom utilisateur: ${name.name} ${name.uid}` + " a quitté la partie")
             io.emit('player left', name, env);
         }
 
@@ -200,6 +208,43 @@ io.on('connection', (socket) => {
 });
 
 
+setInterval(() => {
+    const now = Date.now();
+    const timeout = 2 * 60 * 1000;
+    console.log("Vérification des utilisateurs!")
+    for (const [socketId, player] of users.entries()) {
+        const tempsPasse = now - player.derniereInteraction;
+        const tempsRestant = timeout - tempsPasse;
+        io.to(socketId).emit('remaining time', tempsRestant);
+
+        if (tempsPasse > timeout) {
+            console.log(`Utilisateur ${player.name} : ${player.uid} a été exclu`)
+
+            // Vérifiez si le jeu a un joueur actuel et si le joueur déconnecté était le joueur actuel
+            const currentPlayer = dosGame.getCurrentPlayer();
+            if (currentPlayer && currentPlayer.uid === player.uid) {
+                // methodes dosGame
+                dosGame.nextPlayer();
+                io.emit('toggle deck', dosGame.getCurrentPlayer().uid);
+                io.emit('dos game debut', dosGame.getState());
+                // TODO : a voir ....
+            }
+
+            game.removePlayer(player.uid);
+            dosGame.removePlayer(player.uid);
+            io.to(socketId).emit('changerPanel', 'exclusion');
+            io.sockets.sockets.get(socketId).disconnect(true);
+
+            // TODO : Joey a voir !
+            // simonGame.nextPlayer();
+            // simonGame.removePlayer(player.uid);
+            // memoryGame.nextPlayer();
+            // memoryGame.removePlayer(player.uid);
+            users.delete(socketId);
+        }
+    }
+}, 5 * 1000);
+
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/index.html'));
 });
@@ -221,6 +266,11 @@ app.get('/Erreur', (req, res) => {
 app.get('/JeuLaunch', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/JeuLaunch.html'));
 });
+
+app.get('/exclusion', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/panels/exclusion.html'));
+});
+
 app.get('/reboot', (req, res) => {
     gameStarted = false;
     users.clear();
