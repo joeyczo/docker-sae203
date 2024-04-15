@@ -10,6 +10,7 @@ class Player {
         this.name = name;
         this.uid = uid;
         this.hand = [];
+        this.derniereInteraction = Date.now();
     }
     draw(deck, game) {
         if (deck.length === 0) {
@@ -25,7 +26,8 @@ class Player {
     }
 
     play(cardIndex) {
-        return this.hand.splice(cardIndex, 1)[0];
+        return this.hand.splice(cardIndex, 1)[0]
+
     }
 
     sortHand() {
@@ -62,6 +64,10 @@ class DosGame {
 
     addPlayers(players) {
         this.players = players;
+    }
+
+    removePlayer(uid) {
+        this.players = this.players.filter(player => player.uid !== uid);
     }
 
     dealCards() {
@@ -197,7 +203,11 @@ class DosGame {
         this.currentColor = firstCard.color;
         this.currentValue = firstCard.value;
 
-        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
+        // Check if a current player exists before trying to access its uid property
+        const currentPlayer = this.getCurrentPlayer();
+        if (currentPlayer) {
+            this.io.to(currentPlayer.uid).emit('toggle deck');
+        }
     }
 
     getCurrentPlayer() {

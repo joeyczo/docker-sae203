@@ -71,6 +71,14 @@ class MemoryGame {
     }
 
     /**
+     * Retire un joueur
+     * @param uid
+     */
+    removePlayer(uid) {
+        this.players = this.players.filter(player => player.uid !== uid);
+    }
+
+    /**
      * Démarrer le jeu
      */
     startGame()
