@@ -2127,6 +2127,125 @@ body
         height: 180px;
         background-size: 100% auto;
     }
+    .chat
+    {
+        display: none;
+    }
+    /* TODO : Page ranking de merde */
+    .modal-consigne .prt
+    {
+        max-width: 85vw;
+    }
+    .modal-consigne .prt p
+    {
+        font-size: 16px;
+    }
+    .modal-consigne .prt .malus
+    {
+        margin: 0;
+    }
+    .modal-consigne .prt .end p
+    {
+        font-size: 12px;
+    }
+    .simon .prt-simon .disp-formes
+    {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+    }
+    .simon .prt-simon .item
+    {
+        width: 120px;
+        height: 120px;
+        margin: 0;
+    }
+    .simon .prt-simon h2
+    {
+        font-size: 20px;
+    }
+    .simon .prt-simon h1
+    {
+        font-size: 35px;
+        text-align: center;
+    }
+    .list-player
+    {
+        padding: 10px;
+    }
+    .list-player .item .icon
+    {
+        width: 50px;
+        height: 50px;
+    }
+    .list-player .item:first-child .icon
+    {
+        width: 50px;
+        height: 50px;
+    }
+    .list-player .item:first-child .icon img, .list-player .item .icon img
+    {
+        height: 30px;
+    }
+    .list-player .item .infos
+    {
+        margin: 5px 0;
+    }
+    .list-player .item .infos p
+    {
+        font-size: 17px;
+        max-width: 12vw;
+    }
+    .memory .prt-memory .plateau
+    {
+        width: 95vw;
+        height: 55vh;
+        overflow: auto;
+    }
+    .memory .prt-memory .infos h2
+    {
+        font-size: 18px;
+    }
+    .memory .prt-memory .infos h1
+    {
+        font-size: 30px;
+        text-align: center;
+    }
+    .qst-showing .disp-qst h1
+    {
+        font-size: 35px;
+    }
+    .qst-showing .res-qst
+    {
+        padding: 40px 5px;
+    }
+    .qst-showing .res-qst .input input
+    {
+        width: 95%;
+    }
+    .qst-showing .res-qst .input input
+    {
+        font-size: 20px;
+    }
+    .qst-showing .res-qst .trfl
+    {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .qst-showing .res-qst .trfl button
+    {
+        margin: 7px 10px;
+        padding: 15px 0;
+        width: auto;
+    }
+    .qst-showing .res-qst .qcm .choix .index
+    {
+        font-size: 20px;
+    }
+    .qst-showing .res-qst .qcm .choix p
+    {
+        font-size: 17px;
+    }
 
 }
 
