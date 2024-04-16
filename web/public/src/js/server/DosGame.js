@@ -177,7 +177,7 @@ class DosGame {
         }
 
         if (player.hand.length === 0) {
-            this.endGame(player);
+            this.endGameDos(player);
         }
 
         this.nextPlayer();
@@ -185,8 +185,8 @@ class DosGame {
     }
 
     start() {
-        console.log('JEU CRÉÉ !');
-        console.log(this.getPlayersOrder())
+        // console.log('JEU CRÉÉ !');
+        // console.log(this.getPlayersOrder())
         this.started = true;
         this.deck = this.createDeck();
         this.dealCards();
@@ -203,7 +203,10 @@ class DosGame {
         this.currentColor = firstCard.color;
         this.currentValue = firstCard.value;
 
-        // Check if a current player exists before trying to access its uid property
+        for (let player of this.players) {
+            player.derniereInteraction = Date.now();
+        }
+
         const currentPlayer = this.getCurrentPlayer();
         if (currentPlayer) {
             this.io.to(currentPlayer.uid).emit('toggle deck');
@@ -245,14 +248,16 @@ class DosGame {
     }
 
     getPlayersOrder() {
-        // Create a new array starting with the current player and continuing with the rest of the players in order
+
         const order = [...this.players.slice(this.currentPlayerIndex), ...this.players.slice(0, this.currentPlayerIndex)];
         return order.map(player => player.name);
     }
 
-    endGame(winningPlayer) {
+    endGameDos(winningPlayer) {
         console.log(`Le joueur ${winningPlayer.name} a gagné !`);
         this.started = false;
+        this.io.emit('endGameDos', winningPlayer.uid);
+
     }
 }
 
