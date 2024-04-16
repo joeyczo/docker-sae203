@@ -15,6 +15,7 @@ app.use(cors());
 const server = createServer(app);
 const io = new Server(server);
 
+var usersEcrit = {};
 
 const users = new Map();
 const tabMsg = new Map();
@@ -204,8 +205,21 @@ io.on('connection', (socket) => {
     * Prend une liste avec : nom client avec le message et le renvoie à tous les utilisateurs
     */
     socket.on('chat message', (msg) => {
+        delete usersEcrit[msg.uid];
+
         io.emit('chat message', msg);
+        io.emit('entrain ecrire', Object.values(usersEcrit));
     });
+
+    socket.on('entrain ecrire', (utilisateurEcrit) => {
+        if (!usersEcrit.hasOwnProperty(utilisateurEcrit.uid))
+            usersEcrit[utilisateurEcrit.uid] = utilisateurEcrit;
+
+        io.emit('entrain ecrire', Object.values(usersEcrit));
+    });
+
+
+
 
     socket.on('listPlayers', (callback) => {
         callback(Array.from(users.values()));

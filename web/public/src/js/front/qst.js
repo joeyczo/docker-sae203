@@ -385,10 +385,15 @@ socket.on('updatePlayerRestAppelQst', (num) => {
 
 /* -------------------------------------CHAT------------------------------------------------------------------ */
 
+
      var formElement = document.getElementById('form');
      var inputElement = document.getElementById('input');
      var buttonElement = document.querySelector('.chat button');
-     var messages = document.getElementById('messages');
+     var msg = document.querySelector('.chat .msg');
+     var chat = document.querySelector('.chat');
+     var btnClose = document.getElementById('btnClose');
+     var ecrit = document.getElementById('ecrit');
+
 
      buttonElement.addEventListener('click', function() {
          envoyerMessage();
@@ -405,17 +410,71 @@ socket.on('updatePlayerRestAppelQst', (num) => {
          }
      });
 
+
+     inputElement.addEventListener('input', function(e) {
+              socket.emit('entrain ecrire', monNom);
+          });
+
      function envoyerMessage() {
          var inputValue = inputElement.value.trim();
          if (inputValue !== '') {
-             socket.emit('chat message', { nom : monNom.name ,msg: inputValue, });
+             socket.emit('chat message', { nom : monNom.name ,msg: inputValue, uid: monNom.uid});
              inputElement.value = '';
          }
      }
 
-     socket.on('chat message', function(msg) {
-         var item = document.createElement('li');
-         item.textContent = msg.nom + " -> " + msg.msg;
-         messages.appendChild(item);
-         window.scrollTo(0, document.body.scrollHeight);
-       });
+     btnClose.addEventListener('click', function(e) {
+          if ( chat.className === "chat" )
+          {
+            chat.classList.add('c-closed');
+          }
+          else
+          {
+            chat.classList.remove('c-closed');
+          }
+     });
+
+
+     socket.on('entrain ecrire', function(usersEcrit) {
+        var item = document.createElement('p');
+        var listeNom = "";
+
+        for (var uid in usersEcrit) {
+            listeNom += usersEcrit[uid].name;
+
+            if ( listeNom !== "" )
+                listeNom += ", ";
+
+        }
+
+        if ( listeNom !== "")
+            item.textContent = listeNom + " est entrain d'écrire ...";
+
+        ecrit.innerHTML = "";
+        ecrit.appendChild(item);
+     });
+
+
+     socket.on('chat message', function(message) {
+         var ajoutItem = document.createElement('div');
+         ajoutItem.classList.add("item");
+
+
+         var ajoutNom = document.createElement('div');
+         ajoutNom.classList.add("author");
+         ajoutNom.textContent = message.nom;
+
+
+         var ajoutTxt = document.createElement('div');
+         ajoutTxt.classList.add("cnt");
+         ajoutTxt.textContent = message.msg;
+
+         ajoutItem.appendChild(ajoutTxt);
+         ajoutItem.appendChild(ajoutNom);
+
+         msg.appendChild(ajoutItem);
+         msg.scrollTo(0, msg.scrollHeight);
+     });
+
+
+

@@ -120,15 +120,31 @@
 
         <div class="chat">
 
-            <ul id="messages"></ul>
+            <header>
+
+                <h1>Chat</h1>
+
+                <span id="btnClose" class="material-symbols-rounded">expand_more</span>
+
+            </header>
+
+            <div class="msg">
+
+
+
+            </div>
 
             <form id="form" action="">
-                <input id="input" autocomplete="off"/>
-                <button>Send</button>
+                <input placeholder="Votre message" id="input" autocomplete="off"/>
+                <button><span class="material-symbols-rounded">send</span></button>
             </form>
 
-        </div>
+            <div id="ecrit" class="act">
 
+
+            </div>
+
+        </div>
 
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
         <script type="module" src="../js/front/simon.js"></script>
