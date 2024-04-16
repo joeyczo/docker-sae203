@@ -103,10 +103,6 @@ class Game {
 
         } else {
             console.log("Prêt pour la prochaine partie !");
-            dosGame = new DosGame(io);
-            simonGame = new SimonGame(io);
-            memoryGame = new MemoryGame(io);
-            qstGame = new QstGame(io);
 
             let availableGames = jeux.filter((game, index) => !playedGames.includes(index));
             let gameIndex = Math.floor(Math.random() * availableGames.length);
@@ -127,16 +123,32 @@ class Game {
             };
 
             console.log("------------------------------------> GO Wait")
-            io.emit('changerPanel', 'wait');
-            // if (!gameStarted) {
-            //     game.start();
-            //     console.log("Lancement du jeu " + obj.name.toLowerCase());
-            //     gameStarted = true;
-            // }
-            //
-            // setTimeout(() => {
-            //     io.emit('changerPanel', obj.name.toLowerCase());
-            // }, 4000);
+            io.emit('changerPanel', 'presentation');
+            if (!gameStarted) {
+                game.start();
+                console.log("Lancement du jeu " + obj.name.toLowerCase());
+                gameStarted = true;
+            }
+
+            setTimeout(() => {
+                io.emit('changerPanel', obj.name.toLowerCase());
+            }, 4000);
+
+            // Create a new instance of the next game
+            switch (obj.name.toLowerCase()) {
+                case 'dos':
+                    dosGame = new DosGame(io);
+                    break;
+                case 'simon':
+                    simonGame = new SimonGame(io);
+                    break;
+                case 'memory':
+                    memoryGame = new MemoryGame(io);
+                    break;
+                case 'qst':
+                    qstGame = new QstGame(io);
+                    break;
+            }
         }
     }
 

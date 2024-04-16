@@ -16,9 +16,9 @@ $(() => {
 
     socket.emit('startGameQst');
 
-    $(".bar-loading").hide().css({'opacity':'0'});
-    $(".res-qst").hide().css({'opacity':'0'});
-    $(".disp-qst p").css({'opacity':'0'});
+    $(".bar-loading").hide().css({'opacity': '0'});
+    $(".res-qst").hide().css({'opacity': '0'});
+    $(".disp-qst p").css({'opacity': '0'});
 
     $(".modal-appel").hide();
 
@@ -30,7 +30,7 @@ $(() => {
  */
 window.animCountdown = (time) => {
 
-    $(".cnt").css({'width':'100%'}).animate({'width':'0%'}, time, 'linear');
+    $(".cnt").css({'width': '100%'}).animate({'width': '0%'}, time, 'linear');
 
     socket.emit('timerStartedQst', time);
 
@@ -65,11 +65,11 @@ window.playerReadedRule = () => {
  */
 window.fetchQuestion = (obj) => {
 
-    $(".bar-loading").hide().css({'opacity':'0'});
-    $(".res-qst").hide().css({'opacity':'0'});
-    $(".disp-qst p").css({'opacity':'0'});
+    $(".bar-loading").hide().css({'opacity': '0'});
+    $(".res-qst").hide().css({'opacity': '0'});
+    $(".disp-qst p").css({'opacity': '0'});
 
-    $(".disp-qst").css({'opacity':'0','height':'100vh'}).animate({'opacity':'1'}, 500);
+    $(".disp-qst").css({'opacity': '0', 'height': '100vh'}).animate({'opacity': '1'}, 500);
     $(".disp-qst h1").html(obj.question.replaceAll('\n', '<br>'));
 
     var tailleQst = (obj.reponse === 2) ? '80vh' : ((obj.reponse === 0) ? '70vh' : '86vh');
@@ -77,43 +77,44 @@ window.fetchQuestion = (obj) => {
 
     setTimeout(() => {
 
-        $(".disp-qst").animate({'height':tailleQst}, 500, () => {
+        $(".disp-qst").animate({'height': tailleQst}, 500, () => {
 
-            $(".disp-qst p").animate({'opacity':'1'});
+            $(".disp-qst p").animate({'opacity': '1'});
             $(".disp-qst span").html(difficulte);
 
-            if (obj.type === 1)
-            {
+            if (obj.type === 1) {
 
-                $(".res-qst").html(`<div class="input"><input type="text" name="res" id="res" placeholder="Tapez votre réponse"></div>`).show().animate({'opacity':'1'}, 500, () => {
-                    $(".bar-loading").show().animate({'opacity':'1'}, 500)
+                $(".res-qst").html(`<div class="input"><input type="text" name="res" id="res" placeholder="Tapez votre réponse"></div>`).show().animate({'opacity': '1'}, 500, () => {
+                    $(".bar-loading").show().animate({'opacity': '1'}, 500)
                     animCountdown(15000);
                     $("#res").focus();
                 });
 
-            } else if (obj.type === 2)
-            {
+            } else if (obj.type === 2) {
 
-                $(".res-qst").html(`<div class="trfl"><button id="vrai" class="true">Vrai</button><button id="faux" class="false">Faux</button></div>`).show().animate({'opacity':'1'}, 500, () => {
-                    $(".bar-loading").show().animate({'opacity':'1'}, 500)
+                $(".res-qst").html(`<div class="trfl"><button id="vrai" class="true">Vrai</button><button id="faux" class="false">Faux</button></div>`).show().animate({'opacity': '1'}, 500, () => {
+                    $(".bar-loading").show().animate({'opacity': '1'}, 500)
                     animCountdown(15000);
 
-                    $("button").on('click', function() { $("button").removeClass('actif');$(this).addClass('actif'); });
+                    $("button").on('click', function () {
+                        $("button").removeClass('actif');
+                        $(this).addClass('actif');
+                    });
                 });
 
             } else if (obj.type === 0) {
 
-                $(".res-qst").html(`<div class="qcm"></div>`).show().animate({'opacity':'1'}, 500, () => {
+                $(".res-qst").html(`<div class="qcm"></div>`).show().animate({'opacity': '1'}, 500, () => {
 
                     obj.sets.forEach((item, i) => {
 
                         let char = String.fromCharCode(65 + i);
 
-                        $(".qcm").append(`<button id="cc-${i}" style="opacity: 0" class="choix"><div class="index"><h3>${char}</h3></div><p>${item}</p></button>`).css({'opacity':'1'});
+                        $(".qcm").append(`<button id="cc-${i}" style="opacity: 0" class="choix"><div class="index"><h3>${char}</h3></div><p>${item}</p></button>`).css({'opacity': '1'});
 
                         setTimeout(() => {
 
-                            $(`#cc-${i}`).animate({'opacity':'1'}, 600);
+                            $(`#cc-${i}`).animate({'opacity': '1'}, 600);
 
                         }, i * 800);
 
@@ -121,10 +122,13 @@ window.fetchQuestion = (obj) => {
 
                     setTimeout(() => {
 
-                        $(".bar-loading").show().animate({'opacity':'1'}, 500)
+                        $(".bar-loading").show().animate({'opacity': '1'}, 500)
                         animCountdown(15000);
 
-                        $("button").on('click', function() { $("button").removeClass('actif');$(this).addClass('actif'); });
+                        $("button").on('click', function () {
+                            $("button").removeClass('actif');
+                            $(this).addClass('actif');
+                        });
 
                     }, obj.sets.length * 950);
 
@@ -145,11 +149,11 @@ window.fetchQuestion = (obj) => {
 window.animeWinQst = () => {
 
     $(".modal-infos").show();
-    $(".modal-infos .win").css({'display':'flex','top':'-100vh'}).animate({'top':'0'}, 500);
+    $(".modal-infos .win").css({'display': 'flex', 'top': '-100vh'}).animate({'top': '0'}, 500);
 
     setTimeout(() => {
 
-        $(".modal-infos .win").animate({'top':'100%'}, 500, () => {
+        $(".modal-infos .win").animate({'top': '100%'}, 500, () => {
             $(".modal-infos").hide();
         });
 
@@ -230,8 +234,8 @@ socket.on('getQstReponse', (uid) => {
         }
 
         var objResp = {
-            user : monNom,
-            res : resp
+            user: monNom,
+            res: resp
         }
 
         socket.emit('sendQstReponse', objResp);
@@ -256,16 +260,13 @@ socket.on('showRespQst', (resp) => {
 
         var txtRes = ``;
 
-        if (dataResp.type === 0)
-        {
+        if (dataResp.type === 0) {
             let char = String.fromCharCode(65 + parseInt(elm.res));
             txtRes = `<div class="qcm"><p>${char}</p><p>${dataResp.sets[elm.res]}</p></div>`
-        } else if (dataResp.type === 2)
-        {
+        } else if (dataResp.type === 2) {
             txtRes = `<div class="vrf"><p>${(elm.res === "vrai") ? "Vrai" : "Faux"}</p></div>`
             elm.res = (elm.res === "vrai") ? 1 : 0;
-        } else
-        {
+        } else {
             txtRes = `<div class="txt"><p>${elm.res}</p></div>`
         }
 
@@ -329,7 +330,7 @@ socket.on('setPlayersRestantManche', (player) => {
 
 })
 
-socket.on('endGameQst',  () => {
+socket.on('endGameQst', () => {
     animeWinQst();
 })
 
@@ -360,8 +361,8 @@ socket.on('showVoteAppelQst', (yes, no, total) => {
     var propYes = (yes / total) * 100;
     var propNo = (no / total) * 100;
 
-    $(".no-vote").css({'width':propNo + "%"}).html(`<h3>Refusé</h3><p>${propNo}%</p>`);
-    $(".yes-vote").css({'width':propYes + "%"}).html(`<h3>Validé</h3><p>${propYes}%</p>`);
+    $(".no-vote").css({'width': propNo + "%"}).html(`<h3>Refusé</h3><p>${propNo}%</p>`);
+    $(".yes-vote").css({'width': propYes + "%"}).html(`<h3>Validé</h3><p>${propYes}%</p>`);
 
     $(".prt-show-vote").show();
 
@@ -386,115 +387,111 @@ socket.on('updatePlayerRestAppelQst', (num) => {
 /* -------------------------------------CHAT------------------------------------------------------------------ */
 
 
-     var formElement = document.getElementById('form');
-     var inputElement = document.getElementById('input');
-     var buttonElement = document.querySelector('.chat button');
-     var msg = document.querySelector('.chat .msg');
-     var chat = document.querySelector('.chat');
-     var btnClose = document.getElementById('btnClose');
-     var ecrit = document.getElementById('ecrit');
+var formElement = document.getElementById('form');
+var inputElement = document.getElementById('input');
+var buttonElement = document.querySelector('.chat button');
+var msg = document.querySelector('.chat .msg');
+var chat = document.querySelector('.chat');
+var btnClose = document.getElementById('btnClose');
+var ecrit = document.getElementById('ecrit');
 
 
-     buttonElement.addEventListener('click', function() {
-         envoyerMessage();
-     });
+buttonElement.addEventListener('click', function () {
+    envoyerMessage();
+});
 
-     formElement.addEventListener('submit', function(e) {
-         e.preventDefault();
-         envoyerMessage();
-     });
+formElement.addEventListener('submit', function (e) {
+    e.preventDefault();
+    envoyerMessage();
+});
 
-     inputElement.addEventListener('keypress', function(e) {
-         if (e.key === 'Enter') {
-             envoyerMessage();
-         }
-     });
-
-
-     inputElement.addEventListener('input', function(e) {
-              socket.emit('entrain ecrire', monNom);
-          });
-
-     function envoyerMessage() {
-         var inputValue = inputElement.value.trim();
-         if (inputValue !== '') {
-             socket.emit('chat message', { nom : monNom.name ,msg: inputValue, uid: monNom.uid});
-             inputElement.value = '';
-         }
-     }
-
-     btnClose.addEventListener('click', function(e) {
-          if ( chat.className === "chat" )
-          {
-            chat.classList.add('c-closed');
-          }
-          else
-          {
-            chat.classList.remove('c-closed');
-          }
-     });
+inputElement.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        envoyerMessage();
+    }
+});
 
 
-     socket.on('entrain ecrire', function(usersEcrit) {
-        var item = document.createElement('p');
-        var listeNom = "";
-        var nbNom = 0;
-        var personneQuiEcrit = "";
+inputElement.addEventListener('input', function (e) {
+    socket.emit('entrain ecrire', monNom);
+});
 
-        for (var uid in usersEcrit) {
+function envoyerMessage() {
+    var inputValue = inputElement.value.trim();
+    if (inputValue !== '') {
+        socket.emit('chat message', {nom: monNom.name, msg: inputValue, uid: monNom.uid});
+        inputElement.value = '';
+    }
+}
 
-            if (nbNom !== 0 && nbNom < Object.keys(usersEcrit).length)
-                listeNom += ", ";
-
-            listeNom += usersEcrit[uid].name;
-
-            nbNom ++;
-        }
-
-        if ( listeNom !== "")
-        {
-            personneQuiEcrit += listeNom;
-
-            if (nbNom === 1)
-               personneQuiEcrit += " est"
-            else
-                personneQuiEcrit += " sont"
-
-            personneQuiEcrit += " entrain d'écrire.";
-        }
-
-        item.textContent = personneQuiEcrit;
-
-        ecrit.innerHTML = "";
-        ecrit.appendChild(item);
-     });
+btnClose.addEventListener('click', function (e) {
+    if (chat.className === "chat") {
+        chat.classList.add('c-closed');
+    } else {
+        chat.classList.remove('c-closed');
+    }
+});
 
 
-     socket.on('chat message', function(message) {
-         var ajoutItem = document.createElement('div');
-         ajoutItem.classList.add("item");
+socket.on('entrain ecrire', function (usersEcrit) {
+    var item = document.createElement('p');
+    var listeNom = "";
+    var nbNom = 0;
+    var personneQuiEcrit = "";
+
+    for (var uid in usersEcrit) {
+
+        if (nbNom !== 0 && nbNom < Object.keys(usersEcrit).length)
+            listeNom += ", ";
+
+        listeNom += usersEcrit[uid].name;
+
+        nbNom++;
+    }
+
+    if (listeNom !== "") {
+        personneQuiEcrit += listeNom;
+
+        if (nbNom === 1)
+            personneQuiEcrit += " est"
+        else
+            personneQuiEcrit += " sont"
+
+        personneQuiEcrit += " entrain d'écrire.";
+    }
+
+    item.textContent = personneQuiEcrit;
+
+    ecrit.innerHTML = "";
+    ecrit.appendChild(item);
+});
 
 
-         if ( message.uid === monNom.uid )
-            ajoutItem.classList.add('self');
-         else
-            ajoutItem.classList.remove('self');
+socket.on('chat message', function (message) {
+    var ajoutItem = document.createElement('div');
+    ajoutItem.classList.add("item");
 
 
-         var ajoutNom = document.createElement('div');
-         ajoutNom.classList.add("author");
-         ajoutNom.textContent = message.nom;
+    if (message.uid === monNom.uid)
+        ajoutItem.classList.add('self');
+    else
+        ajoutItem.classList.remove('self');
 
 
-         var ajoutTxt = document.createElement('div');
-         ajoutTxt.classList.add("cnt");
-         ajoutTxt.textContent = message.msg;
+    var ajoutNom = document.createElement('div');
+    ajoutNom.classList.add("author");
+    ajoutNom.textContent = message.nom;
 
-         ajoutItem.appendChild(ajoutTxt);
-         ajoutItem.appendChild(ajoutNom);
 
-         msg.appendChild(ajoutItem);
-         msg.scrollTo(0, msg.scrollHeight);
-     });
+    var ajoutTxt = document.createElement('div');
+    ajoutTxt.classList.add("cnt");
+    ajoutTxt.textContent = message.msg;
+
+    ajoutItem.appendChild(ajoutTxt);
+    ajoutItem.appendChild(ajoutNom);
+
+    msg.appendChild(ajoutItem);
+    msg.scrollTo(0, msg.scrollHeight);
+});
 
 

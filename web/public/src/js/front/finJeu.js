@@ -1,10 +1,14 @@
+import changerPanel from '../server/panelChanger.js';
+import socket from '../server/socket.js';
+
 $(() => {
+    showRanking()
 });
 
 /**
  * Déclenchement de l'animation du podium
  */
-window.showRanking = () => {
+var showRanking = () => {
 
     $(".list-other").hide();
     $(".scd").hide();

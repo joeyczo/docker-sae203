@@ -55,7 +55,7 @@ socket.emit('getObj', (obj) => {
 });
 console.log(socket.emit('obj'));
 
-
-socket.on('changerPanel', async panel => {
-    await changerPanel(panel);
-});
+//
+// socket.on('changerPanel', async panel => {
+//     await changerPanel(panel);
+// });

@@ -125,6 +125,6 @@ socket.on('player left', (name, envVars) => {
     changementJoueur( nbplayer, nbMax);
 });
 
-socket.on('changerPanel', async panel => {
-    await changerPanel(panel);
-});
+// socket.on('changerPanel', async panel => {
+//     await changerPanel(panel);
+// });

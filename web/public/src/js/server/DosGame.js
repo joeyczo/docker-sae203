@@ -146,7 +146,7 @@ class DosGame {
     }
 
     async playCard(player, card) {
-        console.log(`${player.name} Joue :`, card);
+        // console.log(`${player.name} Joue :`, card);
 
         if (!player.isMyTurn(this)) {
             console.log('Ce n\'est pas votre tour:', player.name);
@@ -193,7 +193,7 @@ class DosGame {
                 this.players.reverse();
 
                 this.currentPlayerIndex = this.players.findIndex(p => p.name === player.name);
-                console.log(`Le sens du jeu est maintenant : ${this.players[0].name === player.name ? 'normal' : 'reverse'}`);
+                // console.log(`Le sens du jeu est maintenant : ${this.players[0].name === player.name ? 'normal' : 'reverse'}`);
 
                 break;
 
@@ -267,7 +267,7 @@ class DosGame {
         this.currentPlayerIndex = (this.currentPlayerIndex + this.direction + this.players.length) % this.players.length;
         const currentPlayer = this.getCurrentPlayer();
         if (currentPlayer) {
-            console.log(`C'est le tour de ${currentPlayer.name}`);
+            // console.log(`C'est le tour de ${currentPlayer.name}`);
             this.io.to(currentPlayer.uid).emit('toggle deck');
         }
     }
