@@ -3,6 +3,8 @@ module.exports = function DosSocket(socket, dosGame, io, users, game, obj, env, 
 
     socket.on('get game debut', () => {
         dosGame.addPlayers(Array.from(users.values()));
+
+
         if (!dosGame.hasStarted()) {
             dosGame.start();
         }
@@ -45,6 +47,14 @@ module.exports = function DosSocket(socket, dosGame, io, users, game, obj, env, 
         socket.emit('toggleModal');
         io.emit('dos game debut', dosGame.getState());
     });
+
+    socket.on('newPlayersReadedDos', () => {
+        dosGame.newPlayerReaded();
+    });
+
+    socket.on('getPlayersRestDos', () => {
+        dosGame.viewPlayerRestRules();
+    })
 
 
 }

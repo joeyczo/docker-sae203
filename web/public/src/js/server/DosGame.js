@@ -56,6 +56,48 @@ class DosGame {
         this.started = false;
         this.currentPlayerIndex = 0;
         this.direction = 1;
+
+        this.playersReaded = 0;             // Nombre de joueur ayant lu les règles
+    }
+
+    /**
+     * Ajouter un nouveau joueur ayant lu les règles
+     */
+    newPlayerReaded()
+    {
+        this.playersReaded++;
+
+        this.viewPlayerRestRules();
+        this.whenAllPlayersReadedRules();
+    }
+
+    /**
+     * Envoie aux clients le nombre de joueur restant à lire les règles
+     */
+    viewPlayerRestRules()
+    {
+        this.io.emit('getPlayerRestDos', this.players.length - this.playersReaded);
+    }
+
+    /**
+     * Permet de savoir si tous les joueurs ont lu les règles
+     * @returns {boolean} true si tous les joueurs ont lu les règles, false sinon
+     */
+    allPlayersReadedRules()
+    {
+        return this.playersReaded === this.players.length;
+    }
+
+    /**
+     * Action lorsque tous les utilisateurs ont lu les règles
+     */
+    whenAllPlayersReadedRules()
+    {
+        if (this.allPlayersReadedRules()) {
+            this.io.emit('closeRulesDos');
+            console.log("Tous les joueurs ont lu les règles => Début de DOS");
+            this.start();
+        }
     }
 
     addPlayers(players) {
@@ -188,6 +230,9 @@ class DosGame {
 
         // console.log('JEU CRÉÉ !');
         // console.log(this.getPlayersOrder())
+
+        console.log("JEU DOS COMMENCÉ");
+
         this.started = true;
         this.deck = this.createDeck();
         this.dealCards();

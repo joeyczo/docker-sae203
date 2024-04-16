@@ -1,8 +1,10 @@
-import changerPanel from '../server/panelChanger.js';
 import socket from '../server/socket.js';
 
 console.log("dos.js front chargé");
 
+$(() => {
+    socket.emit('getPlayersRestDos');
+})
 
 var randomUID = (taille = 20) => {
     var uid = '';
@@ -11,6 +13,12 @@ var randomUID = (taille = 20) => {
         uid += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return uid;
+}
+
+window.playerReadedRule = () => {
+    socket.emit('newPlayersReadedDos');
+
+    $("#btn_rules").hide();
 }
 
 /**
@@ -223,6 +231,14 @@ window.toggleDeck = (currentPlayerUID) => {
         $(".deck").addClass('disabled');
     }
 }
+
+window.sendPlayersReadedRules = () => {
+    socket.emit('newPlayersReadedDos');
+}
+
+
+/* -------------------- */
+
 var statusDuJeu;
 var monNom;
 
@@ -483,3 +499,14 @@ function generatePlayerDeckHTML(playerUID) {
 
 
 
+socket.on('getPlayerRestDos', (num) => {
+
+    $("#player_reste").html(num);
+
+})
+
+socket.on('closeRulesDos', () => {
+
+    $(".modal-consigne").fadeOut();
+
+})
