@@ -216,7 +216,6 @@ io.on('connection', (socket) => {
 setInterval(() => {
     const now = Date.now();
     const timeout = 2 * 60 * 1000;
-    console.log("Vérification des utilisateurs!")
     for (const [socketId, player] of users.entries()) {
         const tempsPasse = now - player.derniereInteraction;
         const tempsRestant = timeout - tempsPasse;
@@ -232,17 +231,19 @@ setInterval(() => {
         if (tempsPasse > timeout) {
             console.log(`Utilisateur ${player.name} : ${player.uid} a été exclu`)
 
-            // methodes dosGame
-            dosGame.nextPlayer();
-            io.emit('toggle deck', dosGame.getCurrentPlayer().uid);
-            io.emit('dos game debut', dosGame.getState());
-
             game.removePlayer(player.uid);
             dosGame.removePlayer(player.uid);
             io.to(socketId).emit('changerPanel', 'exclusion');
             io.sockets.sockets.get(socketId).disconnect(true);
 
             users.delete(socketId);
+
+            dosGame.nextPlayer();
+            const nextPlayer = dosGame.getCurrentPlayer();
+            if (nextPlayer) {
+                io.emit('toggle deck', nextPlayer.uid);
+                io.emit('dos game debut', dosGame.getState());
+            }
         }
     }
 }, 5 * 1000);
