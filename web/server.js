@@ -2,9 +2,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const express = require('express');
-const { createServer } = require('http');
-const { join } = require('path');
-const { Server } = require('socket.io');
+const {createServer} = require('http');
+const {join} = require('path');
+const {Server} = require('socket.io');
 const cors = require('cors');
 
 const app = express();
@@ -80,10 +80,9 @@ class Game {
             return;
         }
 
-
         if (this.players.length === this.maxPlayers) {
             gameStarted = true;
-            console.log(`La partie : ${this.gameCount } commence ! `);
+            console.log(`La partie commence ! `);
             console.log("Liste des utilisateurs:");
             for (const user of users.values()) {
                 console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
@@ -100,19 +99,20 @@ class Game {
             this.players = [];
             this.gameCount = 0;
             io.emit('changerPanel', 'finJeu');
-
         } else {
             console.log("Prêt pour la prochaine partie !");
 
             let availableGames = jeux.filter((game, index) => !playedGames.includes(index));
+
+            if (availableGames.length === 0) {
+                playedGames = [];
+                availableGames = jeux;
+            }
+
             let gameIndex = Math.floor(Math.random() * availableGames.length);
             let gameName = availableGames[gameIndex];
 
             playedGames.push(jeux.indexOf(gameName));
-
-            if (playedGames.length === jeux.length) {
-                playedGames = [];
-            }
 
             obj = {
                 name: gameName.name,
@@ -123,36 +123,23 @@ class Game {
             };
 
             console.log("------------------------------------> GO Wait")
-            io.emit('changerPanel', 'presentation');
-            if (!gameStarted) {
-                game.start();
-                console.log("Lancement du jeu " + obj.name.toLowerCase());
-                gameStarted = true;
-            }
-
+            // io.emit('changerPanel', 'wait');
+            io.emit('reload');
+            console.log("Relancement des joueurs !!!!!!!!\n\n...");
+            dosGame = new DosGame(io);
+            simonGame = new SimonGame(io);
+            memoryGame = new MemoryGame(io);
+            qstGame = new QstGame(io);
             setTimeout(() => {
-                io.emit('changerPanel', obj.name.toLowerCase());
-            }, 4000);
-
-            // Create a new instance of the next game
-            switch (obj.name.toLowerCase()) {
-                case 'dos':
-                    dosGame = new DosGame(io);
-                    break;
-                case 'simon':
-                    simonGame = new SimonGame(io);
-                    break;
-                case 'memory':
-                    memoryGame = new MemoryGame(io);
-                    break;
-                case 'qst':
-                    qstGame = new QstGame(io);
-                    break;
-            }
+                if (!gameStarted) {
+                    game.start();
+                    console.log("Lancement du jeu " + obj.name.toLowerCase());
+                    io.emit('changerPanel', obj.name.toLowerCase());
+                    gameStarted = true;
+                }
+            }, 3000);
         }
     }
-
-
 }
 
 let game = new Game();
@@ -225,10 +212,10 @@ io.on('connection', (socket) => {
         const user = users.get(socket.id);
 
         if (user) {
-                let currentPlayer = dosGame.getCurrentPlayer();
-                if (currentPlayer && currentPlayer.uid === user.uid) {
-                    dosGame.nextPlayer();
-                }
+            let currentPlayer = dosGame.getCurrentPlayer();
+            if (currentPlayer && currentPlayer.uid === user.uid) {
+                dosGame.nextPlayer();
+            }
 
             game.removePlayer(user.uid);
             dosGame.removePlayer(user.uid);
@@ -265,6 +252,7 @@ io.on('connection', (socket) => {
 
 
             console.log("Relancement de plateau...");
+            game = new Game();
             dosGame = new DosGame(io);
             simonGame = new SimonGame(io);
             memoryGame = new MemoryGame(io);
@@ -285,9 +273,9 @@ io.on('connection', (socket) => {
     });
 
     /**
-    *
-    * Prend une liste avec : nom client avec le message et le renvoie à tous les utilisateurs
-    */
+     *
+     * Prend une liste avec : nom client avec le message et le renvoie à tous les utilisateurs
+     */
     socket.on('chat message', (msg) => {
         delete usersEcrit[msg.uid];
 
@@ -301,8 +289,6 @@ io.on('connection', (socket) => {
 
         io.emit('entrain ecrire', Object.values(usersEcrit));
     });
-
-
 
 
     socket.on('listPlayers', (callback) => {
@@ -424,7 +410,7 @@ app.get('/qst', (req, res) => {
 // Fin de jeu
 
 app.get('/fin', (req, res) => {
-       res.sendFile(join(__dirname, 'public/src/panels/fin.html'));
+    res.sendFile(join(__dirname, 'public/src/panels/fin.html'));
 });
 
 app.get('/finJeu', (req, res) => {
@@ -435,5 +421,3 @@ var port = process.env.port || 7696
 server.listen(port, () => {
     console.log(`server running at http://localhost:${port}`);
 });
-
-// doc https://socket.io/docs/v4/tutorial/step-4

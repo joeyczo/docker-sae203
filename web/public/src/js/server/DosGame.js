@@ -127,15 +127,15 @@ class DosGame {
 
         for (let color of colors) {
             for (let value of values) {
-                deck.push(new Card('bleu', "1"));
+                deck.push(new Card(color, value));
             }
         }
 
-        // for (let i = 0; i < 4; i++) {
-        //     for (let specialCard of specialCards) {
-        //         deck.push(new Card('special', specialCard));
-        //     }
-        // }
+        for (let i = 0; i < 4; i++) {
+            for (let specialCard of specialCards) {
+                deck.push(new Card('special', specialCard));
+            }
+        }
 
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

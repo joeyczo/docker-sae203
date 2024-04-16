@@ -66,6 +66,10 @@ socket.on('hello', (arg) => {
     console.log(arg);
 });
 
+socket.on('reload', () => {
+    location.reload();
+});
+
 
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);
