@@ -152,6 +152,18 @@ io.on('connection', (socket) => {
 
         if (name) {
 
+            // si l'utilisateur c'est a lui de jouer alors qu'il a quitté alors on passe au joueur suivant
+            const currentPlayer = dosGame.getCurrentPlayer();
+            if (currentPlayer && currentPlayer.uid === name.uid) {
+                dosGame.nextPlayer();
+                const nextPlayer = dosGame.getCurrentPlayer();
+                if (nextPlayer) {
+                    io.emit('toggle deck', nextPlayer.uid);
+                    io.emit('dos game debut', dosGame.getState());
+                }
+            }
+
+
             game.removePlayer(name.uid);
             dosGame.removePlayer(name.uid);
             simonGame.removePlayer(name.uid);
@@ -159,6 +171,7 @@ io.on('connection', (socket) => {
             console.log(`Nom utilisateur: ${name.name} ${name.uid}` + " a quitté la partie")
             io.emit('player left', name, env);
         }
+
 
         env.playersCount = users.size;
         console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
@@ -199,7 +212,7 @@ io.on('connection', (socket) => {
     });
 
     const DosSocket = require('./public/src/js/server/DosSocket');
-    DosSocket(socket, dosGame, io, users, game, obj, env, gameStarted, maxPoints, gameName, gameIndex, jeux);
+    DosSocket(socket, dosGame, io, users);
 
     const SimonSocket = require('./public/src/js/server/SimonSocket');
     SimonSocket(socket, simonGame, io, users);
@@ -212,8 +225,11 @@ io.on('connection', (socket) => {
 
 });
 
-
+// kick auto
 setInterval(() => {
+    if (!gameStarted) {
+        return;
+    }
     const now = Date.now();
     const timeout = 2 * 60 * 1000;
     for (const [socketId, player] of users.entries()) {
@@ -246,7 +262,7 @@ setInterval(() => {
             }
         }
     }
-}, 5 * 1000);
+}, 1 * 1000);
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/index.html'));
@@ -303,7 +319,11 @@ app.get('/qst', (req, res) => {
 // Fin de jeu
 
 app.get('/fin', (req, res) => {
-       res.sendFile(join(__dirname, 'public/src/parts/fin.html'));
+       res.sendFile(join(__dirname, 'public/src/panels/fin.html'));
+});
+
+app.get('/finJeu', (req, res) => {
+    res.sendFile(join(__dirname, 'public/src/panels/fin.html'));
 });
 
 var port = process.env.port || 7696

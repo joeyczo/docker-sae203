@@ -299,7 +299,6 @@ socket.on('other player drew card', (playerUID) => {
     }
 });
 
-
 socket.on('toggleModal', (playerUID) => {
     if (playerUID === monNom.uid) {
         window.toggleModal();
