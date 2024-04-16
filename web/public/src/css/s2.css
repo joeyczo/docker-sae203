@@ -1924,6 +1924,115 @@ body
     color: var(--gray);
     margin: 0 15px;
 }
+/* - Chat de Klément */
+.chat
+{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 15vw;
+    max-height: 40vh;
+    background: rgba(46,46,46,0.5);
+    padding: 15px;
+    border-radius: 10px 0 0 0;
+    box-shadow: -5px -5px 50px 10px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    justify-content: end;
+}
+.chat header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+.chat header span
+{
+    cursor: pointer;
+    transition: 0.4s;
+    font-size: 25px;
+}
+.c-closed header span
+{
+    transform: rotate(180deg);
+}
+.chat form
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0 5px 0;
+}
+.chat form input
+{
+    width: 100%;
+    background: #ececec;
+    padding: 9px 15px;
+    border: none;
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    border-radius: 5px;
+}
+.chat form input:focus
+{
+    outline: none;
+}
+.chat form input::placeholder
+{
+    color: #7C7C7C;
+}
+.chat form button
+{
+    background: #CC64CE;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-family: 'Outfit', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+    margin: 0 5px;
+}
+.chat .msg
+{
+    max-height: 23vh;
+    overflow: auto;
+}
+.chat .item
+{
+    display: flex;
+    flex-direction: column;
+    background: rgba(77, 149, 234, 0.6);
+    padding: 10px;
+    margin: 10px 5px;
+    border-radius: 15px 15px 15px 0;
+}
+.chat .self
+{
+    border-radius: 15px 15px 0 15px;
+    background: rgba(131, 131, 131, 0.6);
+}
+.chat .item .author
+{
+    font-size: 12px;
+    color: rgb(198, 198, 198);
+    max-width: 90%;
+    margin: 7px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chat form button:hover
+{
+    background: #780078;
+}
+.c-closed form, .c-closed .msg, .c-closed .act
+{
+    display: none;
+}
 
 
 
@@ -1998,12 +2107,22 @@ body
     }
     .dos .deck
     {
+        display: grid;
+        grid-template-columns: repeat(15000, 1fr);
+        justify-content: start;
+        overflow: auto;
         bottom: -25px;
         width: 100vw;
     }
     .dos .deck .cartes
     {
-        margin: 0px;
+        margin: 0px -15px;
+        width: 100px;
+        height: 142px;
+        background-size: 100% auto;
+    }
+    .dos .card .cartes .active
+    {
         width: 127px;
         height: 180px;
         background-size: 100% auto;
