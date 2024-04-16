@@ -254,6 +254,9 @@ class MemoryGame {
                 if (this.discoverd === this.numCartes) {
                     console.log(this.players);
                     this.io.emit('endGameMemory');
+                    setTimeout(() => {
+                        this.io.emit('changerPanel', 'fin');
+                    }, 4000);
                     return;
                 }
 

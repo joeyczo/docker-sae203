@@ -2372,7 +2372,7 @@ body
     {
         margin: 10px 0;
     }
-    .player-right, .player-left
+    .dos .player-right, .dos .player-left
     {
         display: none;
     }

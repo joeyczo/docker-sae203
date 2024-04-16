@@ -14,6 +14,8 @@ class SimonGame
         this.playerAct = undefined;     // Joueur actuel
         this.started = false;           // Défini si le jeu a commencé
 
+        this.playerPoint = [];          // Tableau des points des joueurs
+
         this.playerReaded = 0;          // Nombre de joueur ayant lu les règles
 
         this.pointManche = 20;          // Nombre de point par manche
@@ -40,6 +42,7 @@ class SimonGame
     savePlayer(players)
     {
         this.players = players;
+        this.playerPoint = players;
 
         console.log("Joueurs enregistrés");
         console.log(this.players);
@@ -107,16 +110,19 @@ class SimonGame
                         this.io.emit('winSimon');
                         console.log('Le joueur a gagné');
                         console.log(this.players);
+                        setTimeout(() => {
+                            this.io.emit('changerPanel', 'fin');
+                        }, 4000);
                         return;
                     }
 
-                    if (this.players[0].points === undefined) this.players[0].points = 0;
+                    if (this.playerPoint[0].points === undefined) this.playerPoint[0].points = 0;
 
-                    this.players[0].points += 10;
+                    this.playerPoint[0].points += 10;
 
-                    if (this.players[0].pointsMemory === undefined) this.players[0].pointsMemory = 0;
+                    if (this.playerPoint[0].pointsTotal === undefined) this.playerPoint[0].pointsTotal = 0;
 
-                    this.players[0].pointsMemory += 10;
+                    this.playerPoint[0].pointsTotal += 10;
 
                     this.nextPlayer();
                     this.showOrdreJoueur();
@@ -207,8 +213,15 @@ class SimonGame
             console.log('Le joueur a gagné');
 
             setTimeout(() => {
+                this.io.emit('changerPanel', 'fin');
 
-            });
+                this.players.forEach((elm, index) => { this.players[index].pseudo = this.players[index].name});
+                console.log("ENVOIE " + this.players);
+
+                setTimeout(() => {
+                    this.io.emit('receiveDataGame', this.playerPoint);
+                }, 200);
+            }, 4000);
             return;
         }
 

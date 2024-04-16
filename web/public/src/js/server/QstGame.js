@@ -244,6 +244,9 @@ class QstGame
 
         if (this.indexQst === 10) {
             this.io.emit('endGameQst');
+            setTimeout(() => {
+                this.io.emit('changerPanel', 'fin');
+            }, 4000);
             return;
         }
 

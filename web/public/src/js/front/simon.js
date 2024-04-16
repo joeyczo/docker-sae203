@@ -16,6 +16,8 @@ $(() => {
     socket.emit('startGameSimon');
     socket.emit('getNumJoueurRegleSimon');
 
+    console.log("simon.js front chargé");
+
     $(".disp-formes .item").on('click', function() {
 
         if (!$(".prt-simon").hasClass('disabled')) {
@@ -222,6 +224,8 @@ socket.on('showPlayerRoundSimon', (array) => {
 socket.on('enableGameSimon', (uid) => {
 
     console.log("Activation du jeu");
+
+    console.log(uid + " ===== " + monNom.uid);
 
     if (uid === monNom.uid) {
         $(".prt-simon").removeClass('disabled');

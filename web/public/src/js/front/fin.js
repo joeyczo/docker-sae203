@@ -53,7 +53,7 @@ window.showRanking = () => {
  */
 window.decompteTimer = () => {
 
-    var time = 1;
+    var time = 10;
 
     var intT = setInterval(() => {
 
@@ -68,7 +68,7 @@ window.decompteTimer = () => {
 
         }
 
-    }, 1000);
+    }, 10000);
 
 }
 
@@ -134,15 +134,21 @@ window.placementUser = users => {
 
     var listeTriee = users.sort((a, b) => b.points - a.points);
 
-    $("#user_place_1").html(listeTriee[0].pseudo);
-    $("#user_place_2").html(listeTriee[1].pseudo);
-    $("#user_place_3").html(listeTriee[2].pseudo);
+    console.log(listeTriee);
+
+    $("#user_place_1").html(listeTriee[0].name);
+
+    if (listeTriee[1] !== undefined) $("#user_place_2").html(listeTriee[1].name);
+    if (listeTriee[2] !== undefined) $("#user_place_3").html(listeTriee[2].name);
 
     listeTriee = listeTriee.slice(3);
 
     $("#list_basique").empty();
 
     listeTriee.forEach((user, index) => {
+
+        console.log("USER")
+        console.log(user);
 
         var txt = `
         <div class="rank-i">
@@ -151,7 +157,7 @@ window.placementUser = users => {
         <p>#${index + 4}</p>
         </div>
         <div class="username">
-        <p>${user.pseudo}</p>
+        <p>${user.name}</p>
         </div>
         </div>
         <div class="end">
@@ -179,7 +185,7 @@ window.placementUser = users => {
         <p>#${index + 1}</p>
         </div>
         <div class="username">
-        <p>${elm.pseudo}</p>
+        <p>${elm.name}</p>
         </div>
         </div>
         <div class="end">
