@@ -116,6 +116,26 @@ body
     text-align: center;
     color: var(--gray);
 }
+.waiting .btn-changename
+{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    border-radius: 15px;
+    background: #CC64CE;
+    border: none;
+    padding: 20px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+.waiting .btn-changename span
+{
+    font-size: 30px;
+}
+.waiting .btn-changename:hover
+{
+    background: #ff0fff;
+}
 .msg-disp
 {
     display: flex;
@@ -1762,6 +1782,234 @@ body
     opacity: 0.6;
 }
 
+/* FIN DE PARTIE */
+.prt-fin-jeu
+{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+}
+.prt-fin-jeu h1.title
+{
+    font-size: 70px;
+    margin: 10px 0 20px 0;
+}
+.prt-fin-jeu .show-ranking
+{
+    width: 100%;
+    background: #39274C;
+    padding: 20px;
+    border-radius: 10px;
+    height: 65vh;
+    overflow: auto;
+}
+.prt-fin-jeu .show-ranking h2
+{
+    font-size: 30px;
+}
+.prt-fin-jeu .show-ranking .prt-podiu
+{
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    margin: 20px 0;
+    height: 21vh;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .scd
+{
+    background: #D7D7D7;
+    width: 20vw;
+    border-top-left-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    height: 80%;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .scd h2
+{
+    color: #686868;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .first
+{
+    background: #D7B767;
+    width: 20vw;
+    border-radius: 10px 10px 0 0 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    height: 100%;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .first h2
+{
+    color: #FFECAA;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .third
+{
+    background: #DB894E;
+    width: 20vw;
+    border-top-right-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    height: 60%;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .third h2
+{
+    color: #953E00;
+}
+.prt-fin-jeu .show-ranking .prt-podiu .third h3, .prt-fin-jeu .show-ranking .prt-podiu .first h3, .prt-fin-jeu .show-ranking .prt-podiu .scd h3
+{
+    font-size: 20px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+.prt-fin-jeu .show-ranking .list-other
+{
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+}
+.prt-fin-jeu .show-ranking .list-other .item
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #5E348A;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 8px 0;
+}
+.prt-fin-jeu .show-ranking .list-other .item .start
+{
+    display: flex;
+    align-items: center;
+}
+.prt-fin-jeu .show-ranking .list-other .item .start h3
+{
+    font-size: 20px;
+    margin-right: 15px;
+}
+.prt-fin-jeu .show-ranking .list-other .item .start p
+{
+    font-size: 18px;
+}
+.prt-fin-jeu .show-ranking .list-other .item .end
+{
+    display: flex;
+    align-items: center;
+}
+.prt-fin-jeu .fin-dst
+{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    margin: 40px 0;
+    flex-direction: row-reverse;
+}
+.prt-fin-jeu .fin-dst h1
+{
+    font-size: 50px;
+    margin: 0 15px;
+}
+.prt-fin-jeu .fin-dst h2
+{
+    font-size: 27px;
+    font-weight: 600;
+    color: var(--gray);
+    margin: 0 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* PARTIE MOBILE */
+@media screen and (max-width: 860px)
+{
+
+    .prt h1
+    {
+        text-align: center;
+        font-size: 80px;
+        margin: 30px 0;
+    }
+    .prt p
+    {
+        font-size: 20px;
+        text-align: center;
+    }
+    .prt .input
+    {
+        width: 100vw;
+        flex-direction: column;
+    }
+    .prt .input input
+    {
+        margin: 20px 0;
+        width: 90%;
+    }
+    .prt .input button
+    {
+        width: 90%;
+        margin: 15px 0;
+    }
+    .waiting .aff .loading-anim .circle
+    {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.35);
+    }
+    .waiting .btn-changename
+    {
+        bottom: 20px;
+        right: 20px;
+    }
+    .dos .card .pioche
+    {
+        width: 127px;
+        height: 180px;
+        background-size: 100% auto;
+    }
+    .dos .card .cartes
+    {
+        width: 147px;
+        height: 200px;
+        background-size: 100% 100%;
+    }
+    .dos h2
+    {
+        font-size: 20px;
+    }
+    .dos h1
+    {
+        font-size: 37px;
+    }
+    .dos .deck
+    {
+        bottom: -25px;
+        width: 100vw;
+    }
+    .dos .deck .cartes
+    {
+        margin: 0px;
+        width: 127px;
+        height: 180px;
+        background-size: 100% auto;
+    }
+
+}
 
 
 
