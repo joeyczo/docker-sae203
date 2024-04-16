@@ -300,17 +300,32 @@ socket.on('endGameMemory', () => {
      socket.on('entrain ecrire', function(usersEcrit) {
         var item = document.createElement('p');
         var listeNom = "";
+        var nbNom = 0;
+        var personneQuiEcrit = "";
 
         for (var uid in usersEcrit) {
-            listeNom += usersEcrit[uid].name;
 
-            if ( listeNom !== "" )
+            if (nbNom !== 0 && nbNom < Object.keys(usersEcrit).length)
                 listeNom += ", ";
 
+            listeNom += usersEcrit[uid].name;
+
+            nbNom ++;
         }
 
         if ( listeNom !== "")
-            item.textContent = listeNom + " est entrain d'écrire ...";
+        {
+            personneQuiEcrit += listeNom;
+
+            if (nbNom === 1)
+               personneQuiEcrit += " est"
+            else
+                personneQuiEcrit += " sont"
+
+            personneQuiEcrit += " entrain d'écrire.";
+        }
+
+        item.textContent = personneQuiEcrit;
 
         ecrit.innerHTML = "";
         ecrit.appendChild(item);
@@ -320,6 +335,12 @@ socket.on('endGameMemory', () => {
      socket.on('chat message', function(message) {
          var ajoutItem = document.createElement('div');
          ajoutItem.classList.add("item");
+
+
+         if ( message.uid === monNom.uid )
+            ajoutItem.classList.add('self');
+         else
+            ajoutItem.classList.remove('self');
 
 
          var ajoutNom = document.createElement('div');
@@ -337,6 +358,3 @@ socket.on('endGameMemory', () => {
          msg.appendChild(ajoutItem);
          msg.scrollTo(0, msg.scrollHeight);
      });
-
-
-
