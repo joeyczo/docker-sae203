@@ -1511,6 +1511,7 @@ body
 {
     display: flex;
     align-items: center;
+    margin-right: 14vw;
 }
 .resp-showing .actions .end button
 {
@@ -2354,6 +2355,10 @@ body
     {
         padding: 10px;
         flex-direction: column;
+    }
+    .resp-showing .actions .end
+    {
+        margin: 0;
     }
     .resp-showing .actions .end p
     {
