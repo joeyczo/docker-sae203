@@ -216,36 +216,34 @@ io.on('connection', (socket) => {
 setInterval(() => {
     const now = Date.now();
     const timeout = 2 * 60 * 1000;
-    console.log("Vérification des utilisateurs!")
     for (const [socketId, player] of users.entries()) {
         const tempsPasse = now - player.derniereInteraction;
         const tempsRestant = timeout - tempsPasse;
         io.to(socketId).emit('remaining time', tempsRestant);
 
+        const currentPlayer = dosGame.getCurrentPlayer();
+
+        if (!currentPlayer || currentPlayer.uid !== player.uid) {
+            player.derniereInteraction = now;
+            continue;
+        }
+
         if (tempsPasse > timeout) {
             console.log(`Utilisateur ${player.name} : ${player.uid} a été exclu`)
-
-            // Vérifiez si le jeu a un joueur actuel et si le joueur déconnecté était le joueur actuel
-            const currentPlayer = dosGame.getCurrentPlayer();
-            if (currentPlayer && currentPlayer.uid === player.uid) {
-                // methodes dosGame
-                dosGame.nextPlayer();
-                io.emit('toggle deck', dosGame.getCurrentPlayer().uid);
-                io.emit('dos game debut', dosGame.getState());
-                // TODO : a voir ....
-            }
 
             game.removePlayer(player.uid);
             dosGame.removePlayer(player.uid);
             io.to(socketId).emit('changerPanel', 'exclusion');
             io.sockets.sockets.get(socketId).disconnect(true);
 
-            // TODO : Joey a voir !
-            // simonGame.nextPlayer();
-            // simonGame.removePlayer(player.uid);
-            // memoryGame.nextPlayer();
-            // memoryGame.removePlayer(player.uid);
             users.delete(socketId);
+
+            dosGame.nextPlayer();
+            const nextPlayer = dosGame.getCurrentPlayer();
+            if (nextPlayer) {
+                io.emit('toggle deck', nextPlayer.uid);
+                io.emit('dos game debut', dosGame.getState());
+            }
         }
     }
 }, 5 * 1000);
@@ -300,6 +298,12 @@ app.get('/memory', (req, res) => {
 
 app.get('/qst', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/qst/qst.html'));
+});
+
+// Fin de jeu
+
+app.get('/fin', (req, res) => {
+       res.sendFile(join(__dirname, 'public/src/parts/fin.html'));
 });
 
 var port = process.env.port || 7696
