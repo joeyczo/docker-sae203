@@ -68,7 +68,7 @@ window.decompteTimer = () => {
 
         }
 
-    }, 10000);
+    }, 1000);
 
 }
 
