@@ -169,6 +169,88 @@ footer .prt-fo p.end
 {
     color: var(--gray, #ABABAB);
 }
+.mobile
+{
+    display: none;
+}
+
+
+@media screen and (max-width: 850px)
+{
+
+    .mobile
+    {
+        display: block;
+    }
+    .comp
+    {
+        display: none;
+    }
+    nav h1
+    {
+        font-size: 50px;
+    }
+    nav img
+    {
+        height: 10vh;
+    }
+    .hero
+    {
+        margin: 80px 0;
+    }
+    .prt-hr .hr-l
+    {
+        width: 40vw;
+    }
+    .grid-deco .item
+    {
+        grid-template-columns: 1fr;
+        width: 95vw;
+    }
+    .grid-deco .item img
+    {
+        width: 95%;
+    }
+    .grid-deco .item .cnt h1
+    {
+        font-size: 40px;
+    }
+    .grid-deco .item .cnt ul
+    {
+        font-size: 20px;
+    }
+    .grid-deco .item .img
+    {
+        margin: 55px 0;
+    }
+    .grid-deco .item:nth-child(2n)
+    {
+        direction: ltr;
+    }
+    .grid-deco .item:nth-child(2n) .cnt h1
+    {
+        text-align: left;
+    }
+    .prt-down .download-section h1
+    {
+        font-size: 32px;
+        text-align: center;
+    }
+    .prt-down .download-section
+    {
+        width: 95vw;
+    }
+    .grid-deco
+    {
+        margin: 200px 0 80px 0;
+    }
+    footer .prt-fo
+    {
+        width: 95vw;
+        font-size: 14px;
+    }
+
+}
 
 
 

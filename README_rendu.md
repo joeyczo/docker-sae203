@@ -15,7 +15,7 @@ _(**Format :** Demi-groupe - NOM Prénom)_
 
 ## Liens vers le site web du projet
 
-[docker-sae203](https://joeyczo.github.io/docker-sae203/)
+[docker-sae203](https://joeyczo.github.io/docker-sae203/pages/)
 
 ## Liens vers le dépôt github du projet
 
