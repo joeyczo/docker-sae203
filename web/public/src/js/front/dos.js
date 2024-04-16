@@ -151,27 +151,23 @@ window.animePioche = () => {
  * @param index N° du joueur
  */
 window.animeOtherPioche = index => {
-
     var randK = randomUID(10);
-
     var posPioche = $(".pioche").offset();
-
     $(".anim-carte").append(`<div style="top: ${posPioche.top + 146}px; left: ${posPioche.left + 97}px;" id="${randK}" class="carte"></div>`);
 
     setTimeout(() => {
-
-        var posJoueur = $(".items").eq(index).offset();
-
-        $("#" + randK).animate({
-            top: posJoueur.top + 146,
-            left: posJoueur.left + 97,
-            opacity: 0
-        }, 400, () => {
-            $("#" + randK).remove();
-        });
-
+        var playerElement = $(".items").eq(index);
+        if (playerElement.length > 0) { // Check if the player's element exists
+            var posJoueur = playerElement.offset();
+            $("#" + randK).animate({
+                top: posJoueur.top + 146,
+                left: posJoueur.left + 97,
+                opacity: 0
+            }, 400, () => {
+                $("#" + randK).remove();
+            });
+        }
     }, 1);
-
 }
 
 
@@ -249,9 +245,13 @@ socket.on('dos game debut', async (state) => {
 
     statusDuJeu.players.forEach(player => {
         player.isMyTurn = function (game) {
-            return this.uid === game.currentPlayer.uid;
+            return game.currentPlayer && this.uid === game.currentPlayer.uid;
         };
     });
+
+    if (statusDuJeu.players.length === 1) {
+        statusDuJeu.currentPlayer = statusDuJeu.players[0];
+    }
 
     playersHTMLRight = '';
     playersHTMLLeft = '';
@@ -307,6 +307,14 @@ socket.on('toggleModal', (playerUID) => {
 
 socket.on('toggle deck', (playerUID) => {
     window.toggleDeck(playerUID);
+});
+
+socket.on('animePioche', () => {
+    window.animePioche();
+});
+
+socket.on('animeOtherPioche', (playerIndex) => {
+    window.animeOtherPioche(playerIndex);
 });
 
 socket.on('remaining time', (time) => {

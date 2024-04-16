@@ -28,8 +28,8 @@ const {QstGame} = require("./public/src/js/server/QstGame");
 
 const maxPoints = 10;
 
-const gameIndex = Math.floor(Math.random() * jeux.length);
-const gameName = jeux[gameIndex];
+let gameIndex = Math.floor(Math.random() * jeux.length);
+let gameName = jeux[gameIndex];
 
 let obj = {
     name: gameName.name,
@@ -38,6 +38,13 @@ let obj = {
     point: maxPoints,
     description: gameName.description
 };
+
+let env = {
+    nbJoueur: parseInt(process.env.NB_JOUEUR),
+    nbPartie: parseInt(process.env.NB_PARTIE),
+    playersCount: users.size
+};
+
 let gameStarted = false;
 
 class Game {
@@ -61,8 +68,15 @@ class Game {
     }
 
     start() {
+        if (this.gameCount > env.nbPartie) {
+            console.log("La session de jeu est terminée. Impossible de démarrer une nouvelle partie.");
+            return;
+        }
+
+
         if (this.players.length === this.maxPlayers) {
             gameStarted = true;
+            console.log(`La partie : ${this.gameCount } commence ! `);
             console.log("Liste des utilisateurs:");
             for (const user of users.values()) {
                 console.log(`Nom utilisateur: ${user.name} ${user.uid}`);
@@ -72,11 +86,34 @@ class Game {
 
     end() {
         this.gameCount++;
+        gameStarted = false;
+
         if (this.gameCount > env.nbPartie) {
             console.log("Fin de la session de jeu");
+            this.players = [];
+            this.gameCount = 0;
+            io.emit('changerPanel', 'finJeu');
+
         } else {
             console.log("Prêt pour la prochaine partie !");
-            io.emit('changerPanel', 'wait')
+            dosGame = new DosGame(io);
+            simonGame = new SimonGame(io);
+            memoryGame = new MemoryGame(io);
+            qstGame = new QstGame(io);
+
+            let gameIndex = Math.floor(Math.random() * jeux.length);
+            let gameName = jeux[gameIndex];
+
+            obj = {
+                name: gameName.name,
+                number: gameIndex,
+                maxJeu: jeux.length,
+                point: maxPoints,
+                description: gameName.description
+            };
+
+
+            io.emit('changerPanel', 'presentation')
         }
     }
 }
@@ -96,7 +133,7 @@ io.on('connection', (socket) => {
         // socket.disconnect(true);
         return;
     }
-    let env = {
+    env = {
         nbJoueur: parseInt(process.env.NB_JOUEUR),
         nbPartie: parseInt(process.env.NB_PARTIE),
         playersCount: users.size
@@ -148,39 +185,49 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        const name = users.get(socket.id);
-        users.delete(socket.id);
+        const user = users.get(socket.id);
 
-        if (name) {
-
-            // si l'utilisateur c'est a lui de jouer alors qu'il a quitté alors on passe au joueur suivant
-            const currentPlayer = dosGame.getCurrentPlayer();
-            if (currentPlayer && currentPlayer.uid === name.uid) {
-                dosGame.nextPlayer();
-                const nextPlayer = dosGame.getCurrentPlayer();
-                if (nextPlayer) {
-                    io.emit('toggle deck', nextPlayer.uid);
-                    io.emit('dos game debut', dosGame.getState());
+        if (user) {
+                let currentPlayer = dosGame.getCurrentPlayer();
+                if (currentPlayer && currentPlayer.uid === user.uid) {
+                    dosGame.nextPlayer();
                 }
+
+            game.removePlayer(user.uid);
+            dosGame.removePlayer(user.uid);
+            simonGame.removePlayer(user.uid);
+            memoryGame.removePlayer(user.uid);
+
+            console.log(`User: ${user.name} ${user.uid} has left the game`);
+            io.emit('player left', user, env);
+
+            if (currentPlayer) {
+                io.emit('toggle deck', currentPlayer.uid);
+                io.emit('dos game debut', dosGame.getState());
             }
 
-
-            game.removePlayer(name.uid);
-            dosGame.removePlayer(name.uid);
-            simonGame.removePlayer(name.uid);
-            memoryGame.removePlayer(name.uid);
-            console.log(`Nom utilisateur: ${name.name} ${name.uid}` + " a quitté la partie")
-            io.emit('player left', name, env);
+            users.delete(socket.id);
         }
 
-
         env.playersCount = users.size;
-        console.log(`Nombre de joueurs: ${env.playersCount}` + ` / ${env.nbJoueur}`)
+        console.log(`Number of players: ${env.playersCount} / ${env.nbJoueur}`);
 
         if (users.size === 0) {
             gameStarted = false;
-            // game.end();
-            console.log("Relancement du jeu !");
+
+            let gameIndex = Math.floor(Math.random() * jeux.length);
+            let gameName = jeux[gameIndex];
+
+            obj = {
+                name: gameName.name,
+                number: gameIndex,
+                maxJeu: jeux.length,
+                point: maxPoints,
+                description: gameName.description
+            };
+
+
+            console.log("Relancement de plateau...");
             dosGame = new DosGame(io);
             simonGame = new SimonGame(io);
             memoryGame = new MemoryGame(io);
@@ -225,6 +272,11 @@ io.on('connection', (socket) => {
         callback(Array.from(users.values()));
     });
 
+    socket.on('newGame', () => {
+        game.end();
+        // io.emit('changerPanel', 'wait');
+    });
+
     const DosSocket = require('./public/src/js/server/DosSocket');
     DosSocket(socket, dosGame, io, users);
 
@@ -241,6 +293,8 @@ io.on('connection', (socket) => {
 
 // kick auto
 setInterval(() => {
+    // console.log("------------------> " + gameStarted);
+
     if (!gameStarted) {
         return;
     }

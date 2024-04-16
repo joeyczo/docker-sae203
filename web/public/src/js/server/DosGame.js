@@ -19,9 +19,6 @@ class Player {
         const card = deck.pop();
         this.hand.push(card);
         this.sortHand();
-
-        // game.nextPlayer();
-        // game.io.to(this.uid).emit('toggle deck');
     }
 
     play(cardIndex) {
@@ -88,15 +85,15 @@ class DosGame {
 
         for (let color of colors) {
             for (let value of values) {
-                deck.push(new Card(color, value));
+                deck.push(new Card('bleu', "1"));
             }
         }
 
-        for (let i = 0; i < 4; i++) {
-            for (let specialCard of specialCards) {
-                deck.push(new Card('special', specialCard));
-            }
-        }
+        // for (let i = 0; i < 4; i++) {
+        //     for (let specialCard of specialCards) {
+        //         deck.push(new Card('special', specialCard));
+        //     }
+        // }
 
         for (let i = deck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -143,11 +140,12 @@ class DosGame {
         let color = null;
         switch (card.value) {
             case 'plus_2':
-                this.getNextPlayer().draw(this.deck, this);
-                this.getNextPlayer().draw(this.deck, this);
-
+                const nextPlayerPlus2 = this.getNextPlayer();
+                nextPlayerPlus2.draw(this.deck, this);
+                nextPlayerPlus2.draw(this.deck, this);
+                this.io.to(nextPlayerPlus2.uid).emit('animePioche');
+                this.io.emit('animeOtherPioche', nextPlayerPlus2.uid);
                 this.nextPlayer();
-
                 break;
             case 'changement_sens':
                 this.players.reverse();
@@ -167,10 +165,13 @@ class DosGame {
                 break;
             case 'plus_4':
                 await this.io.emit('toggleModal', player.uid);
-                this.getNextPlayer().draw(this.deck, this);
-                this.getNextPlayer().draw(this.deck, this);
-                this.getNextPlayer().draw(this.deck, this);
-                this.getNextPlayer().draw(this.deck, this);
+                const nextPlayerPlus4 = this.getNextPlayer();
+                nextPlayerPlus4.draw(this.deck, this);
+                nextPlayerPlus4.draw(this.deck, this);
+                nextPlayerPlus4.draw(this.deck, this);
+                nextPlayerPlus4.draw(this.deck, this);
+                this.io.to(nextPlayerPlus4.uid).emit('animePioche');
+                this.io.emit('animeOtherPioche', nextPlayerPlus4.uid);
                 this.nextPlayer();
                 break;
         }
@@ -184,6 +185,7 @@ class DosGame {
     }
 
     start() {
+
         // console.log('JEU CRÉÉ !');
         // console.log(this.getPlayersOrder())
         this.started = true;
@@ -258,6 +260,8 @@ class DosGame {
         console.log(`Le joueur ${winningPlayer.name} a gagné !`);
         this.started = false;
         // this.io.emit('endGameDos', winningPlayer.uid);
+
+        // TODO : JOPEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         this.io.emit('changerPanel', 'fin');
 
     }

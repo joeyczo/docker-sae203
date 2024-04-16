@@ -1,7 +1,9 @@
+import changerPanel from '../server/panelChanger.js';
+import socket from '../server/socket.js';
 /**
  * Déclenchement de l'animation du podium
  */
-var showRanking = () => {
+window.showRanking = () => {
 
     $(".list-joueur").hide();
     $(".second").hide();
@@ -46,7 +48,7 @@ var showRanking = () => {
 /**
  * Décompte du timer jusqu'à 0
  */
-var decompteTimer = () => {
+window.decompteTimer = () => {
 
     var time = 10;
 
@@ -59,8 +61,20 @@ var decompteTimer = () => {
 
             $(".fin h1").text('');
             $(".fin h2").text('Début du jeu imminent !')
+            socket.emit('newGame')
+
         }
 
     }, 1000);
 
 }
+
+showRanking();
+
+
+socket.on('changerPanel', async panel => {
+    await changerPanel(panel);
+    if (panel === 'wait') {
+        loadScript('../js/front/wait.js');
+    }
+});
