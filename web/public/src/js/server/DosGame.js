@@ -20,7 +20,6 @@ class Player {
         this.hand.push(card);
         this.sortHand();
 
-
         // game.nextPlayer();
         // game.io.to(this.uid).emit('toggle deck');
     }
@@ -219,9 +218,11 @@ class DosGame {
 
     nextPlayer() {
         this.currentPlayerIndex = (this.currentPlayerIndex + this.direction + this.players.length) % this.players.length;
-        console.log(`C'est le tour de ${this.getCurrentPlayer().name}`);
-
-        this.io.to(this.getCurrentPlayer().uid).emit('toggle deck');
+        const currentPlayer = this.getCurrentPlayer();
+        if (currentPlayer) {
+            console.log(`C'est le tour de ${currentPlayer.name}`);
+            this.io.to(currentPlayer.uid).emit('toggle deck');
+        }
     }
 
     getState() {
@@ -256,7 +257,8 @@ class DosGame {
     endGameDos(winningPlayer) {
         console.log(`Le joueur ${winningPlayer.name} a gagné !`);
         this.started = false;
-        this.io.emit('endGameDos', winningPlayer.uid);
+        // this.io.emit('endGameDos', winningPlayer.uid);
+        this.io.emit('changerPanel', 'fin');
 
     }
 }
