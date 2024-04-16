@@ -1,6 +1,9 @@
-/*import changerPanel from '../server/panelChanger.js';
-import socket from '../server/socket.js';*/
+import socket from "../server/socket";
+import changerPanel from "../server/panelChanger";
 
+// $(function(){
+showRanking();
+// })
 
 /**
  * Déclenchement de l'animation du podium
@@ -52,7 +55,7 @@ window.showRanking = () => {
  */
 window.decompteTimer = () => {
 
-    var time = 10;
+    var time = 2;
 
     var intT = setInterval(() => {
 
@@ -63,7 +66,7 @@ window.decompteTimer = () => {
 
             $(".fin h1").text('');
             $(".fin h2").text('Début du jeu imminent !')
-            socket.emit('newGame')
+            socket.emit('newGame');
 
         }
 
@@ -203,16 +206,13 @@ window.placementUser = users => {
 
 socket.on('changerPanel', async panel => {
     await changerPanel(panel);
-    if (panel === 'wait') {
-        loadScript('../js/front/wait.js');
-    }
 });
 
-
-/**
- * Récéption des données du jeu et du classement
- * (Voir au dessus pour l'exemple de tableau)
- */
-socket.on('receiveDataGame', (obj) => {
-    placementUser(obj);
-})
+//
+// /**
+//  * Récéption des données du jeu et du classement
+//  * (Voir au dessus pour l'exemple de tableau)
+//  */
+// socket.on('receiveDataGame', (obj) => {
+//     placementUser(obj);
+// })

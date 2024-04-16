@@ -335,7 +335,7 @@ socket.on('animeOtherPioche', (playerIndex) => {
 
 socket.on('remaining time', (time) => {
     const remainingTimeInSeconds = Math.round(time / 1000);
-    console.log('Temps restant avant expulsion', remainingTimeInSeconds, 'secondes');
+    // console.log('Temps restant avant expulsion', remainingTimeInSeconds, 'secondes');
     $('#remaining-time').text(remainingTimeInSeconds + " secondes restante avant kick auto");
 });
 

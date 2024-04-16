@@ -306,7 +306,6 @@ class DosGame {
         this.started = false;
         // this.io.emit('endGameDos', winningPlayer.uid);
 
-        // TODO : JOPEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
         this.io.emit('changerPanel', 'fin');
 
     }

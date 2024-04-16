@@ -6,17 +6,7 @@
   },
   {
     "id": 1,
-    "name": "Memory",
+    "name": "memory",
     "description": "Un memory"
-  },
-  {
-  "id": 1,
-  "name": "Qst",
-  "description": "Question par un con"
-  },
-  {
-  "id": 1,
-  "name": "Simon",
-  "description": "A tu de la mémoire ?"
-}
+  }
 ]

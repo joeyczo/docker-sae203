@@ -4,7 +4,7 @@ $(() => {
 /**
  * Déclenchement de l'animation du podium
  */
-var showRanking = () => {
+window.showRanking = () => {
 
     $(".list-other").hide();
     $(".scd").hide();

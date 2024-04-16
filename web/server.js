@@ -16,7 +16,7 @@ const server = createServer(app);
 const io = new Server(server);
 
 var usersEcrit = {};
-
+let playedGames = [];
 const users = new Map();
 const tabMsg = new Map();
 const jeux = require('./public/src/utils/jeu.json');
@@ -28,8 +28,15 @@ const {QstGame} = require("./public/src/js/server/QstGame");
 
 const maxPoints = 10;
 
-let gameIndex = Math.floor(Math.random() * jeux.length);
-let gameName = jeux[gameIndex];
+let availableGames = jeux.filter((game, index) => !playedGames.includes(index));
+let gameIndex = Math.floor(Math.random() * availableGames.length);
+let gameName = availableGames[gameIndex];
+
+playedGames.push(jeux.indexOf(gameName));
+
+if (playedGames.length === jeux.length) {
+    playedGames = [];
+}
 
 let obj = {
     name: gameName.name,
@@ -51,7 +58,7 @@ class Game {
     constructor() {
         this.players = [];
         this.maxPlayers = parseInt(process.env.NB_JOUEUR);
-        this.gameCount = 0;
+        this.gameCount = 1;
     }
 
     addPlayer(player) {
@@ -101,8 +108,15 @@ class Game {
             memoryGame = new MemoryGame(io);
             qstGame = new QstGame(io);
 
-            let gameIndex = Math.floor(Math.random() * jeux.length);
-            let gameName = jeux[gameIndex];
+            let availableGames = jeux.filter((game, index) => !playedGames.includes(index));
+            let gameIndex = Math.floor(Math.random() * availableGames.length);
+            let gameName = availableGames[gameIndex];
+
+            playedGames.push(jeux.indexOf(gameName));
+
+            if (playedGames.length === jeux.length) {
+                playedGames = [];
+            }
 
             obj = {
                 name: gameName.name,
@@ -112,10 +126,21 @@ class Game {
                 description: gameName.description
             };
 
-
-            io.emit('changerPanel', 'presentation')
+            console.log("------------------------------------> GO Wait")
+            io.emit('changerPanel', 'wait');
+            // if (!gameStarted) {
+            //     game.start();
+            //     console.log("Lancement du jeu " + obj.name.toLowerCase());
+            //     gameStarted = true;
+            // }
+            //
+            // setTimeout(() => {
+            //     io.emit('changerPanel', obj.name.toLowerCase());
+            // }, 4000);
         }
     }
+
+
 }
 
 let game = new Game();
@@ -342,7 +367,7 @@ app.get('/chat', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/chat.html'));
 });
 app.get('/wait', (req, res) => {
-    res.sendFile(join(__dirname, 'public/src/panels/waiting.html'));
+    res.sendFile(join(__dirname, 'public/src/panels/wait.html'));
 });
 app.get('/404', (req, res) => {
     res.sendFile(join(__dirname, 'public/src/panels/404.html'));
