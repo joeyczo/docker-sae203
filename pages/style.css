@@ -173,6 +173,34 @@ footer .prt-fo p.end
 {
     display: none;
 }
+.compte-rendu
+{
+    margin: 150px 0 150px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.compte-rendu section
+{
+    width: 70vw;
+    margin: 30px 0;
+}
+.compte-rendu section h1
+{
+    font-size: 50px;
+    margin: 50px 0;
+}
+.compte-rendu section p, .compte-rendu section ul, .compte-rendu section h3, .compte-rendu section h2
+{
+    font-size: 20px;
+    color: var(--gray, #ABABAB);
+    margin: 8px 0;
+}
+.compte-rendu section ul
+{
+    padding: 0 30px;
+}
 
 
 @media screen and (max-width: 850px)
