@@ -284,7 +284,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('entrain ecrire', (utilisateurEcrit) => {
-        if (!usersEcrit.hasOwnProperty(utilisateurEcrit.uid))
+        if (utilisateurEcrit && !usersEcrit.hasOwnProperty(utilisateurEcrit.uid))
             usersEcrit[utilisateurEcrit.uid] = utilisateurEcrit;
 
         io.emit('entrain ecrire', Object.values(usersEcrit));
@@ -384,6 +384,7 @@ app.get('/exclusion', (req, res) => {
 app.get('/reboot', (req, res) => {
     gameStarted = false;
     users.clear();
+    io.emit('reload');
     game = new Game();
     console.log("Le jeu a été relancé");
     res.send("Le jeu a été relancé");
